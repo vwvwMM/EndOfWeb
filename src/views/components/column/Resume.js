@@ -6,11 +6,7 @@ const Resume = ({ data }) => {
       return (
         <div key={bigsection.subtitle}>
           <h3>{bigsection.subtitle}</h3>
-          <p className="info">
-            {bigsection.degree} <span>&bull;</span>
-            <em className="date">{bigsection.graduated}</em>
-          </p>
-          <p>{bigsection.subsection}</p>
+          <p>&emsp;&emsp;{bigsection.subsection}</p>
         </div>
       )
     })
