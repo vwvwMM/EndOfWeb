@@ -82,9 +82,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 const ColumnSummary = ({ data }) => {
 =======
+=======
+const height = { height: '100%' }
+>>>>>>> 1a4974e (create db)
 function ColumnSummary() {
 >>>>>>> 119fb9c (one article one row)
   const classes = useStyles()
@@ -151,7 +155,7 @@ function ColumnSummary() {
       <Box className={classes.hero}>
         <Box>All Release</Box>
       </Box>
-      <div className={classes.blogsContainer}>
+      <div className={classes.blogsContainer} style={height}>
         <Typography variant="h4" className={classes.blogTitle}>
           Articles
         </Typography>
@@ -237,11 +241,14 @@ function ColumnSummary() {
             </Card>
           </Grid>
         </Grid>
-        <Box my={4} className={classes.paginationContainer}>
-          <Pagination count={10} />
-        </Box>
       </div>
+<<<<<<< HEAD
 >>>>>>> 119fb9c (one article one row)
+=======
+      <Box my={4} className={classes.paginationContainer}>
+        <Pagination count={10} />
+      </Box>
+>>>>>>> 1a4974e (create db)
     </div>
   )
 }
