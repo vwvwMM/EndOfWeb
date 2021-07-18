@@ -48,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
   },
   author: {
     display: 'flex',
+    fontSize: '1.2rem',
+    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
   paginationContainer: {
     display: 'flex',
@@ -72,7 +74,7 @@ const ColumnSummary = ({ data }) => {
       <Box className={classes.author} key={person}>
         <Avatar src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
         <Box ml={2} display="flex" alignItems="center">
-          <Typography variant="subtitle2" component="p">
+          <Typography variant="subtitle2" className={classes.author}>
             {person}
           </Typography>
         </Box>
