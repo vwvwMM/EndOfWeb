@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   intro: {
     fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
-    fontSize: '1.15rem',
+    fontSize: '1.5rem',
     margin: '0.2rem',
   },
 }))
