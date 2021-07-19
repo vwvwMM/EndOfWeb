@@ -187,7 +187,7 @@ header .banner {
   text-align: center;
 }
 header .banner-text h1 {
-  font: 80px/1.1em 'opensans-bold', sans-serif;
+  font: 3.1rem/1.1em 'opensans-bold', sans-serif;
   color: #fff;
   letter-spacing: -2px;
   margin: 0 auto 18px auto;
@@ -202,22 +202,23 @@ header .banner-text h1 {
 }
 
 #resume h1 {
-  font: 30px/20px 'opensans-bold', sans-serif;
+  font: 1.5rem/1.25rem 'opensans-bold', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.063rem;
 }
 #resume h1 span {
-  border-bottom: 3px solid #11abb0;
-  padding-bottom: 6px;
+  border-bottom: 0.188rem solid #11abb0;
+  padding-bottom: 0.375rem;
+  margin-left: 0.5rem;
 }
 #resume h3 {
-  font: 29px/30px 'opensans-bold', sans-serif;
+  font: 1.688rem/1.875rem 'opensans-bold', sans-serif;
   font-weight: 550;
   margin-bottom: 1.2rem;
   margin-top: 1rem;
 }
 #resume p {
-  font: 23px/30px 'opensans-bold', sans-serif;
+  font: 1.438rem/1.875rem 'opensans-bold', sans-serif;
   margin-bottom: 1.7rem;
   line-height: 2.8rem;
 }
