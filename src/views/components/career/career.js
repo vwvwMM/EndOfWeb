@@ -7,7 +7,7 @@ import Recommendation_image from './Recommendation.png'
 
 const Career = () => {
   return (
-    <div className="align-items-center d-flex career_link_imgs">
+    <div className="d-flex align-items-center career">
       <div className="row container mx-auto ">
         <div className="col d-flex justify-content-center">
           <Link to="">
