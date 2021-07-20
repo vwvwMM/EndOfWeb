@@ -3,8 +3,8 @@
   border-radius: 3%;
   font-size: 4rem;
   box-shadow: 3px 3px 12px aqua;
-  width: 46%;
-  margin: 1% 2%;
+  width: 47%;
+  margin: 1% 1%;
 }
 .eesa {
   background-color: azure;
@@ -17,7 +17,4 @@
 }
 .card-header {
   padding: 0%;
-}
-.fs-5 .fw-semibold {
-  width: auto;
 }
