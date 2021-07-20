@@ -15,7 +15,7 @@ const Career = () => {
           </Link>
         </div>
         <div className="col d-flex justify-content-center">
-          <Link to="">
+          <Link to="/recommendation">
             <img className="career_img img-fluid" src={Recommendation_image} alt="Recommendation" />
           </Link>
         </div>

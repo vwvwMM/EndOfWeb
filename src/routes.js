@@ -4,6 +4,9 @@ const Column = React.lazy(() => import('./views/components/column/Column'))
 const ShowColumns = React.lazy(() => import('./views/components/columnSummary/showColumns'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Career = React.lazy(() => import('./views/components/career/career'))
+const Recommendation = React.lazy(() =>
+  import('./views/components/career/recommendation/Recommendation'),
+)
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -11,6 +14,7 @@ const routes = [
   { path: '/column', name: 'Column', component: Column },
   { path: '/columnSummary', name: 'ColumnSummary', component: ShowColumns },
   { path: '/career', name: 'Career', component: Career },
+  { path: '/recommendation', name: 'Recommendation', component: Recommendation },
 ]
 
 export default routes
