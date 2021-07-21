@@ -2,24 +2,61 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './career.css'
+import { CCol, CRow, CContainer, CImage } from '@coreui/react'
 import Recruitment_image from './Recruitment.png'
 import Recommendation_image from './Recommendation.png'
 
 const Career = () => {
   return (
-    <div className="d-flex align-items-center career">
-      <div className="row container mx-auto ">
-        <div className="col d-flex justify-content-center">
-          <Link to="/recruitment">
-            <img className="career_img img-fluid" src={Recruitment_image} alt="Recruitment" />
-          </Link>
-        </div>
-        <div className="col d-flex justify-content-center">
-          <Link to="/recommendation">
-            <img className="career_img img-fluid" src={Recommendation_image} alt="Recommendation" />
-          </Link>
-        </div>
-      </div>
+    <div className="min-vh-100 d-flex flex-row align-items-center career">
+      <CContainer className="align-items-center">
+        {/* for desktop and ipad */}
+        <CRow className="justify-content-around d-sm-none d-lg-flex">
+          <CCol xs="4">
+            <Link className="d-flex justify-content-center" to="/recruitment">
+              <CImage
+                fluid
+                src={Recruitment_image}
+                alt="Register by Account"
+                className="career_img"
+              />
+            </Link>
+          </CCol>
+          <CCol xs="4">
+            <Link className="d-flex justify-content-center" to="/recommendation">
+              <CImage
+                fluid
+                src={Recommendation_image}
+                alt="Register by Account"
+                className="career_img  "
+              />
+            </Link>
+          </CCol>
+        </CRow>
+        {/* for mobile */}
+        <CRow className="justify-content-center d-sm-flex d-lg-none">
+          <CRow className="justify-content-center mb-3">
+            <Link className="d-flex justify-content-center" to="/recruitment">
+              <CImage
+                fluid
+                src={Recruitment_image}
+                alt="Register by Account"
+                className="career_img  "
+              />
+            </Link>
+          </CRow>
+          <CRow className="justify-content-center mt-3">
+            <Link className="d-flex justify-content-center" to="/recommendation">
+              <CImage
+                fluid
+                src={Recommendation_image}
+                alt="Register by Account"
+                className="career_img  "
+              />
+            </Link>
+          </CRow>
+        </CRow>
+      </CContainer>
     </div>
   )
 }
