@@ -31,9 +31,9 @@ const Post = ({ data }) => {
             <span style={{ color: 'red', 'font-weight': '500' }}>{post.info.diploma}</span> |{' '}
             <nobr>{post.info.contact}</nobr> | <nobr>{post.info.email}</nobr>
           </div>
-          <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>個人簡歷：</h3>
+          <h3 style={{ margin: '1.3rem 0 0.1rem' }}>個人簡歷：</h3>
           <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
-          <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>專業技能：</h3>
+          <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
           <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
         </div>
       </div>

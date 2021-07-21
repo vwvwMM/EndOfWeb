@@ -22,6 +22,7 @@ const Post = ({ data }) => {
           headerChildren={<img className="eesa" src={eesa} alt="eesa" />}
           values={[[post.title.company_name]]}
         />
+        <hr></hr>
         <div className="recrucontent">
           <h3 style={{ 'font-weight': '600' }}>{post.title.title}</h3>
           <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>

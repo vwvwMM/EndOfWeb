@@ -25,4 +25,8 @@
 }
 .fw-semibold{
   font-size: 1.9rem !important;
+  margin-top: 5%;
+}
+hr{
+  margin-top: 0;
 }

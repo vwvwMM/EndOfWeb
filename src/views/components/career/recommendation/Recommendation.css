@@ -23,7 +23,7 @@
 .recomcontent{
   padding: 0% 3% 5% 3%;
 }
-.recomcontent>h3 h2{
+.recomcontent>h3, h2{
   font-weight:600 ;
 }
 
