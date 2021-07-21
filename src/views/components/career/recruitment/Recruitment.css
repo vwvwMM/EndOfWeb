@@ -21,5 +21,8 @@
   border-radius: 5% !important;
 }
 .recrucontent{
-  padding:3% 3% 5% 3%;
+  padding:0% 3% 5% 3%;
+}
+.fw-semibold{
+  font-size: 1.9rem !important;
 }

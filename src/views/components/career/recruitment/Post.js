@@ -20,7 +20,7 @@ const Post = ({ data }) => {
         <CWidgetBrand
           className="mb-4 widgetbrand"
           headerChildren={<img className="eesa" src={eesa} alt="eesa" />}
-          values={[[post.company_name]]}
+          values={[[post.title.company_name]]}
         />
         <div className="recrucontent">
           <h3 style={{ 'font-weight': '600' }}>{post.title.title}</h3>

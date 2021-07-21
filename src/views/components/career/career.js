@@ -10,7 +10,7 @@ const Career = () => {
     <div className="d-flex align-items-center career">
       <div className="row container mx-auto ">
         <div className="col d-flex justify-content-center">
-          <Link to="">
+          <Link to="/recruitment">
             <img className="career_img img-fluid" src={Recruitment_image} alt="Recruitment" />
           </Link>
         </div>
