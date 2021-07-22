@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CWidgetBrand, CRow, CCol } from '@coreui/react'
-import eesa from './eesa-icon.png'
+import { CWidgetBrand } from '@coreui/react'
+import eesa from '../../../../assets/images/eesa-icon.png'
 import './Recruitment.css'
 import Masonry from 'react-masonry-css'
 

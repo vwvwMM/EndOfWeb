@@ -3,8 +3,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './career.css'
 import { CCol, CRow, CContainer, CImage } from '@coreui/react'
-import Recruitment_image from './Recruitment.png'
-import Recommendation_image from './Recommendation.png'
+import Recruitment_image from '../../../assets/images/Recruitment.png'
+import Recommendation_image from '../../../assets/images/Recommendation.png'
 
 const Career = () => {
   return (

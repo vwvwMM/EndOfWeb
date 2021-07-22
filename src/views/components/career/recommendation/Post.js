@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CWidgetBrand, CRow, CCol } from '@coreui/react'
-import eesa from './eesa-icon.png'
+import { CWidgetBrand } from '@coreui/react'
+import eesa from '../../../../assets/images/eesa-icon.png'
 import './Recommendation.css'
 import Masonry from 'react-masonry-css'
 
@@ -26,7 +26,7 @@ const Post = ({ data }) => {
           <h3>
             {post.title.name} asking for <nobr>{post.title.desire_work_type}</nobr>
           </h3>
-          <h2 style={{ margin: '1rem 0rem'}}>{post.title.title}</h2>
+          <h2 style={{ margin: '1rem 0rem' }}>{post.title.title}</h2>
           <div style={{ 'font-size': '1.39rem' }}>
             <span style={{ color: 'red', 'font-weight': '500' }}>{post.info.diploma}</span> |{' '}
             <nobr>{post.info.contact}</nobr> | <nobr>{post.info.email}</nobr>
