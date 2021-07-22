@@ -15,17 +15,17 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
-import navigationIn from '../_navIn'
+import navIn from '../_navIn'
+import navOut from '../_navOut'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
   const [inout, setInout] = useState(false)
-  let navigation = []
   const chNav = () => {
-    if (inout) return navigationIn
-    else return []
+    if (inout) return navIn
+    else return navOut
   }
   return (
     <CSidebar
