@@ -1,0 +1,71 @@
+/* eslint-disable prettier/prettier */
+import React from 'react'
+import CIcon from '@coreui/icons-react'
+import { NavLink } from 'react-router-dom'
+
+const _navOut = [
+  {
+    _component: 'CNavItem',
+    anchor: '_nav/anchor',
+  },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
+    anchor: 'CONTACT',
+    to: '/',
+    icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'NEW',
+    },
+  },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
+    anchor: 'SUPPORT',
+    to: '/',
+    icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'NEW',
+    },
+  },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
+    anchor: 'LOGIN',
+    to: '/',
+    icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'NEW',
+    },
+  },
+  {
+    _component: 'CNavGroup',
+    anchor: 'About',
+    icon: <CIcon name="cil-star" customClassName="nav-icon" />,
+    items: [
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'HISTORY',
+        to: '/',
+      },
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'ABOUT',
+        to: '/',
+      },
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'TEAM',
+        to: '/',
+      },
+    ],
+  },
+]
+
+export default _navOut

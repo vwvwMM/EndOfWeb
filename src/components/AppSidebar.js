@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
@@ -15,13 +15,18 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
-import navigation from '../_nav'
+import navigationIn from '../_navIn'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
-
+  const [inout, setInout] = useState(false)
+  let navigation = []
+  const chNav = () => {
+    if (inout) return navigationIn
+    else return []
+  }
   return (
     <CSidebar
       position="fixed"
@@ -34,13 +39,18 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <h6>components/AppSidebar/CIcon</h6>
-        {/* <CIcon className="sidebar-brand-full" name="logo-negative" height={35} /> */}
+        {/* <h6>components/AppSidebar/CIcon</h6> */}
+        <CIcon
+          className="sidebar-brand-full"
+          name="logo-negative"
+          height={35}
+          onClick={() => setInout(!inout)}
+        />
         {/* <CIcon className="sidebar-brand-narrow" name="sygnet" height={35} /> */}
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
-          <CCreateNavItem items={navigation} />
+          <CCreateNavItem items={chNav()} />
         </SimpleBar>
       </CSidebarNav>
       <p>components/AppSideBar/CSidebarToggler</p>
