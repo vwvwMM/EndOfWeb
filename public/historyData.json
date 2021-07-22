@@ -9,7 +9,7 @@
         { "img": "https://i.imgur.com/IwgjwsG.png", "name": "楊景鈞" },
         { "img": "https://i.imgur.com/bguic7F.png", "name": "劉禹辰" }
       ],
-      "allImg": []
+      "allImg": ""
     },
     {
       "grade": "B04",
@@ -18,7 +18,7 @@
         { "img": "https://i.imgur.com/9mzDnFH.png", "name": "蔡忠紘" },
         { "img": "https://i.imgur.com/m9wjMkO.png", "name": "陳曦" }
       ],
-      "allImg": []
+      "allImg": ""
     },
     {
       "grade": "B05",
@@ -27,16 +27,16 @@
         { "img": "https://i.imgur.com/fAEKoAl.png", "name": "莊永松" },
         { "img": "https://i.imgur.com/wewZ26k.png", "name": "趙冠豪" }
       ],
-      "allImg": []
+      "allImg": ""
     },
     {
       "grade": "B06",
-      "title": "B06 4th NTUEE+",
+      "title": "4th NTUEE+",
       "people": [
         { "img": "https://i.imgur.com/bkdii7Y.png", "name": "鄭謹譯" },
         { "img": "https://i.imgur.com/NfzeSWo.png", "name": "李筠婕" }
       ],
-      "allImg": ["https://i.imgur.com/T0p69i5.jpg"]
+      "allImg": "https://i.imgur.com/T0p69i5.jpg"
     }
   ],
   "member": [

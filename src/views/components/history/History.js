@@ -17,9 +17,7 @@ const History = () => {
   }, [])
 
   return (
-    <div style={{ width: '100%' }}>
-      <Timeline data={data} />
-    </div>
+    <div style={{ width: '100%' }}>{data.history && <Timeline data={data.history} />}</div>
     // <div style={{ width: '100%' }}>{data.history && data.member && <Timeline data={data} />}</div>
   )
 }
