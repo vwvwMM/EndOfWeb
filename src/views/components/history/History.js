@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import Timeline from './Timeline'
 const History = () => {
   const [data, setData] = useState([])
@@ -16,8 +15,12 @@ const History = () => {
   useEffect(() => {
     getData()
   }, [])
+
   return (
-    <div style={{ width: '100%' }}>{data.history && data.member && <Timeline data={data} />}</div>
+    <div style={{ width: '100%' }}>
+      <Timeline data={data} />
+    </div>
+    // <div style={{ width: '100%' }}>{data.history && data.member && <Timeline data={data} />}</div>
   )
 }
 

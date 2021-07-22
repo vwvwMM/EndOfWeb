@@ -34,7 +34,7 @@ const _navOut = [
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'LOGIN',
-    to: '/columnSummary',
+    to: '/login',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
     badge: {
       color: 'info',
@@ -50,13 +50,13 @@ const _navOut = [
         _component: 'CNavItem',
         as: NavLink,
         anchor: 'HISTORY',
-        to: '/login',
+        to: '/history',
       },
       {
         _component: 'CNavItem',
         as: NavLink,
         anchor: 'ABOUT',
-        to: '/register',
+        to: '/about',
       },
       {
         _component: 'CNavItem',
