@@ -115,6 +115,12 @@ const _navIn = [
         anchor: 'History',
         to: '/history',
       },
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'History',
+        to: '/history',
+      },
     ],
   },
 ]
