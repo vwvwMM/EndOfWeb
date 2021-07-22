@@ -15,8 +15,8 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
-import navIn from '../_navIn'
 import navOut from '../_navOut'
+import navIn from '../_navIn'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
@@ -44,7 +44,10 @@ const AppSidebar = () => {
           className="sidebar-brand-full"
           name="logo-negative"
           height={35}
-          onClick={() => setInout(!inout)}
+          onClick={(e) => {
+            setInout(!inout)
+            e.preventDefault()
+          }}
         />
         {/* <CIcon className="sidebar-brand-narrow" name="sygnet" height={35} /> */}
       </CSidebarBrand>
