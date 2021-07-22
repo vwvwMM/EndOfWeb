@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import HistoryBlock from './historyBlock'
+import Timeline from './Timeline'
 const History = () => {
   const [data, setData] = useState([])
   const getData = () => {
@@ -17,9 +17,7 @@ const History = () => {
     getData()
   }, [])
   return (
-    <div style={{ width: '100%', height: '950px' }}>
-      {data.people && <HistoryBlock data={data.people} />}
-    </div>
+    <div style={{ width: '100%' }}>{data.history && data.member && <Timeline data={data} />}</div>
   )
 }
 
