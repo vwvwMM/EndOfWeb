@@ -52,6 +52,17 @@ const _navIn = [
     },
   },
   {
+    _component: 'CNavItem',
+    as: NavLink,
+    anchor: 'About',
+    to: '/abo',
+    icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'NEW',
+    },
+  },
+  {
     _component: 'CNavGroup',
     anchor: 'Pages',
     icon: <CIcon name="cil-star" customClassName="nav-icon" />,

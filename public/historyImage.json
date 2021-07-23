@@ -1,0 +1,41 @@
+{
+  "people": [
+    {
+      "title": "B03 Founder of NTUEE+",
+      "img": [
+        "https://i.imgur.com/qxBr5XZ.png",
+        "https://i.imgur.com/B4EiDBq.png",
+        "https://i.imgur.com/IwgjwsG.png",
+        "https://i.imgur.com/bguic7F.png"
+      ],
+      "allImg": []
+    },
+    {
+      "title": "B04 2nd NTUEE+",
+      "img": ["https://i.imgur.com/9mzDnFH.png", "https://i.imgur.com/m9wjMkO.png"],
+      "allImg": []
+    },
+    {
+      "title": "B05 3rd NTUEE+",
+      "img": ["https://i.imgur.com/fAEKoAl.png", "https://i.imgur.com/wewZ26k.png"],
+      "allImg": []
+    },
+    {
+      "title": "B06 4th NTUEE+",
+      "img": ["https://i.imgur.com/bkdii7Y.png", "https://i.imgur.com/NfzeSWo.png"],
+      "allImg": ["https://i.imgur.com/T0p69i5.jpg"]
+    }
+  ],
+  "member": [
+    "陳君輔",
+    "呂承樺",
+    "王友廷",
+    "李宗倫",
+    "賴侃軒",
+    "吳建翰",
+    "王維恩",
+    "陳育楷",
+    "俞建琁",
+    "何明翰"
+  ]
+}
