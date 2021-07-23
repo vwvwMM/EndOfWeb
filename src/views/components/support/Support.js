@@ -8,7 +8,7 @@ const Support = () => {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '48rem',
+        minHeight: '30rem',
         justifyContent: 'center',
       }}
     >
