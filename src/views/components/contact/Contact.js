@@ -21,12 +21,12 @@ const Contact = () => {
         </CCol>
       </CRow>
       <div className="container d-flex justify-content-center mt-5">
-        <Link to="/history">
+        <Link to="/team">
           <button
             className="px-3 py-2"
             style={{ fontWeight: 'bold', border: '0.2rem solid', borderRadius: '1rem' }}
           >
-            History Team
+            Our Team
           </button>
         </Link>
       </div>

@@ -10,9 +10,14 @@ const HistBlock = ({ people }) => {
       <CRow className="justify-content-around d-sm-none d-lg-flex">
         {people.map((person) => {
           return (
-            <CCol xs={3} key={person.name} align="center" className="justify-content-center">
-              <img src={person.img} alt="" width="100%" />
-              <h3>{person.name}</h3>
+            <CCol xs={3} key={person.name} align="center" className="justify-content-center mt-2">
+              <img
+                src={person.img}
+                alt=""
+                className="img-fluid"
+                style={{ boxShadow: '3px 3px 12px gray', padding: '3px', borderRadius: '50%' }}
+              />
+              <h4 className="mb-0">{person.name}</h4>
             </CCol>
           )
         })}
@@ -22,8 +27,13 @@ const HistBlock = ({ people }) => {
         {people.map((person) => {
           return (
             <div key={person.name} style={{ width: '100%' }}>
-              <CImage src={person.img} alt="" fluid style={{ height: '20rem', width: '20rem' }} />
-              <h3>{person.name}</h3>
+              <img
+                src={person.img}
+                alt=""
+                className="img-fluid mb-2 mt-2"
+                style={{ boxShadow: '3px 3px 12px gray', padding: '3px', borderRadius: '50%' }}
+              />
+              <h3 align="center">{person.name}</h3>
             </div>
           )
         })}

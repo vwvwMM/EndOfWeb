@@ -20,10 +20,11 @@ const Timeline = ({ data }) => {
           return <HistBlock people={year.people} key={year.grade} />
         })}
       </Chrono>
+      <br />
       <CContainer>
         <CRow className="justify-content-center align-items-center">
           <CCol xs={6} className="justify-content-center">
-            <CImage src={data.allImg} alt="" fluid style={{ margin: 'shadow' }} />
+            <CImage src={data.allImg} alt="" className="img-fluid" style={{ margin: 'shadow' }} />
           </CCol>
           <CCol xs={4}>
             <h3>今年部員:</h3>
