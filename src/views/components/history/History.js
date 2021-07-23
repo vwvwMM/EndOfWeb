@@ -15,9 +15,8 @@ const History = () => {
   useEffect(() => {
     getData()
   }, [])
-
   return (
-    <div style={{ width: '100%' }}>{data.history && <Timeline data={data.history} />}</div>
+    <>{data.history && data.member && <Timeline data={data} />}</>
     // <div style={{ width: '100%' }}>{data.history && data.member && <Timeline data={data} />}</div>
   )
 }

@@ -18,13 +18,13 @@ const HistBlock = ({ people }) => {
         })}
       </CRow>
       {/* for mobile */}
-      <CRow className="justify-content-center d-xs-flex d-lg-none">
+      <CRow className="justify-content-center d-sm-flex d-lg-none">
         {people.map((person) => {
           return (
-            <CRow className="justify-content-center" key={person.name} align="center">
-              <CImage src={person.img} alt="" fluid style={{ height: '20%', width:'10%'}} />
+            <div key={person.name} style={{ width: '100%' }}>
+              <CImage src={person.img} alt="" fluid style={{ height: '20rem', width: '20rem' }} />
               <h3>{person.name}</h3>
-            </CRow>
+            </div>
           )
         })}
       </CRow>
