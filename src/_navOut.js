@@ -62,7 +62,7 @@ const _navOut = [
         _component: 'CNavItem',
         as: NavLink,
         anchor: 'TEAM',
-        to: '/500',
+        to: '/team',
       },
     ],
   },

@@ -4,7 +4,7 @@ import TeamBlocks from './TeamBlocks'
 const Team = () => {
   const [data, setData] = useState([])
   const getData = () => {
-    fetch('historyData.json', {
+    fetch('teamData.json', {
       headers: {
         ContentType: 'application/json',
         Accept: 'application/json',
@@ -16,10 +16,7 @@ const Team = () => {
   useEffect(() => {
     getData()
   }, [])
-  return (
-    <></>
-    // <div style={{ width: '100%' }}>{data.history && data.member && <Timeline data={data} />}</div>
-  )
+  return <>{data.front && <TeamBlocks data={data} />}</>
 }
 
 export default Team
