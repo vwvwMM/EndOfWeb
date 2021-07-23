@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react'
 import TeamBlocks from './TeamBlocks'
+import { CContainer } from '@coreui/react'
 const Team = () => {
   const [data, setData] = useState([])
   const getData = () => {
@@ -16,7 +17,12 @@ const Team = () => {
   useEffect(() => {
     getData()
   }, [])
-  return <>{data.front && <TeamBlocks data={data} />}</>
+  return (
+    <div className="align-items-center" style={{ margin: 0 }}>
+      <h1 className="mb-4">Website Contributers</h1>
+      {data.front && <TeamBlocks data={data} />}
+    </div>
+  )
 }
 
 export default Team
