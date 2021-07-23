@@ -8,7 +8,7 @@ const About = () => {
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '48rem',
+        minHeight: '40rem',
         justifyContent: 'center',
       }}
     >
