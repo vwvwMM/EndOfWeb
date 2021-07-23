@@ -109,6 +109,12 @@ const _navIn = [
         anchor: 'ProfileEdit',
         to: '/profileEdit',
       },
+      {
+        _component: 'CNavItem',
+        as: NavLink,
+        anchor: 'History',
+        to: '/history',
+      },
     ],
   },
 ]
