@@ -12,7 +12,7 @@ const _navOut = [
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'CONTACT',
-    to: '/dashboard',
+    to: '/contact',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
     badge: {
       color: 'info',

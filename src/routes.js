@@ -3,6 +3,7 @@ import React from 'react'
 const Column = React.lazy(() => import('./views/components/column/Column'))
 const About = React.lazy(() => import('./views/components/about/About'))
 const History = React.lazy(() => import('./views/components/history/History'))
+const Contact = React.lazy(() => import('./views/components/contact/Contact'))
 const Team = React.lazy(() => import('./views/components/team/Team'))
 const ShowColumns = React.lazy(() => import('./views/components/columnSummary/showColumns'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -18,6 +19,7 @@ const routes = [
   { path: '/column', name: 'Column', component: Column },
   { path: '/about', name: 'About', component: About },
   { path: '/history', name: 'History', component: History },
+  { path: '/contact', name: 'Contact', component: Contact },
   { path: '/team', name: 'Team', component: Team },
   { path: '/columnSummary', name: 'ColumnSummary', component: ShowColumns },
   { path: '/career', name: 'Career', component: Career },
