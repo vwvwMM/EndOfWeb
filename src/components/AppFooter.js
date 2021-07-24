@@ -1,23 +1,39 @@
 import React from 'react'
-import { CFooter } from '@coreui/react'
+import { CCol, CFooter, CRow } from '@coreui/react'
+import eesa from '../assets/images/eesa-icon.png'
 
 const AppFooter = () => {
   return (
-    <CFooter>
-      <div>src/components/AppFooter/CFooter</div>
-      {/* <div>
-        <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">
-          CoreUI
-        </a>
-        <span className="ms-1">&copy; 2021 creativeLabs.</span>
-      </div>
-      <div className="ms-auto">
-        <span className="me-1">Powered by</span>
-        <a href="https://coreui.io/react" target="_blank" rel="noopener noreferrer">
-          CoreUI for React
-        </a>
-      </div> */}
-    </CFooter>
+    <div>
+      <CRow
+        lg={10}
+        style={{
+          backgroundColor: '#002958',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        className="justify-content-center"
+      >
+        <CCol xs={10}>
+          國立臺灣大學電機工程學系 系學會 <br />
+          <div style={{ fontWeight: '600' }}>
+            National Taiwan University Electrical Engineering Department Student Association <br />{' '}
+            Email: ntueesa@gmail.com
+          </div>
+        </CCol>
+        <CCol xs={2}>
+          <img src={eesa} alt="eesa" className="img-fluid" />
+        </CCol>
+      </CRow>
+      <CRow
+        className="d-flex flex-column align-items-center text-center"
+        lg={2}
+        style={{ backgroundColor: '#001936', fontSize: '1rem', width: '100%' }}
+      >
+        Copyright © 2021 NTUEESA
+      </CRow>
+    </div>
   )
 }
 
