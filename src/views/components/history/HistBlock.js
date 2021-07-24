@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
-import { CCol, CContainer, CRow, CImage } from '@coreui/react'
+import { CCol, CContainer, CRow } from '@coreui/react'
 import PropTypes from 'prop-types'
 
 const HistBlock = ({ people }) => {
@@ -15,9 +15,9 @@ const HistBlock = ({ people }) => {
                 src={person.img}
                 alt=""
                 className="img-fluid"
-                style={{ boxShadow: '3px 3px 12px gray', padding: '3px', borderRadius: '50%' }}
+                style={{ boxShadow: '3px 3px 12px gray', padding: '2px', borderRadius: '50%' }}
               />
-              <h4 className="mb-0">{person.name}</h4>
+              <h4 className="mt-2">{person.name}</h4>
             </CCol>
           )
         })}
@@ -30,10 +30,12 @@ const HistBlock = ({ people }) => {
               <img
                 src={person.img}
                 alt=""
-                className="img-fluid mb-2 mt-2"
+                className="img-fluid mt-2"
                 style={{ boxShadow: '3px 3px 12px gray', padding: '3px', borderRadius: '50%' }}
               />
-              <h3 align="center">{person.name}</h3>
+              <h3 align="center" className="mt-2">
+                {person.name}
+              </h3>
             </div>
           )
         })}

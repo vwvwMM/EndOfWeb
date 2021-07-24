@@ -12,10 +12,31 @@ const Timeline = ({ data }) => {
       cardTitle: year.title,
     }
   })
+  const setIcons = () => {
+    for (let i = 0; i < data.history.length; i++) {
+      return
+    }
+  }
 
   return (
     <div style={{ width: '100%' }}>
-      <Chrono items={items} mode="VERTICAL_ALTERNATING" slideShow slideItemDuration={4500}>
+      <Chrono
+        items={items}
+        mode="VERTICAL_ALTERNATING"
+        slideShow
+        slideItemDuration={4500}
+        theme={{ cardBgColor: 'azure', primary: '#0000e3a3' }}
+      >
+        <div className="chrono-icons">
+          {data.history.map((year) => (
+            <img
+              src="https://img.icons8.com/color/144/000000/sun--v1.png"
+              alt="icon"
+              key={year.grade}
+              style={{ backgroundColor: '#0000e3a3', borderRadius: '50%', height: '100%' }}
+            />
+          ))}
+        </div>
         {data.history.map((year) => {
           return <HistBlock people={year.people} key={year.grade} />
         })}
