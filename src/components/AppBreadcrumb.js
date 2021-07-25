@@ -7,9 +7,24 @@ import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
 
 const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
+  console.log('this is currl', currentLocation)
 
   const getRouteName = (pathname, routes) => {
-    const currentRoute = routes.find((route) => route.path === pathname)
+    const pathFraction = currentLocation.split('/').length
+    let currentRoute = ''
+    if (isNaN(currentLocation.split('/')[pathFraction - 1])) {
+      currentRoute = routes.find((route) => route.path === pathname)
+      console.log('in no id')
+      console.log('this is pathname:', pathname)
+      console.log('this is last word:', pathname.split('/')[pathFraction - 1])
+    } else {
+      currentRoute = routes.find(
+        (route) => route.path[pathFraction - 2] === pathname[pathFraction - 2],
+      )
+      console.log('in id')
+      console.log('this is pathname:', pathname)
+      console.log('this is last word:', pathname.split('/')[pathFraction - 2])
+    }
     return currentRoute.name
   }
 
@@ -17,6 +32,7 @@ const AppBreadcrumb = () => {
     const breadcrumbs = []
     location.split('/').reduce((prev, curr, index, array) => {
       const currentPathname = `${prev}/${curr}`
+      console.log('currentPathname:', currentPathname)
       breadcrumbs.push({
         pathname: currentPathname,
         name: getRouteName(currentPathname, routes),
