@@ -11,21 +11,12 @@ const AppBreadcrumb = () => {
 
   const getRouteName = (pathname, routes) => {
     const pathFraction = currentLocation.split('/').length
-    let currentRoute = ''
     if (isNaN(currentLocation.split('/')[pathFraction - 1])) {
-      currentRoute = routes.find((route) => route.path === pathname)
-      console.log('in no id')
-      console.log('this is pathname:', pathname)
-      console.log('this is last word:', pathname.split('/')[pathFraction - 1])
+      const currentRoute = routes.find((route) => route.path === pathname)
+      return currentRoute.name
     } else {
-      currentRoute = routes.find(
-        (route) => route.path[pathFraction - 2] === pathname[pathFraction - 2],
-      )
-      console.log('in id')
-      console.log('this is pathname:', pathname)
-      console.log('this is last word:', pathname.split('/')[pathFraction - 2])
+      return currentLocation.split('/')[pathFraction - 2]
     }
-    return currentRoute.name
   }
 
   const getBreadcrumbs = (location) => {

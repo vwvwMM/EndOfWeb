@@ -3,7 +3,7 @@
     {
       "top": {
         "name": "1995級 徐瑞廷",
-        "experience": "（BCG 波士頓顧問公司董事總經理）",
+        "experience": ["BCG 波士頓顧問公司董事總經理"],
         "hashtags": [
           "系友專訪",
           "徐瑞廷",
@@ -172,7 +172,7 @@
     {
       "top": {
         "name": "1992級 梁維仁",
-        "experience": "（元大證券香港區總經理、花旗環球證券臺灣區總經理）",
+        "experience": ["元大證券香港區總經理", "花旗環球證券臺灣區總經理"],
         "hashtags": [
           "系友專訪",
           "梁維仁",
@@ -322,7 +322,7 @@
     {
       "top": {
         "name": "2008級 趙式隆",
-        "experience": "（台灣矽谷創業家協會理事長）",
+        "experience": "台灣矽谷創業家協會理事長",
         "hashtags": [
           "系友專訪",
           "首PO",
@@ -428,7 +428,7 @@
     {
       "top": {
         "name": "2000級 胡一天",
-        "experience": "（源鉑資本Kyber Capital執行長，專業投資人與金融觀察家）",
+        "experience": ["源鉑資本Kyber Capital執行長", "專業投資人與金融觀察家"],
         "hashtags": [
           "系友專訪",
           "胡一天",
@@ -576,7 +576,7 @@
     {
       "top": {
         "name": "2006級 高奕豪",
-        "experience": "（Quantitative Researcher @Two Sigma Investments）",
+        "experience": ["Quantitative Researcher @Two Sigma Investments"],
         "hashtags": [
           "系友專訪",
           "高奕豪",
