@@ -7,7 +7,6 @@ import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
 
 const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
-  console.log('this is currl', currentLocation)
 
   const getRouteName = (pathname, routes, index) => {
     const pathFraction = currentLocation.split('/').length
@@ -15,7 +14,7 @@ const AppBreadcrumb = () => {
       const currentRoute = routes.find((route) => route.path === pathname)
       return currentRoute.name
     } else {
-      return currentLocation.split('/')[pathFraction + index - 3]
+      return '/' + currentLocation.split('/')[pathFraction + index - 3]
     }
   }
 
@@ -24,6 +23,7 @@ const AppBreadcrumb = () => {
     location.split('/').reduce((prev, curr, index, array) => {
       const currentPathname = `${prev}/${curr}`
       console.log('currentPathname:', currentPathname)
+      console.log('prev:', prev)
       breadcrumbs.push({
         pathname: currentPathname,
         name: getRouteName(currentPathname, routes, index),
