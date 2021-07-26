@@ -14,7 +14,7 @@ const AppBreadcrumb = () => {
       const currentRoute = routes.find((route) => route.path === pathname)
       return currentRoute.name
     } else {
-      return '/' + currentLocation.split('/')[pathFraction + index - 3]
+      return currentLocation.split('/')[pathFraction + index - 3]
     }
   }
 
