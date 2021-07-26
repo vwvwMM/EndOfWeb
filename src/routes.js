@@ -13,7 +13,7 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', exact: true, name: 'Dashboard', component: Dashboard },
   { path: '/columns/:id', exact: false, name: 'Column', component: Column },
-  { path: '/column', exact: true, name: 'ColumnSummary', component: ShowColumns },
+  { path: '/columns', exact: true, name: 'ColumnSummary', component: ShowColumns },
   { path: '/columnSummary', exact: true, name: 'ColumnSummary', component: ShowColumns },
   { path: '/career', exact: true, name: 'Career', component: Career },
   { path: '/recommendation', exact: true, name: 'Recommendation', component: Recommendation },

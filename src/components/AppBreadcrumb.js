@@ -9,13 +9,13 @@ const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
   console.log('this is currl', currentLocation)
 
-  const getRouteName = (pathname, routes) => {
+  const getRouteName = (pathname, routes, index) => {
     const pathFraction = currentLocation.split('/').length
     if (isNaN(currentLocation.split('/')[pathFraction - 1])) {
       const currentRoute = routes.find((route) => route.path === pathname)
       return currentRoute.name
     } else {
-      return currentLocation.split('/')[pathFraction - 2]
+      return currentLocation.split('/')[pathFraction + index - 3]
     }
   }
 
@@ -26,7 +26,7 @@ const AppBreadcrumb = () => {
       console.log('currentPathname:', currentPathname)
       breadcrumbs.push({
         pathname: currentPathname,
-        name: getRouteName(currentPathname, routes),
+        name: getRouteName(currentPathname, routes, index),
         active: index + 1 === array.length ? true : false,
       })
       return currentPathname

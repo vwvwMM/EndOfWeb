@@ -23,7 +23,7 @@ const _navOut = [
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'SUPPORT',
-    to: '/column',
+    to: '/columns',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
     badge: {
       color: 'info',
