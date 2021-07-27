@@ -27,26 +27,14 @@ const RecruBlock = ({ post }) => {
         <h2 style={{ 'font-size': '1.39rem' }}>
           | {post.info.experience} | {post.info.diploma}
         </h2>
-        {!isExpand && (
-          <button
-            onClick={() => setIsExpand(true)}
-            style={{ fontSize: '1vw', color: 'blue', border: 'none', background: 'none' }}
-          >
-            Show more...
-          </button>
-        )}
+        {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
         {isExpand && (
           <>
             <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
             <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
             <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
             <h4>{post.spec.description.map((des) => spec(des))}</h4>
-            <button
-              onClick={() => setIsExpand(false)}
-              style={{ fontSize: '1vw', color: 'blue', border: 'none', background: 'none' }}
-            >
-              Show less...
-            </button>
+            <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}
       </div>
