@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
 import eesa from '../../../../assets/images/eesa-icon.png'
 
 const Block = ({ post }) => {
+  const [isExpand, setIsExpand] = useState(false)
   const spec = (li) => {
     return (
       <div key={li} style={{ lineHeight: '2.5rem' }}>
@@ -28,10 +29,28 @@ const Block = ({ post }) => {
           <span style={{ color: 'red', 'font-weight': '500' }}>{post.info.diploma}</span> |{' '}
           <nobr>{post.info.contact}</nobr> | <nobr>{post.info.email}</nobr>
         </div>
-        <h3 style={{ margin: '1.3rem 0 0.1rem' }}>個人簡歷：</h3>
-        <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
-        <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
-        <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
+        {!isExpand && (
+          <button
+            onClick={() => setIsExpand(true)}
+            style={{ fontSize: '1vw', color: 'blue', border: 'none', background: 'none' }}
+          >
+            Show more...
+          </button>
+        )}
+        {isExpand && (
+          <>
+            <h3 style={{ margin: '1.3rem 0 0.1rem' }}>個人簡歷：</h3>
+            <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
+            <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
+            <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
+            <button
+              onClick={() => setIsExpand(false)}
+              style={{ fontSize: '1vw', color: 'blue', border: 'none', background: 'none' }}
+            >
+              Show less...
+            </button>
+          </>
+        )}
       </div>
     </div>
   )
