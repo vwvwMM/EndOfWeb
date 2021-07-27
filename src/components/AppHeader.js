@@ -4,18 +4,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
   CHeader,
-  CHeaderBrand,
   CHeaderDivider,
   CHeaderNav,
   CHeaderToggler,
   CNavLink,
   CNavItem,
+  CImage,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
 import { AppBreadcrumb } from './index'
 
 import { AppHeaderDropdown } from './header/index'
+
+import logo_row from '../assets/images/logo_row.png'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
@@ -30,9 +32,13 @@ const AppHeader = () => {
         >
           <CIcon name="cil-menu" size="lg" />
         </CHeaderToggler>
-        <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CIcon name="logo" height="48" alt="Logo" />
-        </CHeaderBrand>
+        <CImage
+          src={logo_row}
+          width="60%"
+          onClick={(e) => {
+            setInout(!inout)
+          }}
+        />
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink} activeClassName="active">
