@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
   CHeader,
+  CHeaderBrand,
   CHeaderDivider,
   CHeaderNav,
   CHeaderToggler,
@@ -32,13 +33,10 @@ const AppHeader = () => {
         >
           <CIcon name="cil-menu" size="lg" />
         </CHeaderToggler>
-        <CImage
-          src={logo_row}
-          width="60%"
-          onClick={(e) => {
-            setInout(!inout)
-          }}
-        />
+        <CHeaderBrand className="mx-auto d-md-none" to="/">
+          <CImage src={logo_row} width="23%" />
+        </CHeaderBrand>
+
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink} activeClassName="active">
