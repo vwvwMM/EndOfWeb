@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
 import eesa from '../../../../assets/images/eesa-icon.png'
 
-const Block = ({ post }) => {
+const RecruBlock = ({ post }) => {
   const [isExpand, setIsExpand] = useState(false)
   const spec = (li) => {
     return (
@@ -53,8 +53,8 @@ const Block = ({ post }) => {
     </div>
   )
 }
-Block.propTypes = {
+RecruBlock.propTypes = {
   post: PropTypes.object,
 }
 
-export default Block
+export default RecruBlock

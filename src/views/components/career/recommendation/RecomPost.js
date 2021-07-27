@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Recruitment.css'
+import RecomBlock from './RecomBlock'
+import './Recommendation.css'
 import Masonry from 'react-masonry-css'
-import Block from './Block'
 
-const Post = ({ data }) => {
+const RecomPost = ({ data }) => {
   const breakpointColumnsObj = {
     default: 2,
     1100: 2,
@@ -25,13 +25,13 @@ const Post = ({ data }) => {
       style={{ display: 'flex' }}
     >
       {data.map((post) => (
-        <Block post={post} key={post.id} />
+        <RecomBlock post={post} key={post.id} />
       ))}
     </Masonry>
   )
 }
-Post.propTypes = {
+RecomPost.propTypes = {
   data: PropTypes.array,
 }
 
-export default Post
+export default RecomPost
