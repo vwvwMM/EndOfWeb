@@ -25,7 +25,7 @@ const formTemplate = {
   companyName: '',
   workType: '',
   salary: '',
-  experience: [''],
+  experience: ['pjp'],
   diploma: '',
   requirement: [''],
   description: [''],
@@ -41,16 +41,21 @@ const AddRecruitment = () => {
   const [recruitmentForm, setRecruitmentForm] = useState(formTemplate)
   const handleInputChange = (e) => {
     setRecruitmentForm({ ...recruitmentForm, [e.target.name]: e.target.value })
+    console.log('in handle input ch')
   }
   const addArray = (e) => {
-    const newArray = recruitmentForm[e.target.name].push('')
-    setRecruitmentForm({ ...recruitmentForm, [e.target.name]: newArray })
-    console.log('after add array:', recruitmentForm)
+    console.log('this is target:', e.target)
+    const newArray = recruitmentForm[e.target.name].push('ubibiu')
+    setRecruitmentForm({
+      ...recruitmentForm,
+      [e.target.name]: newArray,
+    })
+    console.log('this is recruiform:', recruitmentForm)
   }
   const handleInputArray = (e, index) => {
     const newArray = recruitmentForm[e.target.name].splice(index, 1, e.target.value)
     setRecruitmentForm({ ...recruitmentForm, [e.target.name]: newArray })
-    console.log('this is recruiform:', recruitmentForm)
+    console.log('this is recruitform in :', recruitmentForm)
   }
   const handleChangeImage = (e) => {
     let reader = new FileReader()
@@ -72,7 +77,6 @@ const AddRecruitment = () => {
     fileButton.value = ''
   }
   const handleSubmit = (e) => {
-    e.preventDefault()
     const post = {
       title: {
         title: recruitmentForm.title,
@@ -168,7 +172,7 @@ const AddRecruitment = () => {
                     {/* <CInputGroup className="mb-3">
                       <CInputGroupText>@</CInputGroupText>
                       <CFormControl
-                        placeholder="Experience"
+                      placeholder="Experience"
                         name="experience"
                         onChange={handleInputChange}
                       />
@@ -181,6 +185,7 @@ const AddRecruitment = () => {
                         onChange={handleInputChange}
                       />
                     </CInputGroup>
+                    {console.log('this is experience:', recruitmentForm.experience)}
                     {recruitmentForm.experience.map((exp, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
@@ -190,7 +195,10 @@ const AddRecruitment = () => {
                             name="experience"
                             onChange={handleInputArray}
                           />
-                          <button onClick={addArray}></button>
+                          <object name="experience" onClick={addArray}>
+                            +
+                          </object>
+                          {console.log('this is experience2:', recruitmentForm.experience)}
                         </CInputGroup>
                       )
                     })}
