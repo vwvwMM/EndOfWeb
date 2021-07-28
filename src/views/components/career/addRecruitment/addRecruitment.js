@@ -25,10 +25,7 @@ const formTemplate = {
   companyName: '',
   workType: '',
   salary: '',
-  experience: ['pjp'],
   diploma: '',
-  requirement: [''],
-  description: [''],
   file: '',
   id: '',
 }
@@ -37,25 +34,47 @@ const AddRecruitment = () => {
   const [isExpand, setIsExpand] = useState(false)
   const [isModal, setIsModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
+  const [experience, setExperience] = useState([''])
+  const [requirement, setRequirement] = useState([''])
+  const [description, setDescription] = useState([''])
   const [fileButton, setFileButton] = useState(null)
   const [recruitmentForm, setRecruitmentForm] = useState(formTemplate)
   const handleInputChange = (e) => {
     setRecruitmentForm({ ...recruitmentForm, [e.target.name]: e.target.value })
-    console.log('in handle input ch')
   }
   const addArray = (e) => {
-    console.log('this is target:', e.target)
-    const newArray = recruitmentForm[e.target.name].push('ubibiu')
-    setRecruitmentForm({
-      ...recruitmentForm,
-      [e.target.name]: newArray,
-    })
-    console.log('this is recruiform:', recruitmentForm)
+    if (e.target.name === 'experience') {
+      const newArray = experience.concat([''])
+      setExperience(newArray)
+    } else if (e.target.name === 'requirement') {
+      console.log('in req')
+      const newArray = requirement.concat([''])
+      setRequirement(newArray)
+    } else if (e.target.name === 'description') {
+      const newArray = description.concat([''])
+      setDescription(newArray)
+    }
   }
   const handleInputArray = (e, index) => {
-    const newArray = recruitmentForm[e.target.name].splice(index, 1, e.target.value)
-    setRecruitmentForm({ ...recruitmentForm, [e.target.name]: newArray })
-    console.log('this is recruitform in :', recruitmentForm)
+    if (e.target.name === 'experience') {
+      const newArray = experience.map((exp, idx) => {
+        if (idx !== index) return exp
+        else return e.target.value
+      })
+      setExperience(newArray)
+    } else if (e.target.name === 'requirement') {
+      const newArray = requirement.map((req, idx) => {
+        if (idx !== index) return req
+        else return e.target.value
+      })
+      setRequirement(newArray)
+    } else if (e.target.name === 'description') {
+      const newArray = description.map((desc, idx) => {
+        if (idx !== index) return desc
+        else return e.target.value
+      })
+      setDescription(newArray)
+    }
   }
   const handleChangeImage = (e) => {
     let reader = new FileReader()
@@ -85,12 +104,12 @@ const AddRecruitment = () => {
       },
       info: {
         salary: recruitmentForm.salary,
-        experience: recruitmentForm.experience,
+        experience: experience,
         diploma: recruitmentForm.diploma,
       },
       spec: {
-        requirement: recruitmentForm.requirement,
-        description: recruitmentForm.description,
+        requirement: requirement,
+        description: description,
       },
       image: recruitmentForm.file,
       id: recruitmentForm.id,
@@ -169,14 +188,6 @@ const AddRecruitment = () => {
                         onChange={handleInputChange}
                       />
                     </CInputGroup>
-                    {/* <CInputGroup className="mb-3">
-                      <CInputGroupText>@</CInputGroupText>
-                      <CFormControl
-                      placeholder="Experience"
-                        name="experience"
-                        onChange={handleInputChange}
-                      />
-                    </CInputGroup> */}
                     <CInputGroup className="mb-3">
                       <CInputGroupText>@</CInputGroupText>
                       <CFormControl
@@ -185,8 +196,7 @@ const AddRecruitment = () => {
                         onChange={handleInputChange}
                       />
                     </CInputGroup>
-                    {console.log('this is experience:', recruitmentForm.experience)}
-                    {recruitmentForm.experience.map((exp, index) => {
+                    {experience.map((exp, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>@</CInputGroupText>
@@ -195,10 +205,30 @@ const AddRecruitment = () => {
                             name="experience"
                             onChange={handleInputArray}
                           />
-                          <object name="experience" onClick={addArray}>
-                            +
-                          </object>
-                          {console.log('this is experience2:', recruitmentForm.experience)}
+                        </CInputGroup>
+                      )
+                    })}
+                    {requirement.map((req, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>@</CInputGroupText>
+                          <CFormControl
+                            placeholder="Required skills"
+                            name="requirement"
+                            onChange={handleInputArray}
+                          />
+                        </CInputGroup>
+                      )
+                    })}
+                    {description.map((desc, index) => {
+                      return (
+                        <CInputGroup className="mb-3" key={index}>
+                          <CInputGroupText>@</CInputGroupText>
+                          <CFormControl
+                            placeholder="description"
+                            name="description"
+                            onChange={handleInputArray}
+                          />
                         </CInputGroup>
                       )
                     })}
@@ -217,6 +247,15 @@ const AddRecruitment = () => {
                         onChange={handleChangeImage}
                       ></CFormControl>
                     </CInputGroup>
+                    <button type="button" name="experience" onClick={addArray}>
+                      Add required experience
+                    </button>
+                    <button type="button" name="requirement" onClick={addArray}>
+                      Add required skills
+                    </button>
+                    <button type="button" name="description" onClick={addArray}>
+                      Add description
+                    </button>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex justify-content-center">
                         <CButton color="dark" onClick={handleSubmit}>
