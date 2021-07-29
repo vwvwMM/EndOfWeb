@@ -279,18 +279,18 @@ const AddRecruitment = () => {
                         onChange={handleChangeImage}
                       ></CFormControl>
                     </CInputGroup>
-                    <CRow className="justify-content-center mt-3">
-                      <CCol lg={4} className="justify-content-center">
+                    <CRow className="mt-3">
+                      <CCol xs={4} className="d-flex justify-content-center">
                         <CButton type="button" name="experience" onClick={addArray}>
                           Add required experience
                         </CButton>
                       </CCol>
-                      <CCol lg={4} className="d-flex justify-content-center">
+                      <CCol xs={4} className="d-flex justify-content-center">
                         <CButton type="button" name="requirement" onClick={addArray}>
                           Add required skills
                         </CButton>
                       </CCol>
-                      <CCol lg={4} className="d-flex justify-content-center">
+                      <CCol xs={4} className="d-flex justify-content-center">
                         <CButton type="button" name="description" onClick={addArray}>
                           Add description
                         </CButton>
