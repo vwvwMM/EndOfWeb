@@ -47,7 +47,6 @@ const AddRecruitment = () => {
       const newArray = experience.concat([''])
       setExperience(newArray)
     } else if (e.target.name === 'requirement') {
-      console.log('in req')
       const newArray = requirement.concat([''])
       setRequirement(newArray)
     } else if (e.target.name === 'description') {
@@ -76,6 +75,19 @@ const AddRecruitment = () => {
       setDescription(newArray)
     }
   }
+  const handleDeleteArray = (e, index) => {
+    console.log('this is index:', index)
+    if (e.target.name === 'experience') {
+      const newArray = experience.filter((exp, idx) => idx !== index)
+      setExperience(newArray)
+    } else if (e.target.name === 'requirement') {
+      const newArray = requirement.splice(index + 1, 1)
+      setRequirement(newArray)
+    } else if (e.target.name === 'description') {
+      const newArray = description.splice(index + 1, 1)
+      setDescription(newArray)
+    }
+  }
   const handleChangeImage = (e) => {
     let reader = new FileReader()
     let file = e.target.files[0]
@@ -95,7 +107,7 @@ const AddRecruitment = () => {
     setRecruitmentForm({ ...recruitmentForm, file: null })
     fileButton.value = ''
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     const post = {
       title: {
         title: recruitmentForm.title,
@@ -115,11 +127,7 @@ const AddRecruitment = () => {
       id: recruitmentForm.id,
     }
     console.log(post)
-    fetch('recruitmentPosts.json', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(post),
-    }).then(history.push('/'))
+    history.push('/addRecruitment')
   }
   return (
     <>
@@ -203,8 +211,16 @@ const AddRecruitment = () => {
                           <CFormControl
                             placeholder="Required Experience"
                             name="experience"
-                            onChange={handleInputArray}
+                            value={exp}
+                            onChange={(e) => handleInputArray(e, index)}
                           />
+                          <button
+                            type="button"
+                            name="experience"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </button>
                         </CInputGroup>
                       )
                     })}
@@ -215,8 +231,16 @@ const AddRecruitment = () => {
                           <CFormControl
                             placeholder="Required skills"
                             name="requirement"
-                            onChange={handleInputArray}
+                            value={req}
+                            onChange={(e) => handleInputArray(e, index)}
                           />
+                          <button
+                            type="button"
+                            name="requirement"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </button>
                         </CInputGroup>
                       )
                     })}
@@ -227,8 +251,16 @@ const AddRecruitment = () => {
                           <CFormControl
                             placeholder="description"
                             name="description"
-                            onChange={handleInputArray}
+                            value={desc}
+                            onChange={(e) => handleInputArray(e, index)}
                           />
+                          <button
+                            type="button"
+                            name="description"
+                            onClick={(e) => handleDeleteArray(e, index)}
+                          >
+                            x
+                          </button>
                         </CInputGroup>
                       )
                     })}
@@ -247,17 +279,25 @@ const AddRecruitment = () => {
                         onChange={handleChangeImage}
                       ></CFormControl>
                     </CInputGroup>
-                    <button type="button" name="experience" onClick={addArray}>
-                      Add required experience
-                    </button>
-                    <button type="button" name="requirement" onClick={addArray}>
-                      Add required skills
-                    </button>
-                    <button type="button" name="description" onClick={addArray}>
-                      Add description
-                    </button>
                     <CRow className="justify-content-center mt-3">
-                      <div className="d-flex justify-content-center">
+                      <CCol lg={4} className="justify-content-center">
+                        <CButton type="button" name="experience" onClick={addArray}>
+                          Add required experience
+                        </CButton>
+                      </CCol>
+                      <CCol lg={4} className="d-flex justify-content-center">
+                        <CButton type="button" name="requirement" onClick={addArray}>
+                          Add required skills
+                        </CButton>
+                      </CCol>
+                      <CCol lg={4} className="d-flex justify-content-center">
+                        <CButton type="button" name="description" onClick={addArray}>
+                          Add description
+                        </CButton>
+                      </CCol>
+                    </CRow>
+                    <CRow className="justify-content-center mt-3">
+                      <div className="d-flex d-flex justify-content-center">
                         <CButton color="dark" onClick={handleSubmit}>
                           Post A Recruitment
                         </CButton>
