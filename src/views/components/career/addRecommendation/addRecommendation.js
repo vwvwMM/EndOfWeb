@@ -33,7 +33,6 @@ const formTemplate = {
 }
 const AddRecommendation = () => {
   const history = useHistory()
-  const [isExpand, setIsExpand] = useState(false)
   const [isModal, setIsModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
   const [experience, setExperience] = useState([''])
@@ -115,7 +114,7 @@ const AddRecommendation = () => {
       id: recommendationForm.id,
     }
     console.log(post)
-    history.push('/addRecommendation')
+    history.push('/recommendation')
   }
   return (
     <>
@@ -234,12 +233,7 @@ const AddRecommendation = () => {
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup
-                      className="mb-3"
-                      onMouseEnter={() => setIsExpand(true)}
-                      onFocus={() => setIsExpand(true)}
-                      onBlur={() => setIsExpand(false)}
-                    >
+                    <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon name="cil-image" />
                       </CInputGroupText>

@@ -20,7 +20,6 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { freeSet } from '@coreui/icons'
-import { Feedback } from '@material-ui/icons'
 const formTemplate = {
   title: '',
   companyName: '',
@@ -32,7 +31,6 @@ const formTemplate = {
 }
 const AddRecruitment = () => {
   const history = useHistory()
-  const [isExpand, setIsExpand] = useState(false)
   const [isModal, setIsModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
   const [experience, setExperience] = useState([''])
@@ -127,7 +125,7 @@ const AddRecruitment = () => {
       id: recruitmentForm.id,
     }
     console.log(post)
-    history.push('/addRecruitment')
+    history.push('/recruitment')
   }
   return (
     <>
@@ -272,12 +270,7 @@ const AddRecruitment = () => {
                         </CInputGroup>
                       )
                     })}
-                    <CInputGroup
-                      className="mb-3"
-                      onMouseEnter={() => setIsExpand(true)}
-                      onFocus={() => setIsExpand(true)}
-                      onBlur={() => setIsExpand(false)}
-                    >
+                    <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon name="cil-image" />
                       </CInputGroupText>
