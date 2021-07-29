@@ -43,6 +43,17 @@ const _navIn = [
   {
     _component: 'CNavItem',
     as: NavLink,
+    anchor: 'Add Recom',
+    to: '/addRecommendation',
+    icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'NEW',
+    },
+  },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
     anchor: 'Columns',
     to: '/ColumnSummary',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,

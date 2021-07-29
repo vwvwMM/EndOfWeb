@@ -17,42 +17,39 @@ import {
   CModalBody,
   CModalTitle,
   CModalFooter,
+  CLink,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { freeSet } from '@coreui/icons'
-import { Feedback } from '@material-ui/icons'
 const formTemplate = {
   title: '',
-  companyName: '',
-  workType: '',
-  salary: '',
+  name: '',
+  desireWorkType: '',
+  contact: '',
+  email: '',
   diploma: '',
   file: '',
   id: '',
 }
-const AddRecruitment = () => {
+const AddRecommendation = () => {
   const history = useHistory()
   const [isExpand, setIsExpand] = useState(false)
   const [isModal, setIsModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
   const [experience, setExperience] = useState([''])
-  const [requirement, setRequirement] = useState([''])
-  const [description, setDescription] = useState([''])
+  const [speciality, setSpeciality] = useState([''])
   const [fileButton, setFileButton] = useState(null)
-  const [recruitmentForm, setRecruitmentForm] = useState(formTemplate)
+  const [recommendationForm, setRecommendationForm] = useState(formTemplate)
   const handleInputChange = (e) => {
-    setRecruitmentForm({ ...recruitmentForm, [e.target.name]: e.target.value })
+    setRecommendationForm({ ...recommendationForm, [e.target.name]: e.target.value })
   }
   const addArray = (e) => {
     if (e.target.name === 'experience') {
       const newArray = experience.concat([''])
       setExperience(newArray)
-    } else if (e.target.name === 'requirement') {
-      const newArray = requirement.concat([''])
-      setRequirement(newArray)
-    } else if (e.target.name === 'description') {
-      const newArray = description.concat([''])
-      setDescription(newArray)
+    } else if (e.target.name === 'speciality') {
+      const newArray = speciality.concat([''])
+      setSpeciality(newArray)
     }
   }
   const handleInputArray = (e, index) => {
@@ -62,37 +59,28 @@ const AddRecruitment = () => {
         else return e.target.value
       })
       setExperience(newArray)
-    } else if (e.target.name === 'requirement') {
-      const newArray = requirement.map((req, idx) => {
+    } else if (e.target.name === 'speciality') {
+      const newArray = speciality.map((req, idx) => {
         if (idx !== index) return req
         else return e.target.value
       })
-      setRequirement(newArray)
-    } else if (e.target.name === 'description') {
-      const newArray = description.map((desc, idx) => {
-        if (idx !== index) return desc
-        else return e.target.value
-      })
-      setDescription(newArray)
+      setSpeciality(newArray)
     }
   }
   const handleDeleteArray = (e, index) => {
     if (e.target.name === 'experience') {
       const newArray = experience.filter((exp, idx) => idx !== index)
       setExperience(newArray)
-    } else if (e.target.name === 'requirement') {
-      const newArray = requirement.filter((req, idx) => idx !== index)
-      setRequirement(newArray)
-    } else if (e.target.name === 'description') {
-      const newArray = description.filter((desc, idx) => idx !== index)
-      setDescription(newArray)
+    } else if (e.target.name === 'speciality') {
+      const newArray = speciality.filter((spec, idx) => idx !== index)
+      setSpeciality(newArray)
     }
   }
   const handleChangeImage = (e) => {
     let reader = new FileReader()
     let file = e.target.files[0]
     setFileButton(e.target)
-    setRecruitmentForm({ ...recruitmentForm, file: file })
+    setRecommendationForm({ ...recommendationForm, file: file })
     reader.onloadend = () => {
       setPreviewURL(reader.result)
     }
@@ -104,30 +92,30 @@ const AddRecruitment = () => {
   const clearImage = (e) => {
     setIsModal(false)
     setPreviewURL(null)
-    setRecruitmentForm({ ...recruitmentForm, file: null })
+    setRecommendationForm({ ...recommendationForm, file: null })
     fileButton.value = ''
   }
   const handleSubmit = () => {
     const post = {
       title: {
-        title: recruitmentForm.title,
-        company_name: recruitmentForm.companyName,
-        work_type: recruitmentForm.workType,
+        title: recommendationForm.title,
+        name: recommendationForm.name,
+        desire_work_type: recommendationForm.desireWorkType,
       },
       info: {
-        salary: recruitmentForm.salary,
-        experience: experience,
-        diploma: recruitmentForm.diploma,
+        contact: recommendationForm.contact,
+        email: recommendationForm.email,
+        diploma: recommendationForm.diploma,
       },
       spec: {
-        requirement: requirement,
-        description: description,
+        experience: experience,
+        speciality: speciality,
       },
-      image: recruitmentForm.file,
-      id: recruitmentForm.id,
+      image: recommendationForm.file,
+      id: recommendationForm.id,
     }
     console.log(post)
-    history.push('/addRecruitment')
+    history.push('/addRecommendation')
   }
   return (
     <>
@@ -154,47 +142,43 @@ const AddRecruitment = () => {
               <CCard className="mx-4">
                 <CCardBody className="p-4">
                   <CForm>
-                    <h1>Ready to post a recruitment?</h1>
-                    <p className="text-medium-emphasis">Create your recruitment</p>
+                    <h1>Ready to post a recommendation?</h1>
+                    <p className="text-medium-emphasis">Create your recommendation</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon content={freeSet.cilLayers} />
+                        <CIcon name="cil-user" />
                       </CInputGroupText>
-                      <CFormControl
-                        placeholder="The job title"
-                        name="title"
-                        onChange={handleInputChange}
-                      />
+                      <CFormControl placeholder="Title" name="title" onChange={handleInputChange} />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
-                        <CIcon content={freeSet.cilBuilding} />
+                        <CIcon content={freeSet.cilUser} />
                       </CInputGroupText>
-                      <CFormControl
-                        placeholder="Company name"
-                        name="companyName"
-                        onChange={handleInputChange}
-                      />
+                      <CFormControl placeholder="Name" name="name" onChange={handleInputChange} />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon content={freeSet.cilBraille} />
                       </CInputGroupText>
                       <CFormControl
-                        placeholder="Work Type"
-                        name="workType"
+                        placeholder="Desired Work Type"
+                        name="desireWorkType"
                         onChange={handleInputChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
-                        <CIcon content={freeSet.cilDollar} />
+                        <CIcon content={freeSet.cilPhone} />
                       </CInputGroupText>
                       <CFormControl
-                        placeholder="Salary"
-                        name="salary"
+                        placeholder="Phone"
+                        name="contact"
                         onChange={handleInputChange}
                       />
+                    </CInputGroup>
+                    <CInputGroup className="mb-4">
+                      <CInputGroupText>@</CInputGroupText>
+                      <CFormControl placeholder="Email" name="email" onChange={handleInputChange} />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
@@ -213,7 +197,7 @@ const AddRecruitment = () => {
                             <CIcon content={freeSet.cilAddressBook} />
                           </CInputGroupText>
                           <CFormControl
-                            placeholder="Required Experience"
+                            placeholder="Experience"
                             name="experience"
                             value={exp}
                             onChange={(e) => handleInputArray(e, index)}
@@ -228,43 +212,21 @@ const AddRecruitment = () => {
                         </CInputGroup>
                       )
                     })}
-                    {requirement.map((req, index) => {
+                    {speciality.map((req, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
                           <CInputGroupText>
                             <CIcon content={freeSet.cilThumbUp} />
                           </CInputGroupText>
                           <CFormControl
-                            placeholder="Required skills"
-                            name="requirement"
+                            placeholder="Speciality"
+                            name="speciality"
                             value={req}
                             onChange={(e) => handleInputArray(e, index)}
                           />
                           <button
                             type="button"
-                            name="requirement"
-                            onClick={(e) => handleDeleteArray(e, index)}
-                          >
-                            x
-                          </button>
-                        </CInputGroup>
-                      )
-                    })}
-                    {description.map((desc, index) => {
-                      return (
-                        <CInputGroup className="mb-3" key={index}>
-                          <CInputGroupText>
-                            <CIcon content={freeSet.cilDescription} />
-                          </CInputGroupText>
-                          <CFormControl
-                            placeholder="description"
-                            name="description"
-                            value={desc}
-                            onChange={(e) => handleInputArray(e, index)}
-                          />
-                          <button
-                            type="button"
-                            name="description"
+                            name="speciality"
                             onClick={(e) => handleDeleteArray(e, index)}
                           >
                             x
@@ -287,27 +249,22 @@ const AddRecruitment = () => {
                         onChange={handleChangeImage}
                       ></CFormControl>
                     </CInputGroup>
-                    <CRow className="mt-3">
-                      <CCol xs={4} className="d-flex justify-content-center">
+                    <CRow className="justify-content-between mt-3">
+                      <CCol xs={5} className="d-flex justify-content-center">
                         <CButton type="button" name="experience" onClick={addArray}>
-                          Add required experience
+                          Add experience
                         </CButton>
                       </CCol>
-                      <CCol xs={4} className="d-flex justify-content-center">
-                        <CButton type="button" name="requirement" onClick={addArray}>
-                          Add required skills
-                        </CButton>
-                      </CCol>
-                      <CCol xs={4} className="d-flex justify-content-center">
-                        <CButton type="button" name="description" onClick={addArray}>
-                          Add description
+                      <CCol xs={5} className="d-flex justify-content-center">
+                        <CButton type="button" name="speciality" onClick={addArray}>
+                          Add speciality
                         </CButton>
                       </CCol>
                     </CRow>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton color="dark" onClick={handleSubmit}>
-                          Post A Recruitment
+                          Post A Recommendation
                         </CButton>
                       </div>
                     </CRow>
@@ -322,4 +279,4 @@ const AddRecruitment = () => {
   )
 }
 
-export default AddRecruitment
+export default AddRecommendation
