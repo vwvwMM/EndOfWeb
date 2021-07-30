@@ -33,8 +33,8 @@ const AppHeader = () => {
         >
           <CIcon name="cil-menu" size="lg" />
         </CHeaderToggler>
-        <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CImage src={logo_row} width="23%" />
+        <CHeaderBrand className="d-flex justify-content-center mx-auto d-md-none" to="/">
+          <CImage src={logo_row} fluid width="50%" />
         </CHeaderBrand>
 
         <CHeaderNav className="d-none d-md-flex me-auto">
