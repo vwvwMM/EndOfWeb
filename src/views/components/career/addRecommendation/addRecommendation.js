@@ -29,7 +29,6 @@ const formTemplate = {
   email: '',
   diploma: '',
   file: '',
-  id: '',
 }
 const AddRecommendation = () => {
   const history = useHistory()
@@ -111,7 +110,6 @@ const AddRecommendation = () => {
         speciality: speciality,
       },
       image: recommendationForm.file,
-      id: recommendationForm.id,
     }
     console.log(post)
     history.push('/recommendation')

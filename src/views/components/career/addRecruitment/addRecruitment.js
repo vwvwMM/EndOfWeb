@@ -27,7 +27,6 @@ const formTemplate = {
   salary: '',
   diploma: '',
   file: '',
-  id: '',
 }
 const AddRecruitment = () => {
   const history = useHistory()
@@ -122,7 +121,6 @@ const AddRecruitment = () => {
         description: description,
       },
       image: recruitmentForm.file,
-      id: recruitmentForm.id,
     }
     console.log(post)
     history.push('/recruitment')
