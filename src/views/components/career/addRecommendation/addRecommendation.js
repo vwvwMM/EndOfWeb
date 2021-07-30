@@ -199,13 +199,13 @@ const AddRecommendation = () => {
                             value={exp}
                             onChange={(e) => handleInputArray(e, index)}
                           />
-                          <button
+                          <CButton
                             type="button"
                             name="experience"
                             onClick={(e) => handleDeleteArray(e, index)}
                           >
                             x
-                          </button>
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
@@ -221,13 +221,13 @@ const AddRecommendation = () => {
                             value={req}
                             onChange={(e) => handleInputArray(e, index)}
                           />
-                          <button
+                          <CButton
                             type="button"
                             name="speciality"
                             onClick={(e) => handleDeleteArray(e, index)}
                           >
                             x
-                          </button>
+                          </CButton>
                         </CInputGroup>
                       )
                     })}

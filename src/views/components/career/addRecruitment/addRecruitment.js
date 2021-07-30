@@ -214,13 +214,13 @@ const AddRecruitment = () => {
                             value={exp}
                             onChange={(e) => handleInputArray(e, index)}
                           />
-                          <button
+                          <CButton
                             type="button"
                             name="experience"
                             onClick={(e) => handleDeleteArray(e, index)}
                           >
                             x
-                          </button>
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
@@ -236,13 +236,13 @@ const AddRecruitment = () => {
                             value={req}
                             onChange={(e) => handleInputArray(e, index)}
                           />
-                          <button
+                          <CButton
                             type="button"
                             name="requirement"
                             onClick={(e) => handleDeleteArray(e, index)}
                           >
                             x
-                          </button>
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
@@ -258,13 +258,13 @@ const AddRecruitment = () => {
                             value={desc}
                             onChange={(e) => handleInputArray(e, index)}
                           />
-                          <button
+                          <CButton
                             type="button"
                             name="description"
                             onClick={(e) => handleDeleteArray(e, index)}
                           >
                             x
-                          </button>
+                          </CButton>
                         </CInputGroup>
                       )
                     })}
