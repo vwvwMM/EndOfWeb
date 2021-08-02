@@ -37,7 +37,7 @@ const EditBlock = ({ data }) => {
   const [experience, setExperience] = useState(data.info.experience)
   const [requirement, setRequirement] = useState(data.spec.requirement)
   const [description, setDescription] = useState(data.spec.description)
-  const [fileButton, setFileButton] = useState(data.image)
+  const [fileButton, setFileButton] = useState(null)
   const [editForm, setEditForm] = useState(EditFormTemplate)
   const handleInputChange = (e) => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value })
@@ -107,6 +107,9 @@ const EditBlock = ({ data }) => {
     fileButton.value = ''
   }
   const handleSubmit = () => {
+    setExperience(experience.filter(exp=>exp===''))
+    setRequirement(requirement.filter(req=>req===''))
+    setDescription(description.filter(des=>des===''))
     const post = {
       title: {
         title: editForm.title,
@@ -153,8 +156,8 @@ const EditBlock = ({ data }) => {
               <CCard className="mx-4">
                 <CCardBody className="p-4">
                   <CForm>
-                    <h1>Ready to post a recruitment?</h1>
-                    <p className="text-medium-emphasis">Create your recruitment</p>
+                    <h1>Edit a recruitment?</h1>
+                    <p className="text-medium-emphasis">Edit your recruitment</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon content={freeSet.cilLayers} />
@@ -212,7 +215,7 @@ const EditBlock = ({ data }) => {
                             <CIcon content={freeSet.cilAddressBook} />
                           </CInputGroupText>
                           <CFormControl
-                            placeholder={data.info.experience[index]||"Required Experience"}
+                            placeholder={experience[index]||"Required Experience"}
                             name="experience"
                             value={exp}
                             onChange={(e) => handleInputArray(e, index)}
@@ -234,7 +237,7 @@ const EditBlock = ({ data }) => {
                             <CIcon content={freeSet.cilThumbUp} />
                           </CInputGroupText>
                           <CFormControl
-                            placeholder={data.spec.requirement[index]||"Required Skill"}
+                            placeholder={requirement[index]||"Required Skill"}
                             name="requirement"
                             value={req}
                             onChange={(e) => handleInputArray(e, index)}
@@ -256,7 +259,7 @@ const EditBlock = ({ data }) => {
                             <CIcon content={freeSet.cilDescription} />
                           </CInputGroupText>
                           <CFormControl
-                            placeholder={data.spec.description[index]||"Description"}
+                            placeholder={description[index]||"Description"}
                             name="description"
                             value={desc}
                             onChange={(e) => handleInputArray(e, index)}
