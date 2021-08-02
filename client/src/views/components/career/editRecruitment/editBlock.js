@@ -305,7 +305,7 @@ const EditBlock = ({ data }) => {
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton color="dark" onClick={handleSubmit}>
-                          Post A Recruitment
+                          Edition Completed
                         </CButton>
                       </div>
                     </CRow>
