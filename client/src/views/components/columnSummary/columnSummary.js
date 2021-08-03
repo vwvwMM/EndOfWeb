@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ColumnSummary = ({ data }) => {
+  const postsPerPage = 2
   const classes = useStyles()
   const [page, setPage] = useState(1)
   const contributions = (person) => {
@@ -82,7 +83,7 @@ const ColumnSummary = ({ data }) => {
     )
   }
   const articles = data.map((art, index) => {
-    if (index < 3 * page && index > 3 * page - 4) {
+    if (index < postsPerPage * page && index > postsPerPage * (page - 1) - 1) {
       return (
         <Grid item xs={12} md={12} key={art.key}>
           <Card className={classes.card}>
@@ -142,7 +143,7 @@ const ColumnSummary = ({ data }) => {
       </div>
       <Box my={4} className={classes.paginationContainer}>
         <Pagination
-          count={Math.ceil(data.length / 3)}
+          count={Math.ceil(data.length / postsPerPage)}
           color="secondary"
           onChange={(e, val) => setPage(val)}
         />
