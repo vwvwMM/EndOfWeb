@@ -141,7 +141,7 @@ const ColumnSummary = ({ data }) => {
         </Grid>
       </div>
       <Box my={4} className={classes.paginationContainer}>
-        <Pagination count={10} color="primary" onChange={(e, val) => setPage(val)} />
+        <Pagination count={10} color="secondary" onChange={(e, val) => setPage(val)} />
       </Box>
     </div>
   )
