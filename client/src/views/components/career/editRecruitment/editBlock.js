@@ -33,7 +33,8 @@ const EditBlock = ({ data }) => {
     id: data._id,
   }
   const history = useHistory()
-  const [isModal, setIsModal] = useState(false)
+  const [imageModal, setImageModal] = useState(false)
+  const [blockModal, setBlockModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
   const [experience, setExperience] = useState(data.info.experience)
   const [requirement, setRequirement] = useState(data.spec.requirement)
@@ -98,11 +99,11 @@ const EditBlock = ({ data }) => {
     }
     reader.readAsDataURL(file)
     // call the modal
-    setIsModal(true)
+    setImageModal(true)
   }
 
   const clearImage = (e) => {
-    setIsModal(false)
+    setImageModal(false)
     setPreviewURL(null)
     setEditForm({ ...editForm, file: null })
     fileButton.value = ''
@@ -137,8 +138,8 @@ const EditBlock = ({ data }) => {
 
   return (
     <>
-      <CModal visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
-        <CModalHeader onDismiss={() => setIsModal(false)}>
+      <CModal visible={imageModal} onDismiss={() => setImageModal(false)} alignment="center">
+        <CModalHeader onDismiss={() => setImageModal(false)}>
           <CModalTitle>Preview Your Photo</CModalTitle>
         </CModalHeader>
         <CModalBody>
@@ -148,7 +149,23 @@ const EditBlock = ({ data }) => {
           <CButton color="warning" onClick={clearImage}>
             Clear
           </CButton>
-          <CButton color="dark" onClick={() => setIsModal(false)}>
+          <CButton color="dark" onClick={() => setImageModal(false)}>
+            OK
+          </CButton>
+        </CModalFooter>
+      </CModal>
+      <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">
+        <CModalHeader onDismiss={() => setBlockModal(false)}>
+          <CModalTitle>Preview Your Photo</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <div>blockmodal</div>
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="warning" onClick={() => setBlockModal(false)}>
+            Back
+          </CButton>
+          <CButton color="dark" onClick={handleSubmit}>
             OK
           </CButton>
         </CModalFooter>
@@ -308,8 +325,8 @@ const EditBlock = ({ data }) => {
                     </CRow>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
-                        <CButton color="dark" onClick={handleSubmit}>
-                          Edition Completed
+                        <CButton color="dark" onClick={() => setBlockModal(true)}>
+                          Done
                         </CButton>
                       </div>
                     </CRow>
