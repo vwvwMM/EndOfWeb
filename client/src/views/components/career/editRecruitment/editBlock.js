@@ -110,9 +110,9 @@ const EditBlock = ({ data }) => {
     fileButton.value = ''
   }
   const handleSubmit = () => {
-    setExperience(experience.filter((exp) => exp === ''))
-    setRequirement(requirement.filter((req) => req === ''))
-    setDescription(description.filter((des) => des === ''))
+    setExperience(experience.filter((exp) => exp !== ''))
+    setRequirement(requirement.filter((req) => req !== ''))
+    setDescription(description.filter((des) => des !== ''))
     const post = {
       _id: editForm.id,
       title: editForm.title,
@@ -125,7 +125,7 @@ const EditBlock = ({ data }) => {
       description: description,
       file: editForm.file,
     }
-    console.log('this is post id:', post._id)
+    console.log('this is post:', post)
     axios
       .patch('/api/recruitment', post, { 'content-type': 'multipart/form-data' })
       .then(() => {
