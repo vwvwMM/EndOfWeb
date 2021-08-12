@@ -22,6 +22,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { freeSet } from '@coreui/icons'
 import axios from 'axios'
+import PreviewBlock from './previewBlock'
 const EditBlock = ({ data }) => {
   const EditFormTemplate = {
     title: data.title.title,
@@ -156,10 +157,15 @@ const EditBlock = ({ data }) => {
       </CModal>
       <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setBlockModal(false)}>
-          <CModalTitle>Preview Your Photo</CModalTitle>
+          <CModalTitle>Preview Your Update</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <div>blockmodal</div>
+          <PreviewBlock
+            post={editForm}
+            experience={experience}
+            requirement={requirement}
+            description={description}
+          />
         </CModalBody>
         <CModalFooter>
           <CButton color="warning" onClick={() => setBlockModal(false)}>
