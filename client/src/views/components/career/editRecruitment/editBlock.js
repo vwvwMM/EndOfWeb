@@ -110,19 +110,19 @@ const EditBlock = ({ data }) => {
     fileButton.value = ''
   }
   const handleSubmit = () => {
-    setExperience(experience.filter((exp) => exp !== ''))
-    setRequirement(requirement.filter((req) => req !== ''))
-    setDescription(description.filter((des) => des !== ''))
+    // setExperience(experience.filter((exp) => exp !== ''))
+    // setRequirement(requirement.filter((req) => req !== ''))
+    // setDescription(description.filter((des) => des !== ''))
     const post = {
       _id: editForm.id,
       title: editForm.title,
       company_name: editForm.companyName,
       work_type: editForm.workType,
       salary: editForm.salary,
-      experience: experience,
+      experience: experience.filter((exp) => exp !== ''),
       diploma: editForm.diploma,
-      requirement: requirement,
-      description: description,
+      requirement: requirement.filter((req) => req !== ''),
+      description: description.filter((des) => des !== ''),
       file: editForm.file,
     }
     console.log('this is post:', post)

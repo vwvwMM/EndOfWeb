@@ -25,12 +25,12 @@ const PreviewBlock = ({ post, experience, requirement, description }) => {
       <div className="previewcontent">
         <h3 style={{ 'font-weight': '600' }}>{post.title}</h3>
         <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.salary}</h2>
-        <h2 style={{ 'font-size': '1.39rem' }}>
-          | {experience} | {post.diploma}
-        </h2>
+        <h2 style={{ 'font-size': '1.39rem' }}>| {post.diploma}</h2>
         {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
         {isExpand && (
           <>
+            <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h3>
+            <h4>{experience.map((exp) => spec(exp))}</h4>
             <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
             <h4>{requirement.map((req) => spec(req))}</h4>
             <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
