@@ -24,7 +24,8 @@ const RecruBlock = ({ post }) => {
       <div className="recrucontent">
         <h3 style={{ 'font-weight': '600' }}>{post.title.title}</h3>
         <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.info.salary}</h2>
-        <h2 style={{ 'font-size': '1.39rem' }}>| {post.info.diploma}</h2>
+        <h3>要求學歷：</h3>
+        <h4 style={{ 'font-size': '1.39rem' }}>{post.info.diploma}</h4>
         {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
         {isExpand && (
           <>
