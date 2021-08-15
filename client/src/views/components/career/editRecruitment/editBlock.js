@@ -110,9 +110,6 @@ const EditBlock = ({ data }) => {
     fileButton.value = ''
   }
   const handleSubmit = () => {
-    // setExperience(experience.filter((exp) => exp !== ''))
-    // setRequirement(requirement.filter((req) => req !== ''))
-    // setDescription(description.filter((des) => des !== ''))
     const post = {
       _id: editForm.id,
       title: editForm.title,
