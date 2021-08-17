@@ -153,24 +153,24 @@ const ShowColumns = () => {
         </div>
       )}
       {!isPending && (
-        <>
-          <div className={classes.blogsContainer}>
-            <Grid container spacing={1}>
-              {articles(data)}
-            </Grid>
-          </div>
-          <Box my={4} className={classes.paginationContainer}>
-            <Pagination
-              count={data.maxPage}
-              color="secondary"
-              onChange={(e, val) => {
-                window.scrollTo(0, 0)
-                setPage(val)
-                setIsPending(true)
-              }}
-            />
-          </Box>
-        </>
+        <div className={classes.blogsContainer}>
+          <Grid container spacing={1}>
+            {articles(data)}
+          </Grid>
+        </div>
+      )}
+      {data.maxPage && (
+        <Box my={4} className={classes.paginationContainer}>
+          <Pagination
+            count={data.maxPage}
+            color="secondary"
+            onChange={(e, val) => {
+              window.scrollTo(0, 0)
+              setPage(val)
+              setIsPending(true)
+            }}
+          />
+        </Box>
       )}
     </div>
   )
