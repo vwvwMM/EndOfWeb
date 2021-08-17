@@ -67,6 +67,7 @@ const ShowColumns = () => {
   const classes = useStyles()
   const [data, setData] = useState({ maxPage: undefined, data: [] })
   const [page, setPage] = useState(1)
+  const [isPending, setIsPending] = useState(true)
   const getData = () => {
     axios
       .get('/api/column/outline', {
@@ -74,6 +75,7 @@ const ShowColumns = () => {
       })
       .then((res) => {
         setData(res.data)
+        setIsPending(false)
       })
       .catch((err) => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -145,8 +147,12 @@ const ShowColumns = () => {
       <Box className={classes.hero}>
         <Box>All Articles</Box>
       </Box>
-
-      {data.maxPage && (
+      {isPending && (
+        <div className="spinner-border text-primary mt-3" role="status">
+          <span className="sr-only"></span>
+        </div>
+      )}
+      {!isPending && (
         <>
           <div className={classes.blogsContainer}>
             <Grid container spacing={1}>
@@ -160,6 +166,7 @@ const ShowColumns = () => {
               onChange={(e, val) => {
                 window.scrollTo(0, 0)
                 setPage(val)
+                setIsPending(true)
               }}
             />
           </Box>
