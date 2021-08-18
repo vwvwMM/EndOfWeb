@@ -22,8 +22,8 @@ const RecruBlock = ({ post }) => {
     axios
       .delete('/api/deleteRecruitment', { data: { _id: id } })
       .then((res) => {
-        alert('delete ', res)
-        history.push('/own_recruitment')
+        console.log('res:', res)
+        alert('delete ' + res.data.data)
       })
       .catch((err) => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
