@@ -78,7 +78,15 @@ const Profile = () => {
     getRecruitment()
     getProfile()
   }, [])
-  const DeleteRecruitment = () => {}
+  const DeleteRecruitment = (id) => {
+    console.log('this is id', id)
+    axios
+      .delete('/api/deleteRecruitment', { params: { _id: id } })
+      .then((res) => alert('delete ', res.data))
+      .catch((err) => {
+        err.response.data.description && alert('錯誤\n' + err.response.data.description)
+      })
+  }
   const showRecruitment = (Recruitment) => {
     console.log(Recruitment)
     return Recruitment.map((post, i) => {
@@ -93,7 +101,11 @@ const Profile = () => {
             <CButton className="col-sm-2" color="dark" href={editPath}>
               Edit
             </CButton>
-            <CButton className="col-sm-2" color="primary" onClick={DeleteRecruitment}>
+            <CButton
+              className="col-sm-2"
+              color="primary"
+              onClick={() => DeleteRecruitment(post._id)}
+            >
               Delete
             </CButton>
           </CRow>
