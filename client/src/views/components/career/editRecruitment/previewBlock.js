@@ -34,8 +34,12 @@ const PreviewBlock = ({ post, experience, requirement, description }) => {
             <h4>{experience.map((exp) => spec(exp))}</h4>
             <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
             <h4>{requirement.map((req) => spec(req))}</h4>
-            <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
-            <h4>{description.map((des) => spec(des))}</h4>
+            {description.length !== 0 && (
+              <>
+                <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
+                <h4>{description.map((des) => spec(des))}</h4>
+              </>
+            )}
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}
