@@ -143,7 +143,7 @@ const AddRecommendation = () => {
       </CModal>
       <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setBlockModal(false)}>
-          <CModalTitle>Preview Your Update</CModalTitle>
+          <CModalTitle>Preview New Post</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <PreviewBlock
