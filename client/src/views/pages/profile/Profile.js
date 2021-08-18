@@ -17,18 +17,6 @@ import axios from 'axios'
 
 const Profile = () => {
   let recommendation = []
-  const [recruitment, setRecruitment] = useState([])
-  const getRecruitment = () => {
-    axios
-      .get('/api/recruitment')
-      .then((res) => {
-        setRecruitment(res.data)
-        console.log(res)
-      })
-      .catch(
-        (err) => err.response.data.description && alert('錯誤\n' + err.response.data.description),
-      )
-  }
   const getProfile = () => {
     axios
       .get('api/profile')
@@ -75,45 +63,9 @@ const Profile = () => {
   })
 
   useEffect(() => {
-    getRecruitment()
     getProfile()
   }, [])
-  const DeleteRecruitment = (id) => {
-    console.log('this is id', id)
-    axios
-      .delete('/api/deleteRecruitment', { params: { _id: id } })
-      .then((res) => alert('delete ', res.data))
-      .catch((err) => {
-        err.response.data.description && alert('錯誤\n' + err.response.data.description)
-      })
-  }
-  const showRecruitment = (Recruitment) => {
-    console.log(Recruitment)
-    return Recruitment.map((post, i) => {
-      const editPath = '/#/editRecruitment/' + post._id
-      return (
-        <>
-          <CRow sm="3">
-            <CCol>
-              <h6 className="mb-0">post {i + 1}</h6>
-            </CCol>
-            <CCol sm="5">{post.title.title}</CCol>
-            <CButton className="col-sm-2" color="dark" href={editPath}>
-              Edit
-            </CButton>
-            <CButton
-              className="col-sm-2"
-              color="primary"
-              onClick={() => DeleteRecruitment(post._id)}
-            >
-              Delete
-            </CButton>
-          </CRow>
-          <hr />
-        </>
-      )
-    })
-  }
+
   return (
     <CContainer>
       <CRow>
@@ -295,13 +247,6 @@ const Profile = () => {
               </CCard>
             </CCol>
           </CRow>
-          {recruitment.length !== 0 ? (
-            <CCard className="mb-3">
-              <CCardBody>{showRecruitment(recruitment)}</CCardBody>
-            </CCard>
-          ) : (
-            <></>
-          )}
         </CCol>
       </CRow>
     </CContainer>

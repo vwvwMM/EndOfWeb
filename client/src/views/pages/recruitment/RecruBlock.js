@@ -4,8 +4,11 @@ import PropTypes from 'prop-types'
 import { CWidgetBrand, CRow, CAvatar } from '@coreui/react'
 import eesa from '../../../assets/images/eesa-icon.png'
 import CIcon from '@coreui/icons-react'
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 const RecruBlock = ({ post }) => {
+  const history = useHistory()
   const [isExpand, setIsExpand] = useState(false)
   const spec = (li) => {
     return (
@@ -14,8 +17,20 @@ const RecruBlock = ({ post }) => {
       </div>
     )
   }
+  const DeleteRecruitment = (id) => {
+    console.log('this is id', id)
+    axios
+      .delete('/api/deleteRecruitment', { data: { _id: id } })
+      .then((res) => {
+        alert('delete ', res)
+        history.push('/own_recruitment')
+      })
+      .catch((err) => {
+        err.response.data.description && alert('錯誤\n' + err.response.data.description)
+      })
+  }
   return (
-    <div className="RecruBlock" key={post.id}>
+    <div className="RecruBlock" key={post._id}>
       <CWidgetBrand
         className="mb-4 widgetbrand"
         headerChildren={<img className="eesa" src={eesa} alt="eesa" />}
@@ -29,13 +44,12 @@ const RecruBlock = ({ post }) => {
             <CIcon name="cil-pencil"></CIcon>
           </CAvatar>
           <CAvatar>
-            <CIcon name="cil-trash"></CIcon>
+            <CIcon name="cil-trash" onClick={() => DeleteRecruitment(post._id)}></CIcon>
           </CAvatar>
         </h3>
         <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.info.salary}</h2>
-        <h2 style={{ 'font-size': '1.39rem' }}>
-          | {post.info.experience} | {post.info.diploma}
-        </h2>
+        <h3>要求學歷：</h3>
+        <h4 style={{ 'font-size': '1.39rem' }}>{post.info.diploma}</h4>
         {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
         {isExpand && (
           <>
