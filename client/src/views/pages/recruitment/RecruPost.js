@@ -31,7 +31,7 @@ const RecruPost = ({ data, setData }) => {
         style={{ display: 'flex' }}
       >
         {data.map((post, i) => (
-          <RecruBlock post={post} data={data} setData={setData} index={i} key={i} />
+          <RecruBlock post={post} setData={setData} index={i} key={i} />
         ))}
       </Masonry>
     </>

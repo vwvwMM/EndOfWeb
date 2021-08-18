@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { CWidgetBrand, CRow, CAvatar } from '@coreui/react'
+import { CWidgetBrand, CRow, CAvatar, CButton } from '@coreui/react'
 import eesa from '../../../assets/images/eesa-icon.png'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
 
-const RecruBlock = ({ post, data, setData, index }) => {
+const RecruBlock = ({ post, setData, index }) => {
   const [isExpand, setIsExpand] = useState(false)
   const spec = (li) => {
     return (
@@ -16,7 +16,6 @@ const RecruBlock = ({ post, data, setData, index }) => {
     )
   }
   const DeleteRecruitment = (id) => {
-    console.log('this is index', index)
     axios
       .delete('/api/deleteRecruitment', { data: { _id: id } })
       .then((res) => {
@@ -43,10 +42,10 @@ const RecruBlock = ({ post, data, setData, index }) => {
       <div className="recrucontent">
         <h3 style={{ 'font-weight': '600' }}>
           {post.title.title}
-          <CAvatar>
+          <a className="avatar" href={'/#/editRecruitment/' + post._id}>
             <CIcon name="cil-pencil"></CIcon>
-          </CAvatar>
-          <CAvatar>
+          </a>
+          <CAvatar className="avatar">
             <CIcon name="cil-trash" onClick={() => DeleteRecruitment(post._id)}></CIcon>
           </CAvatar>
         </h3>
@@ -70,7 +69,7 @@ const RecruBlock = ({ post, data, setData, index }) => {
 RecruBlock.propTypes = {
   post: PropTypes.object,
   data: PropTypes.array,
-  key: PropTypes.object,
+  index: PropTypes.object,
   setData: PropTypes.func,
 }
 
