@@ -5,10 +5,8 @@ import { CWidgetBrand, CRow, CAvatar } from '@coreui/react'
 import eesa from '../../../assets/images/eesa-icon.png'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
-import { useHistory } from 'react-router'
 
-const RecruBlock = ({ post }) => {
-  const history = useHistory()
+const RecruBlock = ({ post, data, setData, index }) => {
   const [isExpand, setIsExpand] = useState(false)
   const spec = (li) => {
     return (
@@ -18,11 +16,16 @@ const RecruBlock = ({ post }) => {
     )
   }
   const DeleteRecruitment = (id) => {
-    console.log('this is id', id)
+    console.log('this is index', index)
     axios
       .delete('/api/deleteRecruitment', { data: { _id: id } })
       .then((res) => {
-        console.log('res:', res)
+        setData((data) => {
+          let newData = [...data]
+          newData.splice(index, 1)
+          console.log('this is newData', newData)
+          return newData
+        })
         alert('delete ' + res.data.data)
       })
       .catch((err) => {
@@ -66,6 +69,9 @@ const RecruBlock = ({ post }) => {
 }
 RecruBlock.propTypes = {
   post: PropTypes.object,
+  data: PropTypes.array,
+  key: PropTypes.object,
+  setData: PropTypes.func,
 }
 
 export default RecruBlock
