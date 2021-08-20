@@ -162,6 +162,7 @@ const ShowColumns = () => {
           <Pagination
             count={data.maxPage}
             defaultPage={page}
+            page={page}
             color="secondary"
             onChange={(e, val) => {
               window.scrollTo(0, 0)
@@ -183,21 +184,20 @@ const ShowColumns = () => {
               {articles(data)}
             </Grid>
           </div>
+          <Box my={4} className={classes.paginationContainer}>
+            <Pagination
+              count={data.maxPage}
+              defaultPage={page}
+              page={page}
+              color="secondary"
+              onChange={(e, val) => {
+                window.scrollTo(0, 0)
+                dispatch(setPage(val))
+                setIsPending(true)
+              }}
+            />
+          </Box>
         </>
-      )}
-      {data.maxPage && (
-        <Box my={4} className={classes.paginationContainer}>
-          <Pagination
-            count={data.maxPage}
-            defaultPage={page}
-            color="secondary"
-            onChange={(e, val) => {
-              window.scrollTo(0, 0)
-              dispatch(setPage(val))
-              setIsPending(true)
-            }}
-          />
-        </Box>
       )}
     </div>
   )
