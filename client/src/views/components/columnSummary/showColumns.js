@@ -69,6 +69,7 @@ const ShowColumns = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [data, setData] = useState({ maxPage: undefined, data: [] })
+  const [isSearch, setIsSearch] = useState(false)
   const { page } = useSelector(selectColumnSummary)
   const [isPending, setIsPending] = useState(true)
   const getData = () => {
@@ -85,9 +86,14 @@ const ShowColumns = () => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
       })
   }
+  const searchData = () => {}
   useEffect(() => {
-    getData()
-  }, [page])
+    if (!isSearch) {
+      getData()
+    } else {
+      searchData()
+    }
+  }, [page, isSearch])
   const contributions = (person) => {
     return (
       <Box className={classes.author} key={person}>
@@ -151,17 +157,33 @@ const ShowColumns = () => {
       <Box className={classes.hero}>
         <Box>All Articles</Box>
       </Box>
+      {data.maxPage && (
+        <Box my={4} className={classes.paginationContainer}>
+          <Pagination
+            count={data.maxPage}
+            defaultPage={page}
+            color="secondary"
+            onChange={(e, val) => {
+              window.scrollTo(0, 0)
+              dispatch(setPage(val))
+              setIsPending(true)
+            }}
+          />
+        </Box>
+      )}
       {isPending && (
         <div className="spinner-border text-primary mt-3" role="status">
           <span className="sr-only"></span>
         </div>
       )}
       {!isPending && (
-        <div className={classes.blogsContainer}>
-          <Grid container spacing={1}>
-            {articles(data)}
-          </Grid>
-        </div>
+        <>
+          <div className={classes.blogsContainer}>
+            <Grid container spacing={1}>
+              {articles(data)}
+            </Grid>
+          </div>
+        </>
       )}
       {data.maxPage && (
         <Box my={4} className={classes.paginationContainer}>
