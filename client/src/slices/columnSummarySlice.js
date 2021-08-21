@@ -20,6 +20,6 @@ export const columnSummarySlice = createSlice({
   },
 })
 
-export const { setPage, setKeywords, isSearch } = columnSummarySlice.actions
+export const { setPage, setKeywords, setIsSearch } = columnSummarySlice.actions
 export const selectColumnSummary = (state) => state.columnSummary
 export default columnSummarySlice.reducer

@@ -77,7 +77,9 @@ const ShowColumns = () => {
   const { page, keywords, isSearch } = useSelector(selectColumnSummary)
   const [isPending, setIsPending] = useState(true)
   const getData = () => {
+    setIsPending(true)
     Array.from(document.querySelectorAll('input')).forEach((input) => (input.value = ''))
+    console.log('this is page', page)
     axios
       .get('/api/column/outline', {
         params: { perpage: postsPerPage.toString(), page: page.toString() },
@@ -90,9 +92,11 @@ const ShowColumns = () => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
       })
   }
-  const searchData = (e) => {
-    e.preventDefault()
-    // dispatch(setIsSearch(true))
+  const searchData = (e = null) => {
+    if (e) {
+      e.preventDefault()
+    }
+    dispatch(setIsSearch(true))
     setIsPending(true)
     axios
       .get('/api/column/search', { params: { keyword: keywords, page: page } })
@@ -176,10 +180,13 @@ const ShowColumns = () => {
         <Box
           className="display-1 hover-pointer"
           onClick={() => {
-            setIsPending(true)
             dispatch(setIsSearch(false))
             dispatch(setKeywords(''))
-            getData()
+            if (page === 1) {
+              setData()
+            } else {
+              dispatch(setPage(1))
+            }
           }}
         >
           All Articles
@@ -199,8 +206,9 @@ const ShowColumns = () => {
               <input
                 type="text"
                 name="keywords"
-                placeholder="search for..."
+                placeholder={keywords === '' ? 'search for...' : keywords}
                 className="rounded-3"
+                defaultValue={keywords}
                 onChange={(e) => dispatch(setKeywords(e.target.value))}
               ></input>
             </div>
@@ -228,19 +236,17 @@ const ShowColumns = () => {
             onChange={(e, val) => {
               window.scrollTo(0, 0)
               dispatch(setPage(val))
-              setIsPending(true)
             }}
           />
         </Box>
       ) : (
         []
       )}
-      {isPending && (
+      {isPending === true ? (
         <div className="spinner-border text-primary mt-3" role="status">
           <span className="sr-only"></span>
         </div>
-      )}
-      {!isPending && (
+      ) : (
         <>
           {data && (
             <div className={classes.blogsContainer}>
@@ -258,7 +264,6 @@ const ShowColumns = () => {
               onChange={(e, val) => {
                 window.scrollTo(0, 0)
                 dispatch(setPage(val))
-                setIsPending(true)
               }}
             />
           </Box>
