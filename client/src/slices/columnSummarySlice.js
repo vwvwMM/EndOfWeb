@@ -5,6 +5,7 @@ export const columnSummarySlice = createSlice({
   initialState: {
     page: 1,
     keywords: '',
+    isSearch: false,
   },
   reducers: {
     setPage: (state, action) => {
@@ -13,9 +14,12 @@ export const columnSummarySlice = createSlice({
     setKeywords: (state, action) => {
       state.keywords = action.payload
     },
+    setIsSearch: (state, action) => {
+      state.isSearch = action.payload
+    },
   },
 })
 
-export const { setPage, setKeywords } = columnSummarySlice.actions
+export const { setPage, setKeywords, isSearch } = columnSummarySlice.actions
 export const selectColumnSummary = (state) => state.columnSummary
 export default columnSummarySlice.reducer

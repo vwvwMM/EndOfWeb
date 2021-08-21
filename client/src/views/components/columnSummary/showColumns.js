@@ -15,7 +15,12 @@ import Pagination from '@material-ui/lab/Pagination'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectColumnSummary, setPage, setKeywords } from '../../../slices/columnSummarySlice'
+import {
+  selectColumnSummary,
+  setPage,
+  setKeywords,
+  setIsSearch,
+} from '../../../slices/columnSummarySlice'
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -69,8 +74,7 @@ const ShowColumns = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [data, setData] = useState({ maxPage: undefined, data: [] })
-  const [isSearch, setIsSearch] = useState(false)
-  const { page, keywords } = useSelector(selectColumnSummary)
+  const { page, keywords, isSearch } = useSelector(selectColumnSummary)
   const [isPending, setIsPending] = useState(true)
   const getData = () => {
     Array.from(document.querySelectorAll('input')).forEach((input) => (input.value = ''))
@@ -88,6 +92,7 @@ const ShowColumns = () => {
   }
   const searchData = (e) => {
     e.preventDefault()
+    // dispatch(setIsSearch(true))
     setIsPending(true)
     axios
       .get('/api/column/search', { params: { keyword: keywords, page: page } })
@@ -172,7 +177,7 @@ const ShowColumns = () => {
           className="display-1 hover-pointer"
           onClick={() => {
             setIsPending(true)
-            setIsSearch(false)
+            dispatch(setIsSearch(false))
             dispatch(setKeywords(''))
             getData()
           }}
