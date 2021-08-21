@@ -73,6 +73,7 @@ const ShowColumns = () => {
   const { page, keywords } = useSelector(selectColumnSummary)
   const [isPending, setIsPending] = useState(true)
   const getData = () => {
+    Array.from(document.querySelectorAll('input')).forEach((input) => (input.value = ''))
     axios
       .get('/api/column/outline', {
         params: { perpage: postsPerPage.toString(), page: page.toString() },
@@ -85,7 +86,8 @@ const ShowColumns = () => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
       })
   }
-  const searchData = () => {
+  const searchData = (e) => {
+    e.preventDefault()
     setIsPending(true)
     axios
       .get('/api/column/search', { params: { keyword: keywords, page: page } })
@@ -166,11 +168,21 @@ const ShowColumns = () => {
   return (
     <div>
       <Box className={classes.hero}>
-        <Box className="display-1">All Articles</Box>
+        <Box
+          className="display-1 hover-pointer"
+          onClick={() => {
+            setIsPending(true)
+            setIsSearch(false)
+            dispatch(setKeywords(''))
+            getData()
+          }}
+        >
+          All Articles
+        </Box>
         <form
           className="justify-content-around d-flex flex-column bg-dark rounded-3 text-light py-2"
-          onSubmit={searchData}
-          action={searchData}
+          onSubmit={(e) => searchData(e)}
+          action={(e) => searchData(e)}
         >
           <div className="row">
             <label forhtml="keywords" className="d-flex">
@@ -183,18 +195,23 @@ const ShowColumns = () => {
                 type="text"
                 name="keywords"
                 placeholder="search for..."
+                className="rounded-3"
                 onChange={(e) => dispatch(setKeywords(e.target.value))}
               ></input>
             </div>
             <div className="col-3 align-items-center d-flex">
-              <button type="button" onClick={searchData} className="btn btn-primary d-flex mt-1">
+              <button
+                type="button"
+                onClick={(e) => searchData(e)}
+                className="btn btn-primary d-flex mt-1"
+              >
                 <i className="bi bi-search"></i>
               </button>
             </div>
           </div>
         </form>
       </Box>
-      {data.maxPage === 0 ? (
+      {data.maxPage === 0 && !isPending ? (
         <div className="display-2 d-flex justify-content-center mt-3">No corresponding columns</div>
       ) : data.maxPage ? (
         <Box my={4} className={classes.paginationContainer}>
