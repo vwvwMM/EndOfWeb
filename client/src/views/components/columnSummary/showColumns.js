@@ -79,13 +79,13 @@ const ShowColumns = () => {
   const getData = () => {
     setIsPending(true)
     Array.from(document.querySelectorAll('input')).forEach((input) => (input.value = ''))
-    console.log('this is page', page)
     axios
       .get('/api/column/outline', {
         params: { perpage: postsPerPage.toString(), page: page.toString() },
       })
       .then((res) => {
         setData(res.data)
+        console.log('this is data:',res.data)
         setIsPending(false)
       })
       .catch((err) => {
@@ -183,7 +183,7 @@ const ShowColumns = () => {
             dispatch(setIsSearch(false))
             dispatch(setKeywords(''))
             if (page === 1) {
-              setData()
+              getData()
             } else {
               dispatch(setPage(1))
             }
