@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { createSlice } from '@reduxjs/toolkit'
 
-export const searchSlice = createSlice({
+export const careerSlice = createSlice({
   name: 'career',
   initialState: {
     keywords: '',
@@ -16,7 +16,6 @@ export const searchSlice = createSlice({
   },
 })
 
-export const { setKeywords, clearKeywords } =
-  searchSlice.actions
+export const { setKeywords, clearKeywords } = careerSlice.actions
 export const selectCareer = (state) => state.career
-export default searchSlice.reducer
+export default careerSlice.reducer
