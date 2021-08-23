@@ -78,14 +78,13 @@ const ShowColumns = () => {
   const [isPending, setIsPending] = useState(true)
   const getData = () => {
     setIsPending(true)
-    Array.from(document.querySelectorAll('input')).forEach((input) => (input.value = ''))
     axios
       .get('/api/column/outline', {
         params: { perpage: postsPerPage.toString(), page: page.toString() },
       })
       .then((res) => {
         setData(res.data)
-        console.log('this is data:',res.data)
+        console.log('this is data:', res.data)
         setIsPending(false)
       })
       .catch((err) => {
@@ -189,7 +188,7 @@ const ShowColumns = () => {
             }
           }}
         >
-          All Articles
+          {isSearch ? 'All articles' : 'Search article'}
         </Box>
         <form
           className="justify-content-around d-flex flex-column bg-dark rounded-3 text-light py-2"
@@ -208,7 +207,7 @@ const ShowColumns = () => {
                 name="keywords"
                 placeholder={keywords === '' ? 'search for...' : keywords}
                 className="rounded-3"
-                defaultValue={keywords}
+                value={keywords}
                 onChange={(e) => dispatch(setKeywords(e.target.value))}
               ></input>
             </div>
