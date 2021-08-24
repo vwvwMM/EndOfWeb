@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
-import RecomBlock from './RecruBlock'
-import Masonry from 'react-masonry-css'
 import axios from 'axios'
 import { selectCareer, setKeywords, clearKeywords } from '../../../../slices/careerSlice'
+import RecruPosts from './RecruPosts'
 
 const Recruitment = () => {
-  const breakpointColumnsObj = {
-    default: 2,
-    1100: 2,
-    700: 1,
-    500: 1,
-  }
   const [data, setData] = useState([])
   const dispatch = useDispatch()
   const { keywords } = useSelector(selectCareer)
@@ -111,27 +103,10 @@ const Recruitment = () => {
       ) : isSearch && data.length === 0 ? (
         <div className="display-2 d-flex justify-content-center mt-3">Result not found</div>
       ) : (
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-          columnAttrs={{
-            className: 'should be overridden',
-            'data-test': '',
-            style: { '--test': 'test', color: 'black' },
-          }}
-          style={{ display: 'flex' }}
-        >
-          {data.map((post) => (
-            <RecomBlock post={post} key={post._id} />
-          ))}
-        </Masonry>
+        <RecruPosts data={data} />
       )}
     </>
   )
-}
-Recruitment.propTypes = {
-  data: PropTypes.array,
 }
 
 export default Recruitment
