@@ -14,17 +14,17 @@ const Recommendation = () => {
     700: 1,
     500: 1,
   }
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
   const dispatch = useDispatch()
   const { keywords } = useSelector(selectCareer)
   const [isPending, setIsPending] = useState()
   const searchData = (e) => {
     e.preventDefault()
     axios
-      .post('/api/smartsearchRecommendation', { params: { keyword: keywords } })
+      .post('/api/smartsearchrecommendation', { keyword: keywords })
       .then((res) => {
-        console.log('data:', res.data)
         setData(res.data)
+        console.log('data:', res.data)
         setIsPending(false)
       })
       .catch((err) => {
@@ -33,6 +33,7 @@ const Recommendation = () => {
   }
   const getData = () => {
     setIsPending(true)
+    dispatch(clearKeywords())
     axios
       .get('/api/recommendation')
       .then((res) => {
@@ -51,37 +52,38 @@ const Recommendation = () => {
   return (
     <>
       <form
-        className="justify-content-around d-flex flex-column bg-dark rounded-3 text-light py-2 my-2"
+        className="d-flex flex-column text-light py-2 my-2"
         onSubmit={(e) => searchData(e)}
         action={(e) => searchData(e)}
       >
-        <div className="row">
-          <div className="col-6">
-            <div className="row">
-              <label forhtml="keywords" className="d-flex">
-                &ensp;Key words&#40;split with space&#41;:
-              </label>
+        <div className="col">
+          <button className="btn btn-warning" onClick={() => getData()}>All Recommendation</button>
+        </div>
+        <div className="d-flex flex-column bg-dark rounded-3 py-3 col align-self-center">
+          <div className="row">
+            <label forhtml="keywords" className="d-flex">
+              &ensp;Key words&#40;split with space&#41;:
+            </label>
+          </div>
+          <div className="row justify-content-around d-flex">
+            <div className=" col-8 mt-2">
+              <input
+                type="text"
+                name="keywords"
+                placeholder={keywords === '' ? 'search for...' : keywords}
+                className="rounded-3"
+                defaultValue={keywords}
+                onChange={(e) => dispatch(setKeywords(e.target.value))}
+              ></input>
             </div>
-            <div className="row justify-content-around d-flex">
-              <div className=" col-8 mt-2">
-                <input
-                  type="text"
-                  name="keywords"
-                  placeholder={keywords === '' ? 'search for...' : keywords}
-                  className="rounded-3"
-                  defaultValue={keywords}
-                  onChange={(e) => dispatch(setKeywords(e.target.value))}
-                ></input>
-              </div>
-              <div className="col-3 align-items-center d-flex">
-                <button
-                  type="button"
-                  onClick={(e) => searchData(e)}
-                  className="btn btn-primary d-flex mt-1"
-                >
-                  <i className="bi bi-search"></i>
-                </button>
-              </div>
+            <div className="col-3 align-items-center d-flex">
+              <button
+                type="button"
+                onClick={(e) => searchData(e)}
+                className="btn btn-primary d-flex mt-1"
+              >
+                <i className="bi bi-search"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -90,7 +92,9 @@ const Recommendation = () => {
         <div className="spinner-border text-primary mt-3" role="status">
           <span className="sr-only"></span>
         </div>
-      ) : data ? (
+      ) : data.length === 0 ? (
+        <div className="display-2 d-flex justify-content-center mt-3">Result not found</div>
+      ) : (
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"
@@ -98,16 +102,14 @@ const Recommendation = () => {
           columnAttrs={{
             className: 'should be overridden',
             'data-test': '',
-            style: { '--test': 'test' },
+            style: { '--test': 'test', color: 'black' },
           }}
           style={{ display: 'flex' }}
         >
           {data.map((post) => (
-            <RecomBlock post={post} key={post.id} />
+            <RecomBlock post={post} key={post._id} />
           ))}
         </Masonry>
-      ) : (
-        <div className="display-2">Result not found</div>
       )}
     </>
   )
