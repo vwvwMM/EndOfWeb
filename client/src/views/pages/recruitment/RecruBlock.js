@@ -36,7 +36,7 @@ const RecruBlock = ({ post, setData, index }) => {
     <div className="RecruBlock" key={post._id}>
       <CWidgetBrand
         className="mb-4 widgetbrand"
-        headerChildren={<img className="eesa" src={eesa} alt="eesa" />}
+        headerChildren={<img className="eesa" src={post.imge?post.image:eesa} alt="eesa" />}
         values={[[post.title.company_name]]}
       />
       <hr></hr>

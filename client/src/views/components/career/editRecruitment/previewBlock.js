@@ -7,6 +7,14 @@ import parse from 'html-react-parser'
 
 const PreviewBlock = ({ post, experience, requirement, description }) => {
   const [isExpand, setIsExpand] = useState(false)
+  const [previewURL, setPreviewURL] = useState(null)
+  let reader = new FileReader()
+  reader.onloadend = () => {
+    setPreviewURL(reader.result)
+  }
+  if (post.file) {
+    reader.readAsDataURL(post.file)
+  }
   const spec = (li) => {
     return (
       <div key={li} style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
@@ -19,7 +27,7 @@ const PreviewBlock = ({ post, experience, requirement, description }) => {
       <div className="PreviewBlock" key={post.id}>
         <CWidgetBrand
           className="mb-4 widgetbrand"
-          headerChildren={<img className="eesa" src={eesa} alt="eesa" />}
+          headerChildren={<img className="eesa" src={previewURL ? previewURL : eesa} alt="eesa" />}
           values={[[post.companyName]]}
         />
         <hr></hr>
@@ -48,7 +56,7 @@ const PreviewBlock = ({ post, experience, requirement, description }) => {
       <div className="PreviewBlock" key={post.id}>
         <CWidgetBrand
           className="mb-4 widgetbrand"
-          headerChildren={<img className="eesa" src={eesa} alt="eesa" />}
+          headerChildren={<img className="eesa" src={previewURL ? previewURL : eesa} alt="eesa" />}
           values={[['~~~~~~~~~~~~~~~~~~']]}
         />
         <div className="previewcontent">
