@@ -47,7 +47,6 @@ const EditBlock = ({ data }) => {
   const [editForm, setEditForm] = useState(EditFormTemplate)
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
-    uploader: { url: 'none' },
   }
   const handleInputChange = (e) => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value })
