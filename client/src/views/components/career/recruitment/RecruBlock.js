@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
 import eesa from '../../../../assets/images/eesa-icon.png'
+import parser from 'html-react-parser'
 
 const RecruBlock = ({ post }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -37,7 +38,7 @@ const RecruBlock = ({ post }) => {
             <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
             <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
             <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
-            <h4>{post.spec.description.map((des) => spec(des))}</h4>
+            <h4>{post.spec.description.map((des) => spec(parser(des)))}</h4>
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}

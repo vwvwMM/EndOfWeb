@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
 import eesa from '../../../../assets/images/eesa-icon.png'
+import parse from 'html-react-parser'
 
 const PreviewBlock = ({ post, experience, requirement, description }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -35,7 +36,7 @@ const PreviewBlock = ({ post, experience, requirement, description }) => {
               <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
               <h4>{requirement.map((req) => spec(req))}</h4>
               <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>說明：</h3>
-              {description.map((des) => spec(des))}
+              {description.map((des) => spec(parse(des)))}
               <button onClick={() => setIsExpand(false)}>Show less...</button>
             </>
           )}

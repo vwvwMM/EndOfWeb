@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "react-tooltip": "^4.2.21"
   },
   "devDependencies": {
     "husky": "^7.0.0",
