@@ -28,7 +28,7 @@ const PreviewBlock = ({ post, experience, requirement, description }) => {
         <CWidgetBrand
           className="mb-4 widgetbrand"
           headerChildren={<img className="eesa" src={previewURL ? previewURL : eesa} alt="eesa" />}
-          values={[[`${post.companyName} 徵 ${post.work_type}`]]}
+          values={[[`${post.companyName} 徵 ${post.workType}`]]}
         />
         <hr></hr>
         <div className="previewcontent">

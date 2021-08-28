@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useState, useRef } from 'react'
+import React, { useState} from 'react'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
 import ReactTooltip from 'react-tooltip'
@@ -82,14 +82,17 @@ const EditBlock = ({data}) => {
   const handleChangeImage = (e) => {
     let reader = new FileReader()
     let file = e.target.files[0]
-    setFileButton(e.target)
-    setRecommendationForm({ ...recommendationForm, file: file })
-    reader.onloadend = () => {
-      setPreviewURL(reader.result)
+    if(file){
+
+      setFileButton(e.target)
+      setRecommendationForm({ ...recommendationForm, file: file })
+      reader.onloadend = () => {
+        setPreviewURL(reader.result)
+      }
+      reader.readAsDataURL(file)
+      // call the modal
+      setIsModal(true)
     }
-    reader.readAsDataURL(file)
-    // call the modal
-    setIsModal(true)
   }
 
   const clearImage = (e) => {
