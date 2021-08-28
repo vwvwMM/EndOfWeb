@@ -38,7 +38,7 @@ const EditBlock = ({data}) => {
   const history = useHistory()
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
-  const [previewURL, setPreviewURL] = useState(null)
+  const [previewURL, setPreviewURL] = useState(data.image)
   const [experience, setExperience] = useState(data.spec.experience)
   const [speciality, setSpeciality] = useState(data.spec.speciality)
   const [fileButton, setFileButton] = useState(null)
@@ -82,8 +82,6 @@ const EditBlock = ({data}) => {
   const handleChangeImage = (e) => {
     let reader = new FileReader()
     let file = e.target.files[0]
-    if(file){
-
       setFileButton(e.target)
       setRecommendationForm({ ...recommendationForm, file: file })
       reader.onloadend = () => {
@@ -92,7 +90,6 @@ const EditBlock = ({data}) => {
       reader.readAsDataURL(file)
       // call the modal
       setIsModal(true)
-    }
   }
 
   const clearImage = (e) => {

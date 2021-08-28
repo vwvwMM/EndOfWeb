@@ -98,8 +98,6 @@ const EditBlock = ({ data }) => {
   const handleChangeImage = (e) => {
     let reader = new FileReader()
     let file = e.target.files[0]
-    console.log(file)
-    if(file){
       setFileButton(e.target)
       setEditForm({ ...editForm, file: file })
       reader.onloadend = () => {
@@ -108,7 +106,6 @@ const EditBlock = ({ data }) => {
       reader.readAsDataURL(file)
       // call the modal
       setImageModal(true)
-    }
   }
 
   const clearImage = (e) => {
