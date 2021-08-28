@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { CCol, CContainer, CRow, CButton } from '@coreui/react'
+import { CCol, CContainer, CRow } from '@coreui/react'
 import React from 'react'
 
 const Contact = () => {
