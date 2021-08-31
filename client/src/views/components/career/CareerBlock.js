@@ -2,13 +2,48 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { CWidgetBrand } from '@coreui/react'
+import { CWidgetBrand, CAvatar } from '@coreui/react'
 import eesa from '../../../assets/images/eesa-icon.png'
+import CIcon from '@coreui/icons-react'
+import axios from 'axios'
 import parser from 'html-react-parser'
 
-const CareerBlock = ({ post }) => {
-  const location=useLocation()
+const CareerBlock = ({ post, setData, index }) => {
+  const location = useLocation()
   const [isExpand, setIsExpand] = useState(false)
+  const DeleteRecruitment = (id) => {
+    if (location.pathname.search('cruitment') > 0) {
+      axios
+        .delete('/api/deleteRecruitment', { data: { _id: id } })
+        .then((res) => {
+          setData((data) => {
+            let newData = [...data]
+            newData.splice(index, 1)
+            console.log('this is newData', newData)
+            return newData
+          })
+          alert('delete ' + res.data.data)
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    } else if (location.pathname.search('commendation') > 0) {
+      axios
+        .delete('/api/recommendation', { data: { _id: id } })
+        .then((res) => {
+          setData((data) => {
+            let newData = [...data]
+            newData.splice(index, 1)
+            console.log('this is newData', newData)
+            return newData
+          })
+          alert('delete ' + res.data.data)
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    }
+  }
   const spec = (li) => {
     return (
       <div key={li} style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
@@ -16,7 +51,7 @@ const CareerBlock = ({ post }) => {
       </div>
     )
   }
-  return post.spec.description ? (
+  return location.pathname.search('cruitment') > 0 ? (
     <div className="RecruBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
         <CWidgetBrand
@@ -27,7 +62,21 @@ const CareerBlock = ({ post }) => {
       </Link>
       <hr></hr>
       <div className="recrucontent">
-        <h3 style={{ 'font-weight': '600' }}>{post.title.title}</h3>
+        <h3 style={{ 'font-weight': '600' }}>
+          {post.title.title}
+          {location.pathname.search('own') > 0 ? (
+            <>
+              <a className="hover-pointer" href={'/#/editRecruitment/' + post._id}>
+                <CIcon name="cil-pencil"></CIcon>
+              </a>
+              <CAvatar className="hover-pointer">
+                <CIcon name="cil-trash" onClick={() => DeleteRecruitment(post._id)}></CIcon>
+              </CAvatar>
+            </>
+          ) : (
+            <></>
+          )}
+        </h3>
         <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.info.salary}</h2>
         <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
         <div style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.info.diploma}</div>
@@ -57,6 +106,18 @@ const CareerBlock = ({ post }) => {
       <div className="recomcontent">
         <h3>
           {post.title.name} asking for <nobr>{post.title.desire_work_type}</nobr>
+          {location.pathname.search('own') > 0 ? (
+            <>
+              <a className="hover-pointer" href={'/#/editRecruitment/' + post._id}>
+                <CIcon name="cil-pencil"></CIcon>
+              </a>
+              <CAvatar className="hover-pointer">
+                <CIcon name="cil-trash" onClick={() => DeleteRecruitment(post._id)}></CIcon>
+              </CAvatar>
+            </>
+          ) : (
+            <></>
+          )}
         </h3>
         <h2 style={{ margin: '1rem 0rem' }}>{post.title.title}</h2>
         <div style={{ 'font-size': '1.39rem' }}>
@@ -79,8 +140,7 @@ const CareerBlock = ({ post }) => {
 }
 CareerBlock.propTypes = {
   post: PropTypes.object,
-  experience: PropTypes.array,
-  requirement: PropTypes.array,
-  description: PropTypes.array,
+  setData: PropTypes.func,
+  index: PropTypes.number,
 }
 export default CareerBlock

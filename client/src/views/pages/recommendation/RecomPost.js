@@ -30,7 +30,7 @@ const RecomPost = ({ data, setData }) => {
         style={{ display: 'flex' }}
       >
         {data.map((post, i) => (
-          <CareerBlock post={post} key={i} />
+          <CareerBlock post={post} setData={setData} index={i} key={i} />
         ))}
       </Masonry>
     </>
