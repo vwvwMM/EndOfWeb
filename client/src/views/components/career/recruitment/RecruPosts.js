@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
-import RecomBlock from './RecruBlock'
+import CareerBlock from '../CareerBlock'
 import Masonry from 'react-masonry-css'
 
 const RecruPosts = ({ data }) => {
@@ -25,7 +25,7 @@ const RecruPosts = ({ data }) => {
       style={{ display: 'flex' }}
     >
       {data.map((post) => (
-        <RecomBlock post={post} key={post._id} />
+        <CareerBlock post={post} key={post._id} />
       ))}
     </Masonry>
   )

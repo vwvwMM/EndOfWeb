@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react'
 import JoditEditor from 'jodit-react'
 import ReactTooltip from 'react-tooltip'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import PreviewBlock from '../editRecruitment/previewBlock'
 import {
   CButton,
@@ -34,6 +34,7 @@ const formTemplate = {
 const AddRecruitment = () => {
   const history = useHistory()
   const editor = useRef(null)
+  const location = useLocation()
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
