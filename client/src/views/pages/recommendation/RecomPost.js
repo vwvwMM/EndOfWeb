@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
-import RecomBlock from './RecomBlock'
+import CareerBlock from '../../components/career/CareerBlock'
 import Masonry from 'react-masonry-css'
 
 const RecomPost = ({ data, setData }) => {
@@ -30,7 +30,7 @@ const RecomPost = ({ data, setData }) => {
         style={{ display: 'flex' }}
       >
         {data.map((post, i) => (
-          <RecomBlock post={post} setData={setData} index={i} key={i} />
+          <CareerBlock post={post} key={i} />
         ))}
       </Masonry>
     </>

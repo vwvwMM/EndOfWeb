@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
 import eesa from '../../../assets/images/eesa-icon.png'
 import parser from 'html-react-parser'
 
 const CareerBlock = ({ post }) => {
+  const location=useLocation()
   const [isExpand, setIsExpand] = useState(false)
   const spec = (li) => {
     return (

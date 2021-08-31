@@ -19,12 +19,12 @@ const Recruitment = React.lazy(() => import('./views/components/career/recruitme
 // const AddRecommendation = React.lazy(() =>
 //   import('./views/components/career/addRecommendation/addRecommendation'),
 // )
-// const EditRecruitment = React.lazy(() =>
-//   import('./views/components/career/editRecruitment/editRecruitment'),
-// )
-// const EditRecommendation = React.lazy(() =>
-//   import('./views/components/career/editRecommendation/editRecommendation'),
-// )
+const EditRecruitment = React.lazy(() =>
+  import('./views/components/career/editRecruitment/editRecruitment'),
+)
+const EditRecommendation = React.lazy(() =>
+  import('./views/components/career/editRecommendation/editRecommendation'),
+)
 
 const CareerForm = React.lazy(() => import('./views/components/career/CareerForm'))
 
@@ -49,13 +49,13 @@ const routes = [
     path: '/editRecruitment/:id',
     exact: false,
     name: 'EditRecruitment',
-    component: CareerForm,
+    component: EditRecruitment,
   },
   {
     path: '/editRecommendation/:id',
     exact: false,
     name: 'EditRecommendation',
-    component: CareerForm,
+    component: EditRecommendation,
   },
   { path: '/editRecruitment', name: 'EditRecruitment', component: Recruitment },
   { path: '/editRecommendation', name: 'EditRecommendation', component: Recommendation },

@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Masonry from 'react-masonry-css'
 import RecruBlock from './RecruBlock'
+import CareerBlock from '../../components/career/CareerBlock'
 
 const RecruPost = ({ data, setData }) => {
   const breakpointColumnsObj = {
@@ -30,7 +31,7 @@ const RecruPost = ({ data, setData }) => {
         style={{ display: 'flex' }}
       >
         {data.map((post, i) => (
-          <RecruBlock post={post} setData={setData} index={i} key={i} />
+          <CareerBlock post={post} key={i} />
         ))}
       </Masonry>
     </>

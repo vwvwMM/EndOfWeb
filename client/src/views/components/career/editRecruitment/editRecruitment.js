@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import EditBlock from './editBlock'
+import CareerForm from '../CareerForm'
 import axios from 'axios'
 const EditRecruitment = () => {
   const id = useParams().id
@@ -20,7 +20,7 @@ const EditRecruitment = () => {
   useEffect(() => {
     getData()
   }, [])
-  return <>{data._id && <EditBlock data={data} />}</>
+  return <>{data._id && <CareerForm data={data} />}</>
 }
 
 export default EditRecruitment

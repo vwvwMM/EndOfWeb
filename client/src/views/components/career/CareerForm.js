@@ -55,7 +55,7 @@ const CareerForm = ({ data }) => {
           salary: data.info.salary,
           diploma: data.info.diploma,
           file: data.image,
-          id: data._id,
+          _id: data._id,
         }
       : {
           title: data.title.title,
@@ -67,6 +67,7 @@ const CareerForm = ({ data }) => {
           file: data.image,
           _id: data._id,
         }
+  console.log('formTemplate:', formTemplate)
   const history = useHistory()
   const editor = useRef(null)
   const [isModal, setIsModal] = useState(false)
@@ -75,7 +76,11 @@ const CareerForm = ({ data }) => {
     location.pathname.search('add') > 0 ? null : data.image,
   )
   const [experience, setExperience] = useState(
-    location.pathname.search('add') > 0 ? [''] : data.spec.experience,
+    location.pathname.search('add') > 0
+      ? ['']
+      : location.pathname.search('Recruitment') > 0
+      ? data.info.experience
+      : data.spec.experience,
   )
   const [speciality, setSpeciality] = useState(
     location.pathname.search('add') > 0 ? [''] : data.spec.speciality,
@@ -161,31 +166,89 @@ const CareerForm = ({ data }) => {
   }
   const handleSubmit = () => {
     const data = new FormData()
-    data.append('title', dataForm.title)
-    data.append('name', dataForm.name)
-    data.append('desire_work_type', dataForm.desireWorkType)
-    data.append('contact', dataForm.contact)
-    data.append('email', dataForm.email)
-    data.append('diploma', dataForm.diploma)
-    data.append('_id', dataForm._id)
-    for (let exp of experience) {
-      data.append('experience[]', exp)
+    if (location.pathname.search('Recommendation') > 0) {
+      data.append('title', dataForm.title)
+      data.append('name', dataForm.name)
+      data.append('desire_work_type', dataForm.desireWorkType)
+      data.append('contact', dataForm.contact)
+      data.append('email', dataForm.email)
+      data.append('diploma', dataForm.diploma)
+      for (let exp of experience) {
+        data.append('experience[]', exp)
+      }
+      for (let spec of speciality) {
+        data.append('speciality[]', spec)
+      }
+      data.append('file', dataForm.file)
+      const config = { 'content-type': 'multipart/form-data' }
+      if (location.pathname.search('edit') > 0) {
+        data.append('_id', dataForm._id)
+        console.log('in edit recommendation', data)
+        axios
+          .patch('/api/recommendation', data, config)
+          .then(() => {
+            alert('已更新')
+            history.push('/own_recommendation')
+          })
+          .catch((err) => {
+            err.response.data.description && alert('錯誤\n' + err.response.data.description)
+          })
+      } else if (location.pathname.search('add') > 0) {
+        console.log('in add recommendation', data)
+        axios
+          .post('/api/recommendation', data, config)
+          .then(() => {
+            alert('已新增')
+            history.push('/own_recommendation')
+          })
+          .catch((err) => {
+            err.response.data.description && alert('錯誤\n' + err.response.data.description)
+          })
+      }
+    } else if (location.pathname.search('Recruitment') > 0) {
+      data.append('title', dataForm.title)
+      data.append('company_name', dataForm.companyName)
+      data.append('work_type', dataForm.workType)
+      data.append('salary', dataForm.salary)
+      data.append('diploma', dataForm.diploma)
+      for (let exp of experience) {
+        data.append('experience[]', exp)
+      }
+      for (let req of requirement) {
+        data.append('requirement[]', req)
+      }
+      for (let desc of description) {
+        data.append('description[]', desc)
+      }
+      data.append('file', dataForm.file)
+      const config = {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+      if (location.pathname.search('add') > 0) {
+        console.log('in add recruitment', data)
+        axios
+          .post('/api/addRecruitment', data, config)
+          .then(() => {
+            alert('已新增')
+            history.push('/own_recruitment')
+          })
+          .catch((err) => {
+            err.response.data.description && alert('錯誤\n' + err.response.data.description)
+          })
+      } else if (location.pathname.search('edit') > 0) {
+        data.append('_id', dataForm._id)
+        console.log('in edit recruitment', data)
+        axios
+          .patch('/api/recruitment', data, config)
+          .then(() => {
+            alert('已更新')
+            history.push('/own_recruitment')
+          })
+          .catch((err) => {
+            err.response.data.description && alert('錯誤\n' + err.response.data.description)
+          })
+      }
     }
-    for (let spec of speciality) {
-      data.append('speciality[]', spec)
-    }
-    data.append('file', dataForm.file)
-    const config = { 'content-type': 'multipart/form-data' }
-
-    axios
-      .patch('/api/recommendation', data, config)
-      .then(() => {
-        alert('已更新')
-        history.push('/own_recommendation')
-      })
-      .catch((err) => {
-        err.response.data.description && alert('錯誤\n' + err.response.data.description)
-      })
   }
   return (
     <>
@@ -245,6 +308,7 @@ const CareerForm = ({ data }) => {
                             data-for="title"
                             data-tip="Use impressing title to get people's attention!"
                             placeholder="The job title"
+                            value={dataForm.title}
                             name="title"
                             onChange={handleInputChange}
                           />
@@ -258,6 +322,7 @@ const CareerForm = ({ data }) => {
                             data-for="companyName"
                             data-tip="Enter your company's name"
                             placeholder="Company name"
+                            value={dataForm.companyName}
                             name="companyName"
                             onChange={handleInputChange}
                           />
@@ -271,6 +336,7 @@ const CareerForm = ({ data }) => {
                             data-for="workType"
                             data-tip="The position you are recruiting"
                             placeholder="Work Type"
+                            value={dataForm.workType}
                             name="workType"
                             onChange={handleInputChange}
                           />
@@ -285,6 +351,7 @@ const CareerForm = ({ data }) => {
                             data-tip="Salary paid (/month or /year)"
                             placeholder="Salary"
                             name="salary"
+                            value={dataForm.salary}
                             onChange={handleInputChange}
                           />
                           <ReactTooltip id="salary" place="top" type="dark" effect="solid" />
@@ -297,6 +364,7 @@ const CareerForm = ({ data }) => {
                             data-for="diploma"
                             data-tip="Prefered education degree or major"
                             placeholder="Diploma"
+                            value={dataForm.diploma}
                             name="diploma"
                             onChange={handleInputChange}
                           />
@@ -459,6 +527,7 @@ const CareerForm = ({ data }) => {
                             data-for="title"
                             data-tip="Use impressing title to get people's attention!"
                             placeholder="Title"
+                            value={dataForm.title}
                             name="title"
                             onChange={handleInputChange}
                           />
@@ -472,6 +541,7 @@ const CareerForm = ({ data }) => {
                             data-for="name"
                             data-tip="Enter your name"
                             placeholder="Name"
+                            value={dataForm.name}
                             name="name"
                             onChange={handleInputChange}
                           />
@@ -485,6 +555,7 @@ const CareerForm = ({ data }) => {
                             data-for="workType"
                             data-tip="What's your desired work?"
                             placeholder="Desired Work Type"
+                            value={dataForm.desireWorkType}
                             name="desireWorkType"
                             onChange={handleInputChange}
                           />
@@ -498,6 +569,7 @@ const CareerForm = ({ data }) => {
                             data-for="phone"
                             data-tip="Let others can call you!"
                             placeholder="Phone"
+                            value={dataForm.contact}
                             name="contact"
                             onChange={handleInputChange}
                           />
@@ -509,6 +581,7 @@ const CareerForm = ({ data }) => {
                             data-for="mail"
                             data-tip="Let others can email you!"
                             placeholder="Email"
+                            value={dataForm.email}
                             name="email"
                             onChange={handleInputChange}
                           />
@@ -522,6 +595,7 @@ const CareerForm = ({ data }) => {
                             data-for="diploma"
                             data-tip="Enter your highest education level"
                             placeholder="Diploma"
+                            value={dataForm.diploma}
                             name="diploma"
                             onChange={handleInputChange}
                           />
