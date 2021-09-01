@@ -2,10 +2,10 @@
 import React, { useState } from 'react'
 import PropTypes, { object } from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
-import eesa from '../../../../assets/images/eesa-icon.png'
+import eesa from '../../../assets/images/eesa-icon.png'
 import parse from 'html-react-parser'
 
-const PreviewBlock = ({ post, experience, requirement, description }) => {
+const CareerPreview = ({ post, experience, requirement, description }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
   if (typeof(post.file)==='object') {
@@ -83,11 +83,11 @@ const PreviewBlock = ({ post, experience, requirement, description }) => {
     )
   }
 }
-PreviewBlock.propTypes = {
+CareerPreview.propTypes = {
   post: PropTypes.object,
   experience: PropTypes.array,
   requirement: PropTypes.array,
   description: PropTypes.array,
 }
 
-export default PreviewBlock
+export default CareerPreview

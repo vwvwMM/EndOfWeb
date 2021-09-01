@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import RecruPost from './RecruPost'
+import Masonry from 'react-masonry-css'
+import CareerBlock from '../../components/career/CareerBlock'
 import axios from 'axios'
 
 const OwnRecruitment = () => {
   const [data, setData] = useState([])
+  const breakpointColumnsObj = {
+    default: 2,
+    1100: 2,
+    700: 1,
+    500: 1,
+  }
   const getData = () => {
     axios
       .get('/api/recruitment')
@@ -19,7 +26,28 @@ const OwnRecruitment = () => {
     getData()
   }, [])
   return (
-    <div className="text-color-black">{data && <RecruPost data={data} setData={setData} />}</div>
+    <div className="text-color-black">
+      <a href="/#/addRecruitment">
+        <div className="d-flex justify-content-center add" width="100%">
+          +
+        </div>
+      </a>
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+        columnAttrs={{
+          className: 'should be overridden',
+          'data-test': '',
+          style: { '--test': 'test' },
+        }}
+        style={{ display: 'flex' }}
+      >
+        {data.map((post, i) => (
+          <CareerBlock post={post} setData={setData} index={i} key={i} />
+        ))}
+      </Masonry>
+    </div>
   )
 }
 

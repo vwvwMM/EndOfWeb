@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import EditBlock from './editBlock'
 import CareerForm from '../CareerForm'
 import axios from 'axios'
 const EditRecommendation = () => {

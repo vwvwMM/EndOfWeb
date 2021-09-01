@@ -23,77 +23,63 @@ import {
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
-import PreviewBlock from './editRecruitment/previewBlock'
+import PreviewBlock from './CareerPreview'
 const CareerForm = ({ data }) => {
   const location = useLocation()
-  const add=location.pathname.search('add')>0?true:false
-  const edit=location.pathname.search('edit')>0?true:false
-  const recru=location.pathname.search('Recruitment')>0?true:false
-  const recom=location.pathname.search('Recommendation')>0?true:false
-  const formTemplate =
-    add
-      ? recru
-        ? {
-            title: '',
-            companyName: '',
-            workType: '',
-            salary: '',
-            diploma: '',
-            file: '',
-          }
-        : {
-            title: '',
-            name: '',
-            desireWorkType: '',
-            contact: '',
-            email: '',
-            diploma: '',
-            file: '',
-          }
-      : recru
+  const add = location.pathname.search('add') > 0 ? true : false
+  const edit = location.pathname.search('edit') > 0 ? true : false
+  const recru = location.pathname.search('Recruitment') > 0 ? true : false
+  const recom = location.pathname.search('Recommendation') > 0 ? true : false
+  const formTemplate = add
+    ? recru
       ? {
-          title: data.title.title,
-          companyName: data.title.company_name,
-          workType: data.title.work_type,
-          salary: data.info.salary,
-          diploma: data.info.diploma,
-          file: data.image,
-          _id: data._id,
+          title: '',
+          companyName: '',
+          workType: '',
+          salary: '',
+          diploma: '',
+          file: '',
         }
       : {
-          title: data.title.title,
-          name: data.title.name,
-          desireWorkType: data.title.desire_work_type,
-          contact: data.info.contact,
-          email: data.info.email,
-          diploma: data.info.diploma,
-          file: data.image,
-          _id: data._id,
+          title: '',
+          name: '',
+          desireWorkType: '',
+          contact: '',
+          email: '',
+          diploma: '',
+          file: '',
         }
-  console.log('formTemplate:', formTemplate)
+    : recru
+    ? {
+        title: data.title.title,
+        companyName: data.title.company_name,
+        workType: data.title.work_type,
+        salary: data.info.salary,
+        diploma: data.info.diploma,
+        file: data.image,
+        _id: data._id,
+      }
+    : {
+        title: data.title.title,
+        name: data.title.name,
+        desireWorkType: data.title.desire_work_type,
+        contact: data.info.contact,
+        email: data.info.email,
+        diploma: data.info.diploma,
+        file: data.image,
+        _id: data._id,
+      }
   const history = useHistory()
   const editor = useRef(null)
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
-  const [previewURL, setPreviewURL] = useState(
-    add ? null : data.image,
-  )
+  const [previewURL, setPreviewURL] = useState(null)
   const [experience, setExperience] = useState(
-    add
-      ? ['']
-      : recru
-      ? data.info.experience
-      : data.spec.experience,
+    add ? [''] : recru ? data.info.experience : data.spec.experience,
   )
-  const [speciality, setSpeciality] = useState(
-    add ? [''] : data.spec.speciality,
-  )
-  const [requirement, setRequirement] = useState(
-    add ? [''] : data.spec.requirement,
-  )
-  const [description, setDescription] = useState(
-    add ? [''] : data.spec.description,
-  )
+  const [speciality, setSpeciality] = useState(add ? [''] : data.spec.speciality)
+  const [requirement, setRequirement] = useState(add ? [''] : data.spec.requirement)
+  const [description, setDescription] = useState(add ? [''] : data.spec.description)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
   const config = {
@@ -146,7 +132,7 @@ const CareerForm = ({ data }) => {
     } else if (e.target.name === 'speciality') {
       const newArray = speciality.filter((spec, idx) => idx !== index)
       setSpeciality(newArray)
-    }else if(e.target.name==='requirement'){
+    } else if (e.target.name === 'requirement') {
       const newArray = requirement.filter((req, idx) => idx !== index)
       setRequirement(newArray)
     }
@@ -185,11 +171,12 @@ const CareerForm = ({ data }) => {
       for (let spec of speciality) {
         data.append('speciality[]', spec)
       }
-      data.append('file', dataForm.file)
+      if (previewURL) {
+        data.append('file', dataForm.file)
+      }
       const config = { 'content-type': 'multipart/form-data' }
       if (edit) {
         data.append('_id', dataForm._id)
-        console.log('in edit recommendation', data)
         axios
           .patch('/api/recommendation', data, config)
           .then(() => {
@@ -226,7 +213,9 @@ const CareerForm = ({ data }) => {
       for (let desc of description) {
         data.append('description[]', desc)
       }
-      data.append('file', dataForm.file)
+      if (previewURL) {
+        data.append('file', dataForm.file)
+      }
       const config = {
         headers: { 'content-type': 'multipart/form-data' },
       }
