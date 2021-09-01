@@ -26,10 +26,13 @@ import CIcon from '@coreui/icons-react'
 import PreviewBlock from './editRecruitment/previewBlock'
 const CareerForm = ({ data }) => {
   const location = useLocation()
-
+  const add=location.pathname.search('add')>0?true:false
+  const edit=location.pathname.search('edit')>0?true:false
+  const recru=location.pathname.search('Recruitment')>0?true:false
+  const recom=location.pathname.search('Recommendation')>0?true:false
   const formTemplate =
-    location.pathname.search('add') > 0
-      ? location.pathname.search('Recruitment') > 0
+    add
+      ? recru
         ? {
             title: '',
             companyName: '',
@@ -47,7 +50,7 @@ const CareerForm = ({ data }) => {
             diploma: '',
             file: '',
           }
-      : location.pathname.search('Recruitment') > 0
+      : recru
       ? {
           title: data.title.title,
           companyName: data.title.company_name,
@@ -73,23 +76,23 @@ const CareerForm = ({ data }) => {
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(
-    location.pathname.search('add') > 0 ? null : data.image,
+    add ? null : data.image,
   )
   const [experience, setExperience] = useState(
-    location.pathname.search('add') > 0
+    add
       ? ['']
-      : location.pathname.search('Recruitment') > 0
+      : recru
       ? data.info.experience
       : data.spec.experience,
   )
   const [speciality, setSpeciality] = useState(
-    location.pathname.search('add') > 0 ? [''] : data.spec.speciality,
+    add ? [''] : data.spec.speciality,
   )
   const [requirement, setRequirement] = useState(
-    location.pathname.search('add') > 0 ? [''] : data.spec.requirement,
+    add ? [''] : data.spec.requirement,
   )
   const [description, setDescription] = useState(
-    location.pathname.search('add') > 0 ? [''] : data.spec.description,
+    add ? [''] : data.spec.description,
   )
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
@@ -143,6 +146,9 @@ const CareerForm = ({ data }) => {
     } else if (e.target.name === 'speciality') {
       const newArray = speciality.filter((spec, idx) => idx !== index)
       setSpeciality(newArray)
+    }else if(e.target.name==='requirement'){
+      const newArray = requirement.filter((req, idx) => idx !== index)
+      setRequirement(newArray)
     }
   }
   const handleChangeImage = (e) => {
@@ -166,7 +172,7 @@ const CareerForm = ({ data }) => {
   }
   const handleSubmit = () => {
     const data = new FormData()
-    if (location.pathname.search('Recommendation') > 0) {
+    if (recom) {
       data.append('title', dataForm.title)
       data.append('name', dataForm.name)
       data.append('desire_work_type', dataForm.desireWorkType)
@@ -181,7 +187,7 @@ const CareerForm = ({ data }) => {
       }
       data.append('file', dataForm.file)
       const config = { 'content-type': 'multipart/form-data' }
-      if (location.pathname.search('edit') > 0) {
+      if (edit) {
         data.append('_id', dataForm._id)
         console.log('in edit recommendation', data)
         axios
@@ -193,7 +199,7 @@ const CareerForm = ({ data }) => {
           .catch((err) => {
             err.response.data.description && alert('錯誤\n' + err.response.data.description)
           })
-      } else if (location.pathname.search('add') > 0) {
+      } else if (add) {
         console.log('in add recommendation', data)
         axios
           .post('/api/recommendation', data, config)
@@ -205,7 +211,7 @@ const CareerForm = ({ data }) => {
             err.response.data.description && alert('錯誤\n' + err.response.data.description)
           })
       }
-    } else if (location.pathname.search('Recruitment') > 0) {
+    } else if (recru) {
       data.append('title', dataForm.title)
       data.append('company_name', dataForm.companyName)
       data.append('work_type', dataForm.workType)
@@ -224,7 +230,7 @@ const CareerForm = ({ data }) => {
       const config = {
         headers: { 'content-type': 'multipart/form-data' },
       }
-      if (location.pathname.search('add') > 0) {
+      if (add) {
         console.log('in add recruitment', data)
         axios
           .post('/api/addRecruitment', data, config)
@@ -235,7 +241,7 @@ const CareerForm = ({ data }) => {
           .catch((err) => {
             err.response.data.description && alert('錯誤\n' + err.response.data.description)
           })
-      } else if (location.pathname.search('edit') > 0) {
+      } else if (edit) {
         data.append('_id', dataForm._id)
         console.log('in edit recruitment', data)
         axios
@@ -268,7 +274,7 @@ const CareerForm = ({ data }) => {
           </CButton>
         </CModalFooter>
       </CModal>
-      {location.pathname.search('Recruitment') > 0 ? (
+      {recru ? (
         <>
           <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">
             <CModalHeader onDismiss={() => setBlockModal(false)}>

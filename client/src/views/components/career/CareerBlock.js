@@ -10,9 +10,12 @@ import parser from 'html-react-parser'
 
 const CareerBlock = ({ post, setData, index }) => {
   const location = useLocation()
+  const recru=location.pathname.search('cruitment')>0?true:false
+  const recom=location.pathname.search('commendation')>0?true:false
+  const own=location.pathname.search('own')>0?true:false
   const [isExpand, setIsExpand] = useState(false)
   const DeleteRecruitment = (id) => {
-    if (location.pathname.search('cruitment') > 0) {
+    if (recru) {
       axios
         .delete('/api/deleteRecruitment', { data: { _id: id } })
         .then((res) => {
@@ -27,7 +30,7 @@ const CareerBlock = ({ post, setData, index }) => {
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
         })
-    } else if (location.pathname.search('commendation') > 0) {
+    } else if (recom) {
       axios
         .delete('/api/recommendation', { data: { _id: id } })
         .then((res) => {
@@ -37,7 +40,7 @@ const CareerBlock = ({ post, setData, index }) => {
             console.log('this is newData', newData)
             return newData
           })
-          alert('delete ' + res.data.data)
+          alert('delete ' + res.data.title)
         })
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -51,7 +54,7 @@ const CareerBlock = ({ post, setData, index }) => {
       </div>
     )
   }
-  return location.pathname.search('cruitment') > 0 ? (
+  return recru ? (
     <div className="RecruBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
         <CWidgetBrand
@@ -64,7 +67,7 @@ const CareerBlock = ({ post, setData, index }) => {
       <div className="recrucontent">
         <h3 style={{ 'font-weight': '600' }}>
           {post.title.title}
-          {location.pathname.search('own') > 0 ? (
+          {own ? (
             <>
               <a className="hover-pointer" href={'/#/editRecruitment/' + post._id}>
                 <CIcon name="cil-pencil"></CIcon>
@@ -106,9 +109,9 @@ const CareerBlock = ({ post, setData, index }) => {
       <div className="recomcontent">
         <h3>
           {post.title.name} asking for <nobr>{post.title.desire_work_type}</nobr>
-          {location.pathname.search('own') > 0 ? (
+          {own ? (
             <>
-              <a className="hover-pointer" href={'/#/editRecruitment/' + post._id}>
+              <a className="hover-pointer" href={'/#/editRecommendation/' + post._id}>
                 <CIcon name="cil-pencil"></CIcon>
               </a>
               <CAvatar className="hover-pointer">

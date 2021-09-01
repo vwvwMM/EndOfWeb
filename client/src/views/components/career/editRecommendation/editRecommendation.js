@@ -11,7 +11,6 @@ const EditRecommendation = () => {
     axios
       .get('/api/recommendation', { params: { _id: id } })
       .then((res) => {
-        console.log('this is posts:', res.data[0])
         setData(res.data[0])
       })
       .catch((err) => {

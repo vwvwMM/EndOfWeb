@@ -38,7 +38,7 @@ const RecomPost = ({ data, setData }) => {
 }
 RecomPost.propTypes = {
   data: PropTypes.array,
-  setData:PropTypes.func,
+  setData: PropTypes.func,
 }
 
 export default RecomPost
