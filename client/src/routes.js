@@ -8,25 +8,21 @@ const Support = React.lazy(() => import('./views/components/support/Support'))
 const Team = React.lazy(() => import('./views/components/team/Team'))
 const ShowColumns = React.lazy(() => import('./views/components/columnSummary/showColumns'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Career = React.lazy(() => import('./views/components/career/Career'))
-const Recommendation = React.lazy(() =>
-  import('./views/components/career/recommendation/Recommendation'),
-)
-const Recruitment = React.lazy(() => import('./views/components/career/recruitment/Recruitment'))
+const Career = React.lazy(() => import('./views/in/career/Career'))
+const Recommendation = React.lazy(() => import('./views/in/career/recommendation/Recommendation'))
+const Recruitment = React.lazy(() => import('./views/in/career/recruitment/Recruitment'))
 // const AddRecruitment = React.lazy(() =>
 //   import('./views/components/career/addRecruitment/addRecruitment'),
 // )
 // const AddRecommendation = React.lazy(() =>
 //   import('./views/components/career/addRecommendation/addRecommendation'),
 // )
-const EditRecruitment = React.lazy(() =>
-  import('./views/components/career/editRecruitment/editRecruitment'),
-)
+const EditRecruitment = React.lazy(() => import('./views/in/career/recruitment/EditRecruitment'))
 const EditRecommendation = React.lazy(() =>
-  import('./views/components/career/editRecommendation/editRecommendation'),
+  import('./views/in/career/recommendation/EditRecommendation'),
 )
 
-const CareerForm = React.lazy(() => import('./views/components/career/CareerForm'))
+const CareerForm = React.lazy(() => import('./views/in/career/CareerForm'))
 
 const ProfileSearch = React.lazy(() => import('./views/components/searchProfile/SearchProfile'))
 

@@ -23,7 +23,7 @@ import {
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
-import PreviewBlock from './CareerPreview'
+import CareerPreview from './CareerPreview'
 const CareerForm = ({ data }) => {
   const location = useLocation()
   const add = location.pathname.search('add') > 0 ? true : false
@@ -270,7 +270,7 @@ const CareerForm = ({ data }) => {
               <CModalTitle>Preview New Post</CModalTitle>
             </CModalHeader>
             <CModalBody>
-              <PreviewBlock
+              <CareerPreview
                 post={dataForm}
                 experience={experience}
                 requirement={requirement}
@@ -489,7 +489,7 @@ const CareerForm = ({ data }) => {
               <CModalTitle>Preview New Post</CModalTitle>
             </CModalHeader>
             <CModalBody>
-              <PreviewBlock
+              <CareerPreview
                 post={dataForm}
                 experience={experience}
                 requirement={speciality}

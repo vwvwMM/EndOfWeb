@@ -3,16 +3,16 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { CWidgetBrand, CAvatar } from '@coreui/react'
-import eesa from '../../../assets/images/eesa-icon.png'
+import { eesa } from './index'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
 import parser from 'html-react-parser'
 
 const CareerBlock = ({ post, setData, index }) => {
   const location = useLocation()
-  const recru=location.pathname.search('cruitment')>0?true:false
-  const recom=location.pathname.search('commendation')>0?true:false
-  const own=location.pathname.search('own')>0?true:false
+  const recru = location.pathname.search('cruitment') > 0 ? true : false
+  const recom = location.pathname.search('commendation') > 0 ? true : false
+  const own = location.pathname.search('own') > 0 ? true : false
   const [isExpand, setIsExpand] = useState(false)
   const DeleteRecruitment = (id) => {
     if (recru) {

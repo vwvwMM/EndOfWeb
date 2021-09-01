@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import CareerBlock from '../CareerBlock'
 import Masonry from 'react-masonry-css'
-import CareerBlock from '../../components/career/CareerBlock'
 import axios from 'axios'
-
-const OwnRecruitment = () => {
+const OwnRecommendation = () => {
   const [data, setData] = useState([])
   const breakpointColumnsObj = {
     default: 2,
@@ -13,7 +12,7 @@ const OwnRecruitment = () => {
   }
   const getData = () => {
     axios
-      .get('/api/recruitment')
+      .get('/api/recommendation/mine')
       .then((res) => {
         console.log('this is posts:', res.data)
         setData(res.data)
@@ -27,28 +26,30 @@ const OwnRecruitment = () => {
   }, [])
   return (
     <div className="text-color-black">
-      <a href="/#/addRecruitment">
+      <a href="/#/addRecommendation">
         <div className="d-flex justify-content-center add" width="100%">
           +
         </div>
       </a>
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-        columnAttrs={{
-          className: 'should be overridden',
-          'data-test': '',
-          style: { '--test': 'test' },
-        }}
-        style={{ display: 'flex' }}
-      >
-        {data.map((post, i) => (
-          <CareerBlock post={post} setData={setData} index={i} key={i} />
-        ))}
-      </Masonry>
+      {data.length !== 0 && (
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+          columnAttrs={{
+            className: 'should be overridden',
+            'data-test': '',
+            style: { '--test': 'test' },
+          }}
+          style={{ display: 'flex' }}
+        >
+          {data.map((post, i) => (
+            <CareerBlock post={post} setData={setData} index={i} key={i} />
+          ))}
+        </Masonry>
+      )}
     </div>
   )
 }
 
-export default OwnRecruitment
+export default OwnRecommendation

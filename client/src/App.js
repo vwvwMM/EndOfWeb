@@ -26,8 +26,10 @@ const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 const Profile = React.lazy(() => import('./views/pages/profile/Profile'))
 const ProfileEdit = React.lazy(() => import('./views/pages/profileEdit/ProfileEdit'))
-const OwnRecruitment = React.lazy(() => import('./views/pages/recruitment/OwnRecruitment'))
-const OwnRecommendation = React.lazy(() => import('./views/pages/recommendation/OwnRecommendation'))
+const OwnRecruitment = React.lazy(() => import('./views/in/career/recruitment/OwnRecruitment'))
+const OwnRecommendation = React.lazy(() =>
+  import('./views/in/career/recommendation/OwnRecommendation'),
+)
 const App = () => {
   const dispatch = useDispatch()
   const { isLogin } = useSelector(selectLogin)

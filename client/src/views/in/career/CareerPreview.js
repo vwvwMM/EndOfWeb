@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
-import PropTypes, { object } from 'prop-types'
+import PropTypes from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
-import eesa from '../../../assets/images/eesa-icon.png'
+import { eesa } from './index'
 import parse from 'html-react-parser'
 
 const CareerPreview = ({ post, experience, requirement, description }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
-  if (typeof(post.file)==='object') {
+  if (typeof post.file === 'object') {
     let reader = new FileReader()
     reader.onloadend = () => {
       setPreviewURL(reader.result)
