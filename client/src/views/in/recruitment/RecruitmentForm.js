@@ -33,6 +33,7 @@ const CareerForm = ({ data }) => {
         workType: '',
         salary: '',
         diploma: '',
+        description: '',
         file: '',
       }
     : {
@@ -41,6 +42,7 @@ const CareerForm = ({ data }) => {
         workType: data.title.work_type,
         salary: data.info.salary,
         diploma: data.info.diploma,
+        description: data.spec.description,
         file: data.image,
         _id: data._id,
       }
@@ -49,17 +51,15 @@ const CareerForm = ({ data }) => {
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [previewURL, setPreviewURL] = useState(null)
-  const [experience, setExperience] = useState(
-    add ? [''] : data.info.experience 
-  )
+  const [experience, setExperience] = useState(add ? [''] : data.info.experience)
   const [requirement, setRequirement] = useState(add ? [''] : data.spec.requirement)
-  const [description, setDescription] = useState(add ? [''] : data.spec.description)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
   }
   const handleInputChange = (e) => {
+    console.log('value changed', e.target.value)
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
   }
   const addArray = (e) => {
@@ -84,10 +84,6 @@ const CareerForm = ({ data }) => {
         else return e.target.value
       })
       setRequirement(newArray)
-    } else if (e.target.name === 'description') {
-      const newArray = [e.target.value]
-      console.log('new description:', newArray)
-      setDescription(newArray)
     }
   }
   const handleDeleteArray = (e, index) => {
@@ -125,14 +121,12 @@ const CareerForm = ({ data }) => {
     data.append('work_type', dataForm.workType)
     data.append('salary', dataForm.salary)
     data.append('diploma', dataForm.diploma)
+    data.append('description', dataForm.description)
     for (let exp of experience) {
       data.append('experience[]', exp)
     }
     for (let req of requirement) {
       data.append('requirement[]', req)
-    }
-    for (let desc of description) {
-      data.append('description[]', desc)
     }
     if (previewURL) {
       data.append('file', dataForm.file)
@@ -188,12 +182,7 @@ const CareerForm = ({ data }) => {
           <CModalTitle>Preview New Post</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <CareerPreview
-            post={dataForm}
-            experience={experience}
-            requirement={requirement}
-            description={description}
-          />
+          <CareerPreview post={dataForm} experience={experience} requirement={requirement} />
         </CModalBody>
         <CModalFooter>
           <CButton color="warning" onClick={() => setBlockModal(false)}>
@@ -211,8 +200,10 @@ const CareerForm = ({ data }) => {
               <CCard className="mx-4">
                 <CCardBody className="p-4">
                   <CForm>
-                    <h1>{add?"Ready to post":"Want to edit"} a recruitment?</h1>
-                    <p className="text-medium-emphasis">{add?"Create":"Edit"} your recruitment</p>
+                    <h1>{add ? 'Ready to post' : 'Want to edit'} a recruitment?</h1>
+                    <p className="text-medium-emphasis">
+                      {add ? 'Create' : 'Edit'} your recruitment
+                    </p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon name="cil-layers" />
@@ -341,12 +332,12 @@ const CareerForm = ({ data }) => {
                       <JoditEditor
                         name="description"
                         ref={editor}
-                        value={description[0]}
+                        value={dataForm.description}
                         config={config}
                         tabIndex={1} // tabIndex of textarea
-                        onBlur={(newContent) => {
-                          setDescription([newContent])
-                        }} // preferred to use only this option to update the content for performance reasons
+                        onBlur={(newContent) =>
+                          setDataForm({ ...dataForm, description: newContent })
+                        } // preferred to use only this option to update the content for performance reasons
                       />
                       <ReactTooltip id="description" place="top" type="dark" effect="solid" />
                     </div>

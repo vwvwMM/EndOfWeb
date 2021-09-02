@@ -14,7 +14,7 @@ const CareerBlock = ({ post, setData, index }) => {
   const recom = location.pathname.search('commendation') > 0 ? true : false
   const own = location.pathname.search('own') > 0 ? true : false
   const [isExpand, setIsExpand] = useState(false)
-  const DeleteRecruitment = (id) => {
+  const deleteCareer = (id) => {
     if (recru) {
       axios
         .delete('/api/deleteRecruitment', { data: { _id: id } })
@@ -73,7 +73,7 @@ const CareerBlock = ({ post, setData, index }) => {
                 <CIcon name="cil-pencil"></CIcon>
               </a>
               <CAvatar className="hover-pointer">
-                <CIcon name="cil-trash" onClick={() => DeleteRecruitment(post._id)}></CIcon>
+                <CIcon name="cil-trash" onClick={() => deleteCareer(post._id)}></CIcon>
               </CAvatar>
             </>
           ) : (
@@ -91,7 +91,7 @@ const CareerBlock = ({ post, setData, index }) => {
             <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
             <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
             <h3 style={{ 'font-weight': '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
-            <h4>{post.spec.description.map((des) => spec(parser(des)))}</h4>
+            <h4>{parser(post.spec.description)}</h4>
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}
@@ -115,7 +115,7 @@ const CareerBlock = ({ post, setData, index }) => {
                 <CIcon name="cil-pencil"></CIcon>
               </a>
               <CAvatar className="hover-pointer">
-                <CIcon name="cil-trash" onClick={() => DeleteRecruitment(post._id)}></CIcon>
+                <CIcon name="cil-trash" onClick={() => deleteCareer(post._id)}></CIcon>
               </CAvatar>
             </>
           ) : (

@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CWidgetBrand } from '@coreui/react'
 import { eesa } from './index'
-import parse from 'html-react-parser'
+import parser from 'html-react-parser'
 
-const CareerPreview = ({ post, experience, requirement, description }) => {
+const CareerPreview = ({ post, experience, requirement }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
   if (typeof post.file === 'object') {
@@ -22,7 +22,7 @@ const CareerPreview = ({ post, experience, requirement, description }) => {
       </div>
     )
   }
-  if (description.length !== 0) {
+  if (post.description) {
     return (
       <div className="PreviewBlock" key={post.id}>
         <CWidgetBrand
@@ -44,7 +44,7 @@ const CareerPreview = ({ post, experience, requirement, description }) => {
               <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
               <h4>{requirement.map((req) => spec(req))}</h4>
               <h3 style={{ 'font-weight': '600', margin: '1.3rem 0 0.1rem' }}>說明：</h3>
-              {description.map((des) => spec(parse(des)))}
+              <h4>{parser(post.description)}</h4>
               <button onClick={() => setIsExpand(false)}>Show less...</button>
             </>
           )}
@@ -87,7 +87,6 @@ CareerPreview.propTypes = {
   post: PropTypes.object,
   experience: PropTypes.array,
   requirement: PropTypes.array,
-  description: PropTypes.array,
 }
 
 export default CareerPreview
