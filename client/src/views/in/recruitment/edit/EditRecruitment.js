@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import CareerForm from '../CareerForm'
+import CareerForm from '../../career/CareerForm'
 import axios from 'axios'
 const EditRecruitment = () => {
   const id = useParams().id

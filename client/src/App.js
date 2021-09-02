@@ -26,9 +26,9 @@ const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 const Profile = React.lazy(() => import('./views/pages/profile/Profile'))
 const ProfileEdit = React.lazy(() => import('./views/pages/profileEdit/ProfileEdit'))
-const OwnRecruitment = React.lazy(() => import('./views/in/career/recruitment/OwnRecruitment'))
+const OwnRecruitment = React.lazy(() => import('./views/in/recruitment/own/OwnRecruitment'))
 const OwnRecommendation = React.lazy(() =>
-  import('./views/in/career/recommendation/OwnRecommendation'),
+  import('./views/in/recommendation/own/OwnRecommendation'),
 )
 const App = () => {
   const dispatch = useDispatch()

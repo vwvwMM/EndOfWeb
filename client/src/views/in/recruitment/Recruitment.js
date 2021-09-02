@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { selectCareer, setKeywords, clearKeywords } from '../index'
-import CareerBlock from '../CareerBlock'
+import { selectCareer, setKeywords, clearKeywords } from '../career/index'
+import CareerBlock from '../career/CareerBlock'
 import Masonry from 'react-masonry-css'
 
 const Recruitment = () => {

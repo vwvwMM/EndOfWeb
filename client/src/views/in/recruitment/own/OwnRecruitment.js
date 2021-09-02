@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Masonry from 'react-masonry-css'
-import CareerBlock from '../CareerBlock'
+import CareerBlock from '../../career/CareerBlock'
 import axios from 'axios'
 
 const OwnRecruitment = () => {

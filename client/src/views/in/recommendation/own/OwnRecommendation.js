@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import CareerBlock from '../CareerBlock'
+import CareerBlock from '../../career/CareerBlock'
 import Masonry from 'react-masonry-css'
 import axios from 'axios'
 const OwnRecommendation = () => {
