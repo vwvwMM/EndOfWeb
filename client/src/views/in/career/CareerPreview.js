@@ -22,7 +22,7 @@ const CareerPreview = ({ post, experience, requirement }) => {
       </div>
     )
   }
-  if (post.description) {
+  if (typeof(post.description)==='string') {
     return (
       <div className="PreviewBlock" key={post.id}>
         <CWidgetBrand
