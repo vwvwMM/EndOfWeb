@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { selectLogin } from '../../../slices/loginSlice'
 import { selectCareer, clearCroppedDataUrl, clearCroppedFile } from '../../../slices/careerSlice'
 import { useHistory } from 'react-router'
 import CareerImageEditor from '../career/CareerImageEditor'
@@ -378,7 +379,21 @@ const RecommendationForm = ({ data }) => {
                     </CRow>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
-                        <CButton color="dark" onClick={() => setBlockModal(true)}>
+                        <CButton
+                          color="dark"
+                          onClick={() => {
+                            for (let info in dataForm) {
+                              if (
+                                !dataForm[info] &&
+                                (info === 'title' || info === 'name' || info === 'desireWorkType')
+                              ) {
+                                alert(`${info} can't be empty`)
+                                return
+                              }
+                            }
+                            setBlockModal(true)
+                          }}
+                        >
                           Preview
                         </CButton>
                       </div>

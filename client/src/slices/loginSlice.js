@@ -21,7 +21,7 @@ export const loginSlice = createSlice({
       state.imgSrc = null
     },
     setStudentID: (state, action) => {
-      state.studentID = action.payload
+      state.studentID = action.payload.studentID
     },
     clearStudentID: (state, action) => {
       state.studentID = ''
