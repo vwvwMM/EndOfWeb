@@ -29,7 +29,7 @@ import CIcon from '@coreui/icons-react'
 import CareerPreview from '../career/CareerPreview'
 const RecommendationForm = ({ data }) => {
   const add = data ? false : true
-  const { cellphone:userPhone,email:userEmail,name:userName } =useSelector(selectLogin)
+  const { cellphone: userPhone, email: userEmail, name: userName } = useSelector(selectLogin)
   const formTemplate = add
     ? {
         title: '',
@@ -241,7 +241,7 @@ const RecommendationForm = ({ data }) => {
                       <CFormControl
                         data-for="title"
                         data-tip="Use impressing title to get people's attention!"
-                        placeholder="Title"
+                        placeholder="Title*"
                         value={dataForm.title}
                         name="title"
                         onChange={handleInputChange}
@@ -255,7 +255,7 @@ const RecommendationForm = ({ data }) => {
                       <CFormControl
                         data-for="name"
                         data-tip="Enter your name"
-                        placeholder="Name"
+                        placeholder="Name*"
                         value={dataForm.name}
                         name="name"
                         onChange={handleInputChange}
@@ -269,7 +269,7 @@ const RecommendationForm = ({ data }) => {
                       <CFormControl
                         data-for="workType"
                         data-tip="What's your desired work?"
-                        placeholder="Desired Work Type"
+                        placeholder="Desired Work Type*"
                         value={dataForm.desireWorkType}
                         name="desireWorkType"
                         onChange={handleInputChange}
