@@ -29,13 +29,14 @@ import CIcon from '@coreui/icons-react'
 import CareerPreview from '../career/CareerPreview'
 const RecommendationForm = ({ data }) => {
   const add = data ? false : true
+  const { cellphone:userPhone,email:userEmail,name:userName } =useSelector(selectLogin)
   const formTemplate = add
     ? {
         title: '',
-        name: '',
+        name: userName,
         desireWorkType: '',
-        contact: '',
-        email: '',
+        contact: userPhone,
+        email: userEmail,
         diploma: '',
         file: '',
       }
