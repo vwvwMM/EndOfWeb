@@ -10,7 +10,6 @@ import {
   setStudentInfo,
   clearStudentInfo,
 } from '../slices/loginSlice'
-import { CSpinner } from '@coreui/react'
 import axios from 'axios'
 import default_male from '../assets/images/default_male.png'
 import { AppBackground } from '.'
@@ -52,7 +51,7 @@ const AppContent = () => {
   return (
     <div style={ContentStyle}>
       <AppBackground />
-      <Suspense fallback={<CSpinner color="primary" />}>
+      <Suspense fallback={<></>}>
         <Switch>
           {routes_out.map((route, idx) => {
             return (

@@ -104,8 +104,10 @@ const Recommendation = () => {
         <div className="d-flex"></div>
       </div>
       {isPending ? (
-        <div className="spinner-border text-primary mt-3" role="status">
-          <span className="sr-only"></span>
+        <div className="d-flex flex-row justify-content-center">
+          <div className="spinner-border text-primary mt-3" role="status">
+            <span className="sr-only"></span>
+          </div>
         </div>
       ) : isSearch && data.length === 0 ? (
         <div className="display-2 d-flex justify-content-center mt-3">Result not found</div>

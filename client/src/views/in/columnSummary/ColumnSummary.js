@@ -242,8 +242,10 @@ const ColumnSummary = () => {
         []
       )}
       {isPending === true ? (
-        <div className="spinner-border text-primary mt-3" role="status">
-          <span className="sr-only"></span>
+        <div className="d-flex flex-row justify-content-center">
+          <div className="spinner-border text-primary mt-3" role="status">
+            <span className="sr-only"></span>
+          </div>
         </div>
       ) : (
         <>

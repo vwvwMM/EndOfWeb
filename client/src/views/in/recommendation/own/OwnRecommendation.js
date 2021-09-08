@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Masonry from 'react-masonry-css'
 import axios from 'axios'
 const OwnRecommendation = () => {
+  const [isPending, setIsPending] = useState(true)
   const [data, setData] = useState([])
   const breakpointColumnsObj = {
     default: 2,
@@ -17,6 +18,7 @@ const OwnRecommendation = () => {
       .then((res) => {
         console.log('this is posts:', res.data)
         setData(res.data)
+        setIsPending(false)
       })
       .catch((err) => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -32,7 +34,13 @@ const OwnRecommendation = () => {
           +
         </div>
       </Link>
-      {data.length !== 0 && (
+      {isPending ? (
+        <div className="d-flex flex-row justify-content-center">
+          <div className="spinner-border text-primary mt-3" role="status">
+            <span className="sr-only"></span>
+          </div>
+        </div>
+      ) : (
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"

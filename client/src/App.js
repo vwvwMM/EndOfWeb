@@ -3,8 +3,10 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import './scss/style.scss'
 
 const loading = (
-  <div className="spinner-border text-primary mt-3" role="status">
-    <span className="sr-only"></span>
+  <div className="d-flex flex-row justify-content-center">
+    <div className="spinner-border text-primary mt-3" role="status">
+      <span className="sr-only"></span>
+    </div>
   </div>
 )
 
