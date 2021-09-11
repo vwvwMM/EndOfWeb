@@ -4,7 +4,7 @@ import CIcon from '@coreui/icons-react'
 import { Link } from 'react-router-dom'
 import SimpleBar from 'simplebar-react'
 
-const _navOutContent = [
+export const _navOutContent = [
   {
     _component: 'CNavTitle',
     anchor: 'Information',
