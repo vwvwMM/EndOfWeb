@@ -11,25 +11,23 @@ import {
   CImage,
 } from '@coreui/react'
 
-import CIcon from '@coreui/icons-react'
-
-import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
-import navOut from '../_navOut'
+import NavOut from '../_navOut'
 import navIn from '../_navIn'
 
 //sidebar top icon
 import logo_row from '../assets/images/logo_row.png'
+import { Link } from 'react-router-dom'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
   const { isLogin } = useSelector(selectLogin)
   const { sidebarShow, unfoldable } = useSelector(selectGlobal)
   const chNav = () => {
-    if (isLogin) return [...navIn, ...navOut]
-    else return navOut
+    if (isLogin) return [...navIn, ...NavOut]
+    else return NavOut
   }
   return (
     <CSidebar
@@ -46,9 +44,7 @@ const AppSidebar = () => {
         {/* <CIcon className="sidebar-brand-narrow" name="sygnet" height={35} /> */}
       </CSidebarBrand>
       <CSidebarNav>
-        <SimpleBar>
-          <CCreateNavItem items={chNav()} className="text-color-black" />
-        </SimpleBar>
+        <NavOut />
       </CSidebarNav>
     </CSidebar>
   )

@@ -35,7 +35,7 @@ import Dashboard from './views/dashboard'
 
 // out routes
 const routes_out = [
-  { path: '/home', exact: true, name: 'Home', component: Home },
+  { path: '/home', exact: false, name: 'Home', component: Home },
   { path: '/dashboard', exact: true, name: 'Dashboard', component: Dashboard },
   { path: '/about', exact: true, name: 'About', component: About },
   { path: '/contact', exact: true, name: 'Contact', component: Contact },

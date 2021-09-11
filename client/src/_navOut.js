@@ -1,62 +1,84 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import SimpleBar from 'simplebar-react'
 
-const _navOut = [
+const _navOutContent = [
   {
     _component: 'CNavTitle',
     anchor: 'Information',
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
-    anchor: 'HOME',
-    to: '/home',
-    icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
-  },
-  {
-    _component: 'CNavItem',
-    as: NavLink,
+
     anchor: 'DASHBOARD',
-    to: '/dashboard',
+    to: 'dashboard',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
+
     anchor: 'ABOUT',
-    to: '/about',
+    to: 'about',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
+
     anchor: 'HISTORY',
-    to: '/history',
+    to: 'history',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
+
     anchor: 'TEAM',
-    to: '/team',
+    to: 'team',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
+
     anchor: 'CONTACT',
-    to: '/contact',
+    to: 'contact',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
   },
   {
     _component: 'CNavItem',
-    as: NavLink,
+
     anchor: 'SUPPORT',
-    to: '/support',
+    to: 'support',
     icon: <CIcon name="cil-notes" customClassName="nav-icon" />,
   },
 ]
 
-export default _navOut
+const NavOut = () => {
+  return (
+    <SimpleBar>
+      {_navOutContent.map((item, i) => {
+        return item._component === 'CNavTitle' ? (
+          <p style={{ margin: '2rem 0rem 2rem 2rem', color: 'black', fontSize: '1.2rem' }}>
+            &nbsp;{item.anchor}
+          </p>
+        ) : (
+          <p key={i} style={{ margin: '1.5rem 0rem 1.5rem 2rem' }}>
+            &nbsp;{item.icon}
+            {'  '}
+            <Link
+              to={`/home/#${item.to}`}
+              style={{ color: 'black' }}
+              onClick={() => {
+                document.getElementById(item.anchor.toLowerCase()).scrollIntoView()
+                return true
+              }}
+            >
+              {item.anchor}
+            </Link>
+          </p>
+        )
+      })}
+    </SimpleBar>
+  )
+}
+export default NavOut

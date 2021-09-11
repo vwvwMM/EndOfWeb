@@ -9,26 +9,29 @@ import Team from '../team/Team'
 
 const Home = () => {
   return (
-    <div>
-      <h2 id="dashboard">Dashboard</h2>
+    <div style={{ color: 'white', justifyContent: 'center', alignItems: 'center' }}>
       <Dashboard />
-      <h2 id="about">About Us</h2>
-      <About />
-      <h2 id="contact">Contact</h2>
-      <Contact />
-      <h2 id="history">History</h2>
-      <History />
-      <h2 id="support">Support Us</h2>
-      <Support />
-      <h2 id="team">Our Team</h2>
-      <Team />
-      <h2 id="here1">1 in here</h2>
-      <div style={{ height: '40px' }}></div>
-      <h2 id="here2">2 in here</h2>
-      <div style={{ height: '80px' }}></div>
-      <a href="#here1">go to 1</a>
-      <div style={{ height: '40px' }}></div>
-      <a href="#here2">go to 2</a>
+      <div id="about" className="p-4 bg-secondary mb-3 shadow rounded">
+        <About />
+      </div>
+      <div id="history" className="p-4 bg-secondary mb-3 shadow rounded">
+        <br />
+        <br />
+        <History />
+      </div>
+      <div id="team" className="p-4 bg-secondary mb-3 shadow rounded">
+        <br />
+        <br />
+        <Team />
+      </div>
+      <div id="contact" className="p-4 bg-secondary mb-3 shadow rounded">
+        <br />
+        <br />
+        <Contact />
+      </div>
+      <div id="support" className="p-4 bg-secondary mb-3 shadow rounded">
+        <Support />
+      </div>
     </div>
   )
 }

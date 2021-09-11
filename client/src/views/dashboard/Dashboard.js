@@ -63,7 +63,8 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <CContainer fluid className="align-items-center text-color-black">
+    <CContainer fluid className="align-items-center text-color-black" id="dashboard">
+      <br />
       <CRow className="justify-content-center mb-3">
         <CCard>
           <CCardHeader>
