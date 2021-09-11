@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import CIcon from '@coreui/icons-react'
+import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 import SimpleBar from 'simplebar-react'
 
@@ -54,6 +55,7 @@ export const _navOutContent = [
 ]
 
 const NavOut = () => {
+  const history = useHistory()
   return (
     <SimpleBar>
       {_navOutContent.map((item, i) => {
@@ -69,6 +71,7 @@ const NavOut = () => {
               to={`/home/#${item.to}`}
               style={{ color: 'black' }}
               onClick={() => {
+                history.push(`/home/#${item.to}`)
                 document.getElementById(item.anchor.toLowerCase()).scrollIntoView()
                 return true
               }}
