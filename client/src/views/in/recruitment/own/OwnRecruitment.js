@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Masonry from 'react-masonry-css'
 import CareerBlock from '../../career/CareerBlock'
 import axios from 'axios'
+import { Spinner } from './index'
 
 const OwnRecruitment = () => {
   const [isPending, setIsPending] = useState(true)
@@ -36,11 +37,7 @@ const OwnRecruitment = () => {
         </div>
       </Link>
       {isPending ? (
-        <div className="d-flex flex-row justify-content-center">
-          <div className="spinner-border text-primary mt-3" role="status">
-            <span className="sr-only"></span>
-          </div>
-        </div>
+        <Spinner />
       ) : (
         <Masonry
           breakpointCols={breakpointColumnsObj}

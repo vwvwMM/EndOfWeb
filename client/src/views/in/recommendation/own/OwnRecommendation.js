@@ -3,6 +3,7 @@ import CareerBlock from '../../career/CareerBlock'
 import { Link } from 'react-router-dom'
 import Masonry from 'react-masonry-css'
 import axios from 'axios'
+import { Spinner } from './index'
 const OwnRecommendation = () => {
   const [isPending, setIsPending] = useState(true)
   const [data, setData] = useState([])
@@ -35,11 +36,7 @@ const OwnRecommendation = () => {
         </div>
       </Link>
       {isPending ? (
-        <div className="d-flex flex-row justify-content-center">
-          <div className="spinner-border text-primary mt-3" role="status">
-            <span className="sr-only"></span>
-          </div>
-        </div>
+        <Spinner />
       ) : (
         <Masonry
           breakpointCols={breakpointColumnsObj}

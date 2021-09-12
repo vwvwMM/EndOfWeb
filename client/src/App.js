@@ -2,21 +2,13 @@ import React from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import './scss/style.scss'
 
-const loading = (
-  <div className="d-flex flex-row justify-content-center">
-    <div className="spinner-border text-primary mt-3" role="status">
-      <span className="sr-only"></span>
-    </div>
-  </div>
-)
-
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
 const App = () => {
   return (
     <HashRouter>
-      <React.Suspense fallback={loading}>
+      <React.Suspense fallback={<></>}>
         <Switch>
           <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
         </Switch>
