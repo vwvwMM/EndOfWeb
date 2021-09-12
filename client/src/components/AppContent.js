@@ -51,45 +51,47 @@ const AppContent = () => {
   return (
     <div style={ContentStyle}>
       <AppBackground />
-      <Switch>
-        {routes_out.map((route, idx) => {
-          return (
-            route.component && (
-              <Route
-                key={idx}
-                path={route.path}
-                exact={route.exact}
-                name={route.name}
-                render={(props) => (
-                  <>
-                    <route.component {...props} />
-                  </>
-                )}
-              />
-            )
-          )
-        })}
-        {!isLogin ? <Redirect to="/login" /> : null}
-        {isLogin
-          ? routes_in.map((route, idx) => {
-              return (
-                route.component && (
-                  <Route
-                    key={idx}
-                    path={route.path}
-                    exact={route.exact}
-                    name={route.name}
-                    render={(props) => (
-                      <>
-                        <route.component {...props} />
-                      </>
-                    )}
-                  />
-                )
+      <Suspense fallback={<></>}>
+        <Switch>
+          {routes_out.map((route, idx) => {
+            return (
+              route.component && (
+                <Route
+                  key={idx}
+                  path={route.path}
+                  exact={route.exact}
+                  name={route.name}
+                  render={(props) => (
+                    <>
+                      <route.component {...props} />
+                    </>
+                  )}
+                />
               )
-            })
-          : null}
-      </Switch>
+            )
+          })}
+          {!isLogin ? <Redirect to="/login" /> : null}
+          {isLogin
+            ? routes_in.map((route, idx) => {
+                return (
+                  route.component && (
+                    <Route
+                      key={idx}
+                      path={route.path}
+                      exact={route.exact}
+                      name={route.name}
+                      render={(props) => (
+                        <>
+                          <route.component {...props} />
+                        </>
+                      )}
+                    />
+                  )
+                )
+              })
+            : null}
+        </Switch>
+      </Suspense>
     </div>
   )
 }

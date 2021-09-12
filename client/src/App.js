@@ -8,9 +8,11 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 const App = () => {
   return (
     <HashRouter>
-      <Switch>
-        <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
-      </Switch>
+      <React.Suspense fallback={<></>}>
+        <Switch>
+          <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
+        </Switch>
+      </React.Suspense>
     </HashRouter>
   )
 }
