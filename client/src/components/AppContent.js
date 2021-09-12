@@ -51,7 +51,15 @@ const AppContent = () => {
   return (
     <div style={ContentStyle}>
       <AppBackground />
-      <Suspense fallback={<></>}>
+      <Suspense
+        fallback={
+          <div className="d-flex flex-row justify-content-center">
+            <div className="spinner-border text-primary mt-3" role="status">
+              <span className="sr-only"></span>
+            </div>
+          </div>
+        }
+      >
         <Switch>
           {routes_out.map((route, idx) => {
             return (
