@@ -55,7 +55,9 @@ const AppHeader = () => {
       <CContainer fluid>
         <CHeaderToggler
           className="ms-md-3"
-          onClick={() => (sidebarShow ? dispatch(hideSidebar()) : dispatch(openSidebar()))}
+          onClick={() => {
+            sidebarShow ? dispatch(hideSidebar()) : dispatch(openSidebar())
+          }}
         >
           <CIcon name="cil-menu" size="lg" />
         </CHeaderToggler>
