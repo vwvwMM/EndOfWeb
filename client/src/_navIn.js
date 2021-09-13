@@ -12,6 +12,12 @@ const _navInContent = [
   },
   {
     _component: 'CNavItem',
+    anchor: 'DASHBOARD',
+    to: '/dashboard',
+    icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
+  },
+  {
+    _component: 'CNavItem',
     anchor: 'CAREER',
     to: '/career',
     icon: <CIcon name="cil-speedometer" customClassName="nav-icon" />,
