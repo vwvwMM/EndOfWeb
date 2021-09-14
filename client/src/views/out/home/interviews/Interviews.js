@@ -27,7 +27,7 @@ const Interviews = () => {
                     <h3>2012級 李昀樵 </h3>
                     <h4>17直播 技術副總</h4>
                     <p className="mx-3">
-                      李昀樵曾是李琳山教授語音實驗室的研究生，研究所時期除了研究外，更有進行小型創業，開發出新聞摘要軟件及搜尋公共腳踏車的APP
+                      李昀樵曾是李琳山教授語音實驗室的研究生，研究所時期除了研究外，更有進行小型創業，開發出新聞摘要軟件及搜尋公共腳踏車的APP，前者以兩萬元售出，後者成為該領域當時市占率最高的APP。
                     </p>
                   </div>
                   <img
@@ -56,11 +56,7 @@ const Interviews = () => {
                       多年來，「媒體晶片系統實驗室」不斷研發出優異的技術。
                     </p>
                   </div>
-                  <img
-                    src={columnOutline1999}
-                    className="img-fluid rounded"
-                    alt="Project Title"
-                  />{' '}
+                  <img src={columnOutline1999} className="img-fluid rounded" alt="Project Title" />{' '}
                 </a>{' '}
               </div>
             </div>
