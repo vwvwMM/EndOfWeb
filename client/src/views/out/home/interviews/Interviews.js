@@ -18,11 +18,7 @@ const Interviews = () => {
             <div className="portfolio-item">
               <div className="hover-bg">
                 {' '}
-                <a
-                  href="https://picsum.photos/350/500"
-                  title="Project Title"
-                  data-lightbox-gallery="gallery1"
-                >
+                <a href="/#/login" title="Project Title" data-lightbox-gallery="gallery1">
                   <div className="hover-text">
                     <h3>2012級 李昀樵 </h3>
                     <h4>17直播 技術副總</h4>
@@ -43,11 +39,7 @@ const Interviews = () => {
             <div className="portfolio-item">
               <div className="hover-bg">
                 {' '}
-                <a
-                  href="https://picsum.photos/350/500"
-                  title="Project Title"
-                  data-lightbox-gallery="gallery1"
-                >
+                <a href="/#/login" title="Project Title" data-lightbox-gallery="gallery1">
                   <div className="hover-text">
                     <h3>1999級 簡韶逸</h3>
                     <h4> (CEO/ Founder @ Ganzin Technology, Prof. @ NTUEE)</h4>
@@ -65,11 +57,7 @@ const Interviews = () => {
             <div className="portfolio-item">
               <div className="hover-bg">
                 {' '}
-                <a
-                  href="https://picsum.photos/350/500"
-                  title="Project Title"
-                  data-lightbox-gallery="gallery1"
-                >
+                <a href="/#/login" title="Project Title" data-lightbox-gallery="gallery1">
                   <div className="hover-text">
                     <h3>2008級 鄭恆之</h3>
                     <h4> (Technical Lead Manager @ Google Brain)</h4>
