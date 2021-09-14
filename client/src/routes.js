@@ -1,15 +1,6 @@
 // out pages
 import {
   Home,
-<<<<<<< HEAD
-=======
-  About,
-  Contact,
-  Support,
-  Interviews,
-  History,
-  Team,
->>>>>>> b1844f4 (create three interviews)
   Login,
   RegisterEntry,
   Register,
