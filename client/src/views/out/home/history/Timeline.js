@@ -1,11 +1,12 @@
 import React from 'react'
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
+import history_icon from '../../../../assets/icons/history_icon.png'
 import 'react-vertical-timeline-component/style.min.css'
 import PropTypes from 'prop-types'
 
 const Timeline = ({ data }) => {
   return (
-    <div className="d-flex jusitfy-contnet-center align-items-center mb-3">
+    <div className="d-flex jusitfy-contnet-center align-items-center" id="history">
       <VerticalTimeline>
         {data.history.map((year, i) => (
           <VerticalTimelineElement
@@ -15,11 +16,7 @@ const Timeline = ({ data }) => {
             contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
             date={year.grade}
             iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-            icon={
-              <div className="d-flex justify-content-center align-items-center h-100">
-                <i className="bi bi-alarm"></i>
-              </div>
-            }
+            icon={<img src={history_icon} alt="O" className="img-fluid" />}
           >
             <h3 className="vertical-timeline-element-title">{year.title}</h3>
             <div className="row">
