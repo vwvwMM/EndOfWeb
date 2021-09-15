@@ -342,6 +342,19 @@ const RecommendationForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon name="cil-address-book" />
+                      </CInputGroupText>
+                      <CButton
+                        type="button"
+                        name="experience"
+                        className="form-add"
+                        onClick={addArray}
+                      >
+                        +
+                      </CButton>
+                    </CInputGroup>
                     {speciality.map((req, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
@@ -367,18 +380,19 @@ const RecommendationForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
-                    <CRow className="justify-content-between mt-3">
-                      <CCol xs={5} className="d-flex justify-content-center">
-                        <CButton type="button" name="experience" onClick={addArray}>
-                          Add experience
-                        </CButton>
-                      </CCol>
-                      <CCol xs={5} className="d-flex justify-content-center">
-                        <CButton type="button" name="speciality" onClick={addArray}>
-                          Add speciality
-                        </CButton>
-                      </CCol>
-                    </CRow>
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon name="cil-thumb-up" />
+                      </CInputGroupText>
+                      <CButton
+                        type="button"
+                        name="speciality"
+                        className="form-add"
+                        onClick={addArray}
+                      >
+                        +
+                      </CButton>
+                    </CInputGroup>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton

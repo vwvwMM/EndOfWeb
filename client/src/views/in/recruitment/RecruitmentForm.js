@@ -331,6 +331,19 @@ const CareerForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon name="cil-address-book" />
+                      </CInputGroupText>
+                      <CButton
+                        type="button"
+                        name="experience"
+                        className="form-add"
+                        onClick={addArray}
+                      >
+                        +
+                      </CButton>
+                    </CInputGroup>
                     {requirement.map((req, index) => {
                       return (
                         <CInputGroup className="mb-3" key={index}>
@@ -356,6 +369,19 @@ const CareerForm = ({ data }) => {
                         </CInputGroup>
                       )
                     })}
+                    <CInputGroup className="mb-4 d-flex flex-row">
+                      <CInputGroupText>
+                        <CIcon name="cil-thumb-up" />
+                      </CInputGroupText>
+                      <CButton
+                        type="button"
+                        name="requirement"
+                        className="form-add"
+                        onClick={addArray}
+                      >
+                        +
+                      </CButton>
+                    </CInputGroup>
                     <div
                       className="mb-3 mw-100"
                       data-for="description"
@@ -373,18 +399,6 @@ const CareerForm = ({ data }) => {
                       />
                       <ReactTooltip id="description" place="top" type="dark" effect="solid" />
                     </div>
-                    <CRow className="mt-3">
-                      <CCol xs={6} className="d-flex justify-content-center">
-                        <CButton type="button" name="experience" onClick={addArray}>
-                          Add required experience
-                        </CButton>
-                      </CCol>
-                      <CCol xs={6} className="d-flex justify-content-center">
-                        <CButton type="button" name="requirement" onClick={addArray}>
-                          Add required skills
-                        </CButton>
-                      </CCol>
-                    </CRow>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton
