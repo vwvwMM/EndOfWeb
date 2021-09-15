@@ -17,10 +17,12 @@
   background-color: azure;
   border: 0px;
   border-radius: 5%;
+  border: 0.5rem;
 }
 .card-header {
   padding: 0%;
-  border-radius: 5% !important;
+  border: none;
+  background-color: azure;
 }
 .recrucontent,
 .recomcontent,
