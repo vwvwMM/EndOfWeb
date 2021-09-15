@@ -59,7 +59,9 @@ const CareerBlock = ({ post, setData, index }) => {
       <Link to={`/profile/${post.account}`}>
         <CWidgetBrand
           className="pt-4 widgetbrand"
-          headerChildren={<img className="eesa" src={post.image ? post.image : eesa} alt="eesa" />}
+          headerChildren={
+            <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
+          }
           values={[[`${post.title.company_name} 徵 ${post.title.work_type}`]]}
         />
       </Link>
@@ -102,7 +104,9 @@ const CareerBlock = ({ post, setData, index }) => {
       <Link to={`/profile/${post.account}`}>
         <CWidgetBrand
           className="pt-4 widgetbrand"
-          headerChildren={<img className="eesa" src={post.image ? post.image : eesa} alt="eesa" />}
+          headerChildren={
+            <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
+          }
           values={[[post.title.title]]}
         />
       </Link>
