@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { CButton, CFormControl, CInputGroup } from '@coreui/react'
+import CIcon from '@coreui/icons-react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
@@ -177,51 +179,36 @@ const ColumnSummary = () => {
   return (
     <div>
       <Box className={classes.hero}>
-        <Box
-          className="display-1 hover-pointer"
-          onClick={() => {
-            dispatch(setIsSearch(false))
-            dispatch(setKeywords(''))
-            if (page === 1) {
-              getData()
-            } else {
-              dispatch(setPage(1))
-            }
-          }}
-        >
-          {isSearch ? 'All articles' : 'Search article'}
-        </Box>
+        <Box className="display-1">Our Articles</Box>
         <form
-          className="justify-content-around d-flex flex-column bg-dark rounded-3 text-light py-2"
+          className="text-light p-2 m-2 w-75"
           onSubmit={(e) => searchData(e)}
           action={(e) => searchData(e)}
         >
-          <div className="row">
-            <label forhtml="keywords" className="d-flex">
-              &ensp;Key words&#40;split with space&#41;:
-            </label>
-          </div>
-          <div className="row justify-content-around d-flex">
-            <div className=" col-8 mt-2">
-              <input
-                type="text"
-                name="keywords"
-                placeholder={keywords === '' ? 'search for...' : keywords}
-                className="rounded-3"
-                value={keywords}
-                onChange={(e) => dispatch(setKeywords(e.target.value))}
-              ></input>
-            </div>
-            <div className="col-3 align-items-center d-flex">
-              <button
-                type="button"
-                onClick={(e) => searchData(e)}
-                className="btn btn-primary d-flex mt-1"
-              >
-                <i className="bi bi-search"></i>
-              </button>
-            </div>
-          </div>
+          <CInputGroup>
+            <CButton
+              onClick={() => {
+                dispatch(setIsSearch(false))
+                dispatch(setKeywords(''))
+                if (page === 1) {
+                  getData()
+                } else {
+                  dispatch(setPage(1))
+                }
+              }}
+            >
+              ALL
+            </CButton>
+            <CFormControl
+              type="search"
+              placeholder={keywords === '' ? 'search for...' : keywords}
+              onChange={(e) => dispatch(setKeywords(e.target.value))}
+              value={keywords}
+            ></CFormControl>
+            <CButton onClick={(e) => searchData(e)}>
+              <CIcon name="cil-search" />
+            </CButton>
+          </CInputGroup>
         </form>
       </Box>
       {data.maxPage === 0 && !isPending ? (
