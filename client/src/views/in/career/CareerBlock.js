@@ -55,7 +55,7 @@ const CareerBlock = ({ post, setData, index }) => {
     )
   }
   return recru ? (
-    <div className="RecruBlock" key={post._id}>
+    <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
         <CWidgetBrand
           className="pt-4 widgetbrand"
@@ -66,7 +66,7 @@ const CareerBlock = ({ post, setData, index }) => {
         />
       </Link>
       <hr></hr>
-      <div className="recrucontent">
+      <div className="careercontent">
         <h3 style={{ 'font-weight': '600' }}>
           {post.title.title}
           {own ? (
@@ -100,7 +100,7 @@ const CareerBlock = ({ post, setData, index }) => {
       </div>
     </div>
   ) : (
-    <div className="RecomBlock" key={post._id}>
+    <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
         <CWidgetBrand
           className="pt-4 widgetbrand"
@@ -111,7 +111,7 @@ const CareerBlock = ({ post, setData, index }) => {
         />
       </Link>
       <hr></hr>
-      <div className="recomcontent">
+      <div className="careercontent">
         <h3>
           {post.title.name} asking for <nobr>{post.title.desire_work_type}</nobr>
           {own ? (

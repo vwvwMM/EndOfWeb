@@ -1,6 +1,4 @@
-.RecruBlock,
-.RecomBlock,
-.PreviewBlock {
+.CareerBlock {
   background-color: azure;
   border-radius: 3%;
   font-size: 4rem;
@@ -24,9 +22,7 @@
   border: none;
   background-color: azure;
 }
-.recrucontent,
-.recomcontent,
-.previewcontent {
+.careercontent {
   padding: 0% 3% 5% 3%;
 }
 .fw-semibold {
@@ -34,17 +30,14 @@
   margin-top: 5%;
   color: black;
 }
-.recomcontent > h3,
-.RecomBlock > h2 {
+.careercontent > h3,
+.careercontent > h2 {
   font-weight: 600;
 }
-.RecruBlock > hr,
-.PreviewBlock > hr {
+.CareerBlock > hr {
   margin-top: 0;
 }
-.recrucontent > button,
-.recomcontent > button,
-.previewcontent > button {
+.careercontent > button {
   font-size: 1vw;
   color: blue;
   border: none;
