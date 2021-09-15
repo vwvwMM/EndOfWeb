@@ -60,8 +60,23 @@ const RecommendationForm = ({ data }) => {
   const [speciality, setSpeciality] = useState(add ? [''] : data.spec.speciality)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
+  const [required, setRequired] = useState({
+    title: false,
+    name: false,
+    desireWorkType: false,
+  })
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
+    if (required[e.target.name] !== undefined) {
+      setRequired({ ...required, [e.target.name]: true })
+      if (!e.target.value) {
+        document.getElementsByName(e.target.name)[0].style['border-color'] = 'red'
+        document.getElementsByName(e.target.name)[0].style['border-width'] = '0.1rem'
+      } else {
+        document.getElementsByName(e.target.name)[0].style['border-color'] = ''
+        document.getElementsByName(e.target.name)[0].style['border-width'] = ''
+      }
+    }
   }
   const addArray = (e) => {
     if (e.target.name === 'experience') {
@@ -398,13 +413,10 @@ const RecommendationForm = ({ data }) => {
                         <CButton
                           color="dark"
                           onClick={() => {
-                            for (let info in dataForm) {
-                              if (
-                                !dataForm[info] &&
-                                (info === 'title' || info === 'name' || info === 'desireWorkType')
-                              ) {
-                                alert(`${info} can't be empty`)
-                                return
+                            for (let info in required) {
+                              if (!dataForm[info]) {
+                                document.getElementsByName(info)[0].style['border-color'] = 'red'
+                                document.getElementsByName(info)[0].style['border-width'] = '0.1rem'
                               }
                             }
                             setBlockModal(true)

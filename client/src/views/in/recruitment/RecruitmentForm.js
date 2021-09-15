@@ -60,12 +60,24 @@ const CareerForm = ({ data }) => {
   const [requirement, setRequirement] = useState(add ? [''] : data.spec.requirement)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
+  const [required, setRequired] = useState({
+    title: false,
+  })
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
   }
   const handleInputChange = (e) => {
-    console.log('value changed', e.target.value)
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
+    if (required[e.target.name] !== undefined) {
+      setRequired({ ...required, [e.target.name]: true })
+      if (!e.target.value) {
+        document.getElementsByName(e.target.name)[0].style['border-color'] = 'red'
+        document.getElementsByName(e.target.name)[0].style['border-width'] = '0.1rem'
+      } else {
+        document.getElementsByName(e.target.name)[0].style['border-color'] = ''
+        document.getElementsByName(e.target.name)[0].style['border-width'] = ''
+      }
+    }
   }
   const addArray = (e) => {
     if (e.target.name === 'experience') {
@@ -404,10 +416,10 @@ const CareerForm = ({ data }) => {
                         <CButton
                           color="dark"
                           onClick={() => {
-                            for (let info in dataForm) {
-                              if (!dataForm[info] && info === 'title') {
-                                alert(`${info} can't be empty`)
-                                return
+                            for (let info in required) {
+                              if (!dataForm[info]) {
+                                document.getElementsByName(info)[0].style['border-color'] = 'red'
+                                document.getElementsByName(info)[0].style['border-width'] = '0.1rem'
                               }
                             }
                             setBlockModal(true)
