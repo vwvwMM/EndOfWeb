@@ -413,11 +413,17 @@ const RecommendationForm = ({ data }) => {
                         <CButton
                           color="dark"
                           onClick={() => {
+                            let miss = []
                             for (let info in required) {
                               if (!dataForm[info]) {
+                                miss.push(info)
                                 document.getElementsByName(info)[0].style['border-color'] = 'red'
                                 document.getElementsByName(info)[0].style['border-width'] = '0.1rem'
                               }
+                            }
+                            if (miss.length !== 0) {
+                              alert(`You have to fill out ${miss}`)
+                              return
                             }
                             setBlockModal(true)
                           }}
