@@ -95,6 +95,7 @@ const ColumnSummary = () => {
       })
   }
   const searchData = (e = null) => {
+    console.log('pass in searchwords', keywords)
     if (e) {
       e.preventDefault()
     }
@@ -103,7 +104,6 @@ const ColumnSummary = () => {
     axios
       .get('/api/column/search', { params: { keyword: keywords, page: page } })
       .then((res) => {
-        console.log('keywords:', keywords)
         setData(res.data)
         setIsPending(false)
       })
@@ -112,6 +112,7 @@ const ColumnSummary = () => {
       })
   }
   useEffect(() => {
+    console.log('use effect')
     if (!isSearch) {
       getData()
     } else {
@@ -180,11 +181,7 @@ const ColumnSummary = () => {
     <div>
       <Box className={classes.hero}>
         <Box className="display-1">Our Articles</Box>
-        <form
-          className="text-light p-2 m-2 w-75"
-          onSubmit={(e) => searchData(e)}
-          action={(e) => searchData(e)}
-        >
+        <form className="text-light p-2 m-2 w-75" onSubmit={searchData} method="GET">
           <CInputGroup>
             <CButton
               onClick={() => {
@@ -196,16 +193,17 @@ const ColumnSummary = () => {
                   dispatch(setPage(1))
                 }
               }}
+              color="light"
             >
-              ALL
+              <CIcon name="cil-home" />
             </CButton>
             <CFormControl
               type="search"
               placeholder={keywords === '' ? 'search for...' : keywords}
               onChange={(e) => dispatch(setKeywords(e.target.value))}
-              value={keywords}
+              value={keywords ? keywords : ''}
             ></CFormControl>
-            <CButton onClick={(e) => searchData(e)}>
+            <CButton color="light" type="submit">
               <CIcon name="cil-search" />
             </CButton>
           </CInputGroup>

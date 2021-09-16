@@ -80,8 +80,9 @@ const Recruitment = () => {
                 clearKeywords()
                 getData()
               }}
+              color="light"
             >
-              ALL
+              <CIcon name="cil-home" />
             </CButton>
             <CFormControl
               type="search"
@@ -91,7 +92,7 @@ const Recruitment = () => {
                 dispatch(setKeywords(e.target.value))
               }}
             ></CFormControl>
-            <CButton onClick={(e) => searchData(e)}>
+            <CButton onClick={(e) => searchData(e)} color="light">
               <CIcon name="cil-search" />
             </CButton>
           </CInputGroup>

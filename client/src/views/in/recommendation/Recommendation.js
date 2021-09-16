@@ -81,8 +81,9 @@ const Recommendation = () => {
                 clearKeywords()
                 getData()
               }}
+              color="light"
             >
-              ALL
+              <CIcon name="cil-home" />
             </CButton>
             <CFormControl
               type="search"
@@ -92,7 +93,7 @@ const Recommendation = () => {
                 dispatch(setKeywords(e.target.value))
               }}
             ></CFormControl>
-            <CButton onClick={(e) => searchData(e)}>
+            <CButton color="light" onClick={(e) => searchData(e)}>
               <CIcon name="cil-search" />
             </CButton>
           </CInputGroup>
