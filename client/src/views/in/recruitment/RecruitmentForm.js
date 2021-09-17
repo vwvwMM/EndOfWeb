@@ -60,23 +60,18 @@ const CareerForm = ({ data }) => {
   const [requirement, setRequirement] = useState(add ? [''] : data.spec.requirement)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
-  const [required, setRequired] = useState({
-    title: false,
+  const [requiredStyle, setRequiredStyle] = useState({
+    title: '',
   })
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
   }
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
-    if (required[e.target.name] !== undefined) {
-      setRequired({ ...required, [e.target.name]: true })
-      if (!e.target.value) {
-        document.getElementsByName(e.target.name)[0].style['border-color'] = 'red'
-        document.getElementsByName(e.target.name)[0].style['border-width'] = '0.1rem'
-      } else {
-        document.getElementsByName(e.target.name)[0].style['border-color'] = ''
-        document.getElementsByName(e.target.name)[0].style['border-width'] = ''
-      }
+    if (requiredStyle[e.target.name] !== undefined) {
+      if (e.target.value === '')
+        setRequiredStyle({ ...requiredStyle, [e.target.name]: 'border-3 border-danger' })
+      else setRequiredStyle({ ...requiredStyle, [e.target.name]: '' })
     }
   }
   const addArray = (e) => {
@@ -253,6 +248,7 @@ const CareerForm = ({ data }) => {
                         <CIcon name="cil-layers" />
                       </CInputGroupText>
                       <CFormControl
+                        className={requiredStyle.title}
                         data-for="title"
                         data-tip="Use impressing title to get people's attention!"
                         placeholder="The job title*"
@@ -417,16 +413,14 @@ const CareerForm = ({ data }) => {
                           color="dark"
                           onClick={() => {
                             let miss = []
-                            for (let info in required) {
+                            for (let info in requiredStyle) {
                               if (!dataForm[info]) {
                                 miss.push(info)
-                                document.getElementsByName(info)[0].style['border-color'] = 'red'
-                                document.getElementsByName(info)[0].style['border-width'] = '0.1rem'
+                                setRequiredStyle({
+                                  ...requiredStyle,
+                                  [info]: 'border-3 border-danger',
+                                })
                               }
-                            }
-                            if (miss.length !== 0) {
-                              alert(`You have to fill out ${miss}`)
-                              return
                             }
                             setBlockModal(true)
                           }}

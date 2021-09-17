@@ -60,22 +60,17 @@ const RecommendationForm = ({ data }) => {
   const [speciality, setSpeciality] = useState(add ? [''] : data.spec.speciality)
   const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
-  const [required, setRequired] = useState({
-    title: false,
-    name: false,
-    desireWorkType: false,
+  const [requiredStyle, setRequiredStyle] = useState({
+    title: '',
+    name: '',
+    desireWorkType: '',
   })
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
-    if (required[e.target.name] !== undefined && e.target.value === '') {
-      setRequired({ ...required, [e.target.name]: true })
-      // if (!e.target.value) {
-      //   document.getElementsByName(e.target.name)[0].style['border-color'] = 'red'
-      //   document.getElementsByName(e.target.name)[0].style['border-width'] = '0.1rem'
-      // } else {
-      //   document.getElementsByName(e.target.name)[0].style['border-color'] = ''
-      //   document.getElementsByName(e.target.name)[0].style['border-width'] = ''
-      // }
+    if (requiredStyle.hasOwnProperty(e.target.name)) {
+      if (e.target.value === '')
+        setRequiredStyle({ ...requiredStyle, [e.target.name]: 'border-3 border-danger' })
+      else setRequiredStyle({ ...requiredStyle, [e.target.name]: '' })
     }
   }
   const addArray = (e) => {
@@ -255,7 +250,7 @@ const RecommendationForm = ({ data }) => {
                         <CIcon name="cil-user" />
                       </CInputGroupText>
                       <CFormControl
-                        className={required.title ? 'border-3 border-danger' : ''}
+                        className={requiredStyle.title}
                         data-for="title"
                         data-tip="Use impressing title to get people's attention!"
                         placeholder="Title*"
@@ -270,7 +265,7 @@ const RecommendationForm = ({ data }) => {
                         <CIcon name="cil-user" />
                       </CInputGroupText>
                       <CFormControl
-                        className={required.name ? 'border-3 border-danger' : ''}
+                        className={requiredStyle.name}
                         data-for="name"
                         data-tip="Enter your name"
                         placeholder="Name*"
@@ -285,7 +280,7 @@ const RecommendationForm = ({ data }) => {
                         <CIcon name="cil-braille" />
                       </CInputGroupText>
                       <CFormControl
-                        className={required.desireWorkType ? 'border-3 border-danger' : ''}
+                        className={requiredStyle.desireWorkType}
                         data-for="workType"
                         data-tip="What's your desired work?"
                         placeholder="Desired Work Type*"
@@ -417,15 +412,19 @@ const RecommendationForm = ({ data }) => {
                           color="dark"
                           onClick={() => {
                             let miss = []
-                            for (let info in required) {
+                            for (let info in requiredStyle) {
                               if (!dataForm[info]) {
                                 miss.push(info)
-                                document.getElementsByName(info)[0].style['border-color'] = 'red'
-                                document.getElementsByName(info)[0].style['border-width'] = '0.1rem'
                               }
                             }
                             if (miss.length !== 0) {
+                              let missStyle = requiredStyle
+                              for (let m of miss) {
+                                missStyle[m] = 'border-3 border-danger'
+                              }
                               alert(`You have to fill out ${miss}`)
+                              setRequiredStyle(missStyle)
+                              setRequiredStyle({ ...requiredStyle })
                               return
                             }
                             setBlockModal(true)
