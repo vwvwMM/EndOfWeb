@@ -416,11 +416,17 @@ const CareerForm = ({ data }) => {
                             for (let info in requiredStyle) {
                               if (!dataForm[info]) {
                                 miss.push(info)
-                                setRequiredStyle({
-                                  ...requiredStyle,
-                                  [info]: 'border-3 border-danger',
-                                })
                               }
+                            }
+                            if (miss.length !== 0) {
+                              let missStyle = requiredStyle
+                              for (let m of miss) {
+                                missStyle[m] = 'border-3 border-danger'
+                              }
+                              alert(`You have to fill out ${miss}`)
+                              setRequiredStyle(missStyle)
+                              setRequiredStyle({ ...requiredStyle })
+                              return
                             }
                             setBlockModal(true)
                           }}
