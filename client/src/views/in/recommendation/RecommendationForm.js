@@ -67,15 +67,15 @@ const RecommendationForm = ({ data }) => {
   })
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
-    if (required[e.target.name] !== undefined) {
+    if (required[e.target.name] !== undefined && e.target.value === '') {
       setRequired({ ...required, [e.target.name]: true })
-      if (!e.target.value) {
-        document.getElementsByName(e.target.name)[0].style['border-color'] = 'red'
-        document.getElementsByName(e.target.name)[0].style['border-width'] = '0.1rem'
-      } else {
-        document.getElementsByName(e.target.name)[0].style['border-color'] = ''
-        document.getElementsByName(e.target.name)[0].style['border-width'] = ''
-      }
+      // if (!e.target.value) {
+      //   document.getElementsByName(e.target.name)[0].style['border-color'] = 'red'
+      //   document.getElementsByName(e.target.name)[0].style['border-width'] = '0.1rem'
+      // } else {
+      //   document.getElementsByName(e.target.name)[0].style['border-color'] = ''
+      //   document.getElementsByName(e.target.name)[0].style['border-width'] = ''
+      // }
     }
   }
   const addArray = (e) => {
@@ -255,6 +255,7 @@ const RecommendationForm = ({ data }) => {
                         <CIcon name="cil-user" />
                       </CInputGroupText>
                       <CFormControl
+                        className={required.title ? 'border-3 border-danger' : ''}
                         data-for="title"
                         data-tip="Use impressing title to get people's attention!"
                         placeholder="Title*"
@@ -269,6 +270,7 @@ const RecommendationForm = ({ data }) => {
                         <CIcon name="cil-user" />
                       </CInputGroupText>
                       <CFormControl
+                        className={required.name ? 'border-3 border-danger' : ''}
                         data-for="name"
                         data-tip="Enter your name"
                         placeholder="Name*"
@@ -283,6 +285,7 @@ const RecommendationForm = ({ data }) => {
                         <CIcon name="cil-braille" />
                       </CInputGroupText>
                       <CFormControl
+                        className={required.desireWorkType ? 'border-3 border-danger' : ''}
                         data-for="workType"
                         data-tip="What's your desired work?"
                         placeholder="Desired Work Type*"
