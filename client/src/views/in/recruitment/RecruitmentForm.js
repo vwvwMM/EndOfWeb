@@ -251,7 +251,7 @@ const CareerForm = ({ data }) => {
                         className={requiredStyle.title}
                         data-for="title"
                         data-tip="Use impressing title to get people's attention!"
-                        placeholder="The job title*"
+                        placeholder="Title*"
                         value={dataForm.title}
                         name="title"
                         onChange={handleInputChange}
