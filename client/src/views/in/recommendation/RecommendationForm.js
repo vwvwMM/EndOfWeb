@@ -423,8 +423,7 @@ const RecommendationForm = ({ data }) => {
                                 missStyle[m] = 'border-3 border-danger'
                               }
                               alert(`You have to fill out ${miss}`)
-                              setRequiredStyle(missStyle)
-                              setRequiredStyle({ ...requiredStyle })
+                              setRequiredStyle({ ...requiredStyle, ...missStyle })
                               return
                             }
                             setBlockModal(true)
