@@ -25,6 +25,7 @@ const AppSidebar = () => {
   return (
     <CSidebar
       position="fixed"
+      selfHiding="md"
       unfoldable={unfoldable}
       visible={sidebarShow}
       className="bg-white"
