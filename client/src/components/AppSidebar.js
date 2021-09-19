@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectLogin } from '../slices/loginSlice'
-import { selectGlobal, hideSidebar, openSidebar } from '../slices/globalSlice'
+import { selectGlobal, sidebarHide } from '../slices/globalSlice'
 import { CSidebar, CSidebarBrand, CSidebarNav, CImage, CCreateNavItem } from '@coreui/react'
-
-import CIcon from '@coreui/icons-react'
 
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
@@ -27,12 +25,12 @@ const AppSidebar = () => {
   return (
     <CSidebar
       position="fixed"
-      selfHiding="md"
       unfoldable={unfoldable}
-      show={sidebarShow}
+      visible={sidebarShow}
       className="bg-white"
+      onVisibleChange={(visible) => (visible ? dispatch(sidebarShow()) : dispatch(sidebarHide()))}
     >
-      <CSidebarBrand className="d-flex pt-1 bg-white text-dark" to="/">
+      <CSidebarBrand className="d-none d-md-flex pt-1 bg-white text-dark" to="/">
         <CImage src={logo_row} width="80%" />
       </CSidebarBrand>
       <CSidebarNav>

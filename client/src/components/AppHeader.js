@@ -2,7 +2,13 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectGlobal, openSidebar, hideSidebar } from '../slices/globalSlice'
+import {
+  selectGlobal,
+  sidebarShow,
+  sidebarHide,
+  squeezeSidebar,
+  stretchSidebar,
+} from '../slices/globalSlice'
 import { selectLogin } from '../slices/loginSlice'
 import { selectSearch, setKeywords, setResultProfiles } from '../slices/searchSlice'
 import {
@@ -28,7 +34,7 @@ import axios from 'axios'
 const AppHeader = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { sidebarShow } = useSelector(selectGlobal)
+  const { sidebarShow, unfoldable } = useSelector(selectGlobal)
   const { isLogin } = useSelector(selectLogin)
   const { keywords } = useSelector(selectSearch)
 
@@ -56,7 +62,8 @@ const AppHeader = () => {
         <CHeaderToggler
           className="ms-md-3"
           onClick={() => {
-            sidebarShow ? dispatch(hideSidebar()) : dispatch(openSidebar())
+            unfoldable ? dispatch(squeezeSidebar()) : dispatch(stretchSidebar())
+            sidebarShow ? dispatch(sidebarHide()) : dispatch(sidebarShow())
           }}
         >
           <CIcon name="cil-menu" size="lg" />
