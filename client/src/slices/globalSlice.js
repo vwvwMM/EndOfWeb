@@ -10,7 +10,7 @@ export const globalSlice = createSlice({
     sidebarHide: (state) => {
       state.sidebarShow = false
     },
-    sidebarShow: (state) => {
+    sidebarOpen: (state) => {
       state.sidebarShow = true
     },
     stretchSidebar: (state) => {
@@ -22,6 +22,6 @@ export const globalSlice = createSlice({
   },
 })
 
-export const { sidebarHide, sidebarShow, squeezeSidebar, stretchSidebar } = globalSlice.actions
+export const { sidebarHide, sidebarOpen, squeezeSidebar, stretchSidebar } = globalSlice.actions
 export const selectGlobal = (state) => state.global
 export default globalSlice.reducer
