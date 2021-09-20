@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const globalSlice = createSlice({
   name: 'global',
   initialState: {
-    sidebarShow: true,
+    sidebarShow: false,
     unfoldable: false,
   },
   reducers: {

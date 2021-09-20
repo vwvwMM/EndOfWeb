@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   selectGlobal,
-  sidebarShow,
+  sidebarOpen,
   sidebarHide,
   squeezeSidebar,
   stretchSidebar,
@@ -60,10 +60,16 @@ const AppHeader = () => {
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>
         <CHeaderToggler
-          className="ms-md-3"
+          className="ms-md-3 d-lg-none"
+          onClick={() => (sidebarShow ? dispatch(sidebarHide()) : dispatch(sidebarOpen()))}
+        >
+          <CIcon name="cil-menu" size="lg" />
+        </CHeaderToggler>
+        <CHeaderToggler
+          className="ms-md-3 d-none d-lg-block"
           onClick={() => {
+            sidebarShow ? dispatch(sidebarHide()) : dispatch(sidebarOpen())
             unfoldable ? dispatch(squeezeSidebar()) : dispatch(stretchSidebar())
-            sidebarShow ? dispatch(sidebarHide()) : dispatch(sidebarShow())
           }}
         >
           <CIcon name="cil-menu" size="lg" />
