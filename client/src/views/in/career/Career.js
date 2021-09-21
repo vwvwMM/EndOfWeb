@@ -6,7 +6,7 @@ import { Recruitment_image, Recommendation_image } from './index'
 
 const Career = () => {
   return (
-    <div className="d-flex flex-row align-items-center career">
+    <div className="d-flex flex-row align-items-center career min-vh-100">
       <CContainer className="align-items-center">
         <CRow className="justify-content-around d-flex">
           <CCol md="4" sm="8">
