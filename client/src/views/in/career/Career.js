@@ -8,12 +8,8 @@ const Career = () => {
   return (
     <div className="d-flex flex-row align-items-center career">
       <CContainer className="align-items-center">
-        {/* for desktop and ipad */}
         <CRow className="justify-content-around d-flex">
           <CCol md="4" sm="8">
-            <h3 className="text-light text-center my-4">
-              Companies are looking for capable employees!
-            </h3>
             <Link className="d-flex justify-content-center" to="/recruitment">
               <CImage
                 src={Recruitment_image}
@@ -21,9 +17,9 @@ const Career = () => {
                 className="career_img img-fluid"
               />
             </Link>
+            <h3 className="text-light text-center mt-4">來看看各家公司的徵才貼文！</h3>
           </CCol>
           <CCol md="4" sm="8">
-            <h3 className="text-light text-center my-4">See some awesome people in NTUEE!</h3>
             <Link className="d-flex justify-content-center" to="/recommendation">
               <CImage
                 src={Recommendation_image}
@@ -31,6 +27,7 @@ const Career = () => {
                 className="career_img img-fluid"
               />
             </Link>
+            <h3 className="text-light text-center mt-4">電機系人才都在這！</h3>
           </CCol>
         </CRow>
       </CContainer>
