@@ -26,7 +26,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
-import { AppHeaderDropdown } from './header/index'
+import { AppHeaderDropdown } from './header'
 
 import logo_row from '../assets/images/logo_row.png'
 import axios from 'axios'
@@ -60,13 +60,13 @@ const AppHeader = () => {
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>
         <CHeaderToggler
-          className="ms-md-3 d-lg-none"
+          className="ms-md-3 d-md-none"
           onClick={() => (sidebarShow ? dispatch(sidebarHide()) : dispatch(sidebarOpen()))}
         >
           <CIcon name="cil-menu" size="lg" />
         </CHeaderToggler>
         <CHeaderToggler
-          className="ms-md-3 d-none d-lg-block"
+          className="ms-md-3 d-none d-md-block"
           onClick={() => {
             sidebarShow ? dispatch(sidebarHide()) : dispatch(sidebarOpen())
             unfoldable ? dispatch(squeezeSidebar()) : dispatch(stretchSidebar())
@@ -100,11 +100,11 @@ const AppHeader = () => {
           )}
         </CHeaderNav>
         {isLogin ? (
-          <CHeaderNav className="ms-3">
+          <CHeaderNav className="ms-3 d-none d-md-block">
             <AppHeaderDropdown />
           </CHeaderNav>
         ) : (
-          <CHeaderNav>
+          <CHeaderNav className="d-none d-md-block">
             <CNavLink to="/login" component={NavLink}>
               <CButton>Login</CButton>
             </CNavLink>
