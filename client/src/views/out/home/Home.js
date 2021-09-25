@@ -18,7 +18,8 @@ const Home = () => {
       duration: 1000,
       easing: 'ease-out-cubic',
     })
-  })
+    window.addEventListener('load', AOS.refresh)
+  }, [])
   return (
     <div
       className="landing"
