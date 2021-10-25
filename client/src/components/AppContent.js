@@ -47,7 +47,6 @@ const AppContent = () => {
         dispatch(clearStudentInfo())
       })
   }, [isLogin])
-
   return (
     <div style={ContentStyle}>
       <AppBackground />
@@ -79,7 +78,7 @@ const AppContent = () => {
             )
           })}
           <Redirect exact from="/" to="/home" />
-          {/* {!isLogin ? <Redirect to="/login" /> : null} */}
+          {!isLogin ? <Redirect to="/login" /> : null}
           {isLogin
             ? routes_in.map((route, idx) => {
                 return (
