@@ -16,11 +16,15 @@
   border-left: solid;
 }
 .matching a {
-  background: rgb(148, 156, 154);
   font-size: 1.6rem;
 }
-.matching .active {
+.matching .active.nav-link {
   font-weight: bold;
+  border-top: solid 0.5rem;
+  border-top-color: rgb(124, 155, 240) !important;
+}
+.matching .nav-link:hover {
+  border-color: white;
 }
 .matching .result-block {
   background-color: aliceblue;
