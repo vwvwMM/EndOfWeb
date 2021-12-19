@@ -1,19 +1,18 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
-import DownloadMatch from './DownloadMatch'
-import UploadMatch from './UploadMatch'
-
+import RunMatch from './RunMatch'
+import Mail from './Mail'
 const Matching = () => {
-  const [downloaded, setDownloaded] = useState(false)
-  const [sdata, setSdata] = useState(null)
-  const [jdata, setJdata] = useState(null)
-
+  const [sdata, setSdata] = useState([1])
+  const [jdata, setJdata] = useState([1])
+  const [result, setResult] = useState(null)
+  const [hasMatched, setHasMatched] = useState(false)
   return (
-    <div className="matching bg-white border-2 mx-3">
-      {downloaded ? (
-        <UploadMatch sdata={sdata} setSdata={setSdata} jdata={jdata} setJdata={setJdata} />
+    <div className="matching  p-5 rounded bg-white text-black w-50 mx-auto mt-5">
+      {hasMatched ? (
+        <Mail />
       ) : (
-        <DownloadMatch setDownloaded={setDownloaded} />
+        <RunMatch sdata={sdata} jdata={jdata} result={result} setHasMatched={setHasMatched} />
       )}
     </div>
   )
