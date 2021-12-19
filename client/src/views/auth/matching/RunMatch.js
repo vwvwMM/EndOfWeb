@@ -13,7 +13,7 @@ const RunMatch = ({ sdata, jdata, result, setHasMatched }) => {
   const clearFormDB = () => {}
   return (
     <>
-      <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
+      <CModal size="lg" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setIsModal(false)}></CModalHeader>
         <CModalTitle>重啟一期配對</CModalTitle>
         <CModalBody>
