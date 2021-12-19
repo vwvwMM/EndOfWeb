@@ -31,9 +31,10 @@ const AppSidebar = () => {
   const { isLogin, isAuth } = useSelector(selectLogin)
   const { sidebarShow, unfoldable } = useSelector(selectGlobal)
   const chNav = () => {
-    if (isLogin) return [...navIn, ...navOut]
-    else if (isAuth) return navAuth
-    else return navOut
+    if (isLogin) {
+      if (!isAuth) return [...navIn, ...navOut]
+      else if (isAuth) return [...navAuth, ...navIn, ...navOut]
+    } else return navOut
   }
   return (
     <CSidebar

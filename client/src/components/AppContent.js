@@ -79,43 +79,43 @@ const AppContent = () => {
           })}
           {/* {!isLogin ? <Redirect to="/login" /> : null} */}
           {isLogin
-            ? isAuth
-              ? routes_auth.map((route, idx) => {
-                  console.log('auth')
-                  return (
-                    route.component && (
-                      <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        name={route.name}
-                        render={(props) => (
-                          <>
-                            <route.component {...props} />
-                          </>
-                        )}
-                      />
-                    )
+            ? routes_in.map((route, idx) => {
+                return (
+                  route.component && (
+                    <Route
+                      key={idx}
+                      path={route.path}
+                      exact={route.exact}
+                      name={route.name}
+                      render={(props) => (
+                        <>
+                          <route.component {...props} />
+                        </>
+                      )}
+                    />
                   )
-                })
-              : routes_in.map((route, idx) => {
-                  console.log('routes in')
-                  return (
-                    route.component && (
-                      <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        name={route.name}
-                        render={(props) => (
-                          <>
-                            <route.component {...props} />
-                          </>
-                        )}
-                      />
-                    )
+                )
+              })
+            : null}
+          {isAuth
+            ? routes_auth.map((route, idx) => {
+                console.log('auth')
+                return (
+                  route.component && (
+                    <Route
+                      key={idx}
+                      path={route.path}
+                      exact={route.exact}
+                      name={route.name}
+                      render={(props) => (
+                        <>
+                          <route.component {...props} />
+                        </>
+                      )}
+                    />
                   )
-                })
+                )
+              })
             : null}
           {isAuth ? (
             <Redirect exact from="/" to="/auth/matching" />
