@@ -14,8 +14,9 @@ const RunMatch = ({ sdata, jdata, result, setHasMatched }) => {
   return (
     <>
       <CModal size="lg" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
-        <CModalHeader onDismiss={() => setIsModal(false)}></CModalHeader>
-        <CModalTitle>重啟一期配對</CModalTitle>
+        <CModalHeader onDismiss={() => setIsModal(false)}>
+          <CModalTitle>重啟一期配對</CModalTitle>
+        </CModalHeader>
         <CModalBody>
           <h3>
             重新開始一期配對會將舊的配對資料庫中的<b className="text-danger">所有資料刪除</b>

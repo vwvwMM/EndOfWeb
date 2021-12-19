@@ -6,7 +6,7 @@ import MatchResult from './MatchResult'
 import Experience from './Experience'
 
 const Matching = () => {
-  const [opened, setOpened] = useState(true)
+  const [opened, setOpened] = useState(false)
   const [page, setPage] = useState(1)
   const sdata = {
     num: 'B03901023 ',
@@ -27,7 +27,7 @@ const Matching = () => {
     image: 'https://picsum.photos/300',
   }
   return opened ? (
-    <div className="matching p-3 mx-auto mt-5 w-75 pb-3">
+    <div className="matching mx-auto mt-5 w-75 pb-3">
       <CNav className="mb-4" variant="tabs" role="tablist" layout="justified">
         <CNavItem>
           <CNavLink href="javascript:void(0);" active={page === 1} onClick={() => setPage(1)}>
