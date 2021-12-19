@@ -10,7 +10,7 @@ const Matching = () => {
   return (
     <div className="matching  p-5 rounded bg-white text-black w-50 mx-auto mt-5">
       {hasMatched ? (
-        <Mail />
+        <Mail setHasMatched={setHasMatched} />
       ) : (
         <RunMatch sdata={sdata} jdata={jdata} result={result} setHasMatched={setHasMatched} />
       )}
