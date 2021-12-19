@@ -119,7 +119,7 @@ const routes_auth = [
   {
     path: '/auth/matching',
     exact: true,
-    name: 'Matching',
+    name: 'AuthMatching',
     component: AuthMatching,
   },
 ]

@@ -13,7 +13,7 @@ const _navAuth = [
     as: NavLink,
     anchor: 'MATCHING',
     to: '/auth/matching',
-    icon: <CIcon name="sidebar_icon" customClassName="nav-icon" />,
+    icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
   },
 ]
 

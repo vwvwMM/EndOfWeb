@@ -27,7 +27,7 @@ const Matching = () => {
     image: 'https://picsum.photos/300',
   }
   return opened ? (
-    <div className="matching mx-auto mt-5 w-75 pb-3">
+    <div className="matching p-3 mx-auto mt-5 w-75 pb-3">
       <CNav className="mb-4" variant="tabs" role="tablist" layout="justified">
         <CNavItem>
           <CNavLink href="javascript:void(0);" active={page === 1} onClick={() => setPage(1)}>
