@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CFormCheck, CButton } from '@coreui/react'
+import MatchForm from './MatchForm'
 
 const OpenMatching = ({ setOpened }) => {
   const [identity, setIdentity] = useState('')
@@ -40,68 +41,8 @@ const OpenMatching = ({ setOpened }) => {
           <br />
           <CButton onClick={() => setIdentity(tempIdentity)}>下一步</CButton>
         </div>
-      ) : identity === 'senior' ? (
-        <div className="d-flex flex-column align-items-center justify-content-center">
-          <h2>
-            學長姐您好，欲開通 EE Chain ，請完成下列事項：
-            <br />
-            <br />
-            請於9/20前填妥 「
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://docs.google.com/forms/d/e/1FAIpQLScOJj5lN4sIb_ppYKVT4QiHLZiZ8satlHcd0bln2Kp4PHBnYw/viewform?fbclid=IwAR1X4jzLa1dLyYq1SuVS-TC-F0z77O6h54weANgHLhw5snpaVsV3Gk1CUwM"
-            >
-              當年留學申請經驗
-            </a>
-            」 我們才會幫您配對您的學弟妹哦！
-            <br />
-            <br />
-            完成後，請按下方『確認送出』
-          </h2>
-          <br />
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              console.log('open')
-              setOpened(true)
-            }}
-          >
-            確認送出
-          </button>
-        </div>
       ) : (
-        <div className="d-flex flex-column align-items-center justify-content-center">
-          <h2>
-            學弟妹您好，欲開通 EE Chain ，請完成下列事項
-            <br />
-            <br />
-            請於9/20前填妥
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeP3_IwQIQYiB5yRxNq53c0j77N9EasbdlWbXRhRNTsvxl1CA/viewform?fbclid=IwAR1X4jzLa1dLyYq1SuVS-TC-F0z77O6h54weANgHLhw5snpaVsV3Gk1CUwM"
-            >
-              留學申請資料
-            </a>
-            我們才會幫您配對輔導您的學長姐哦！
-            <br />
-            <br />
-            完成後，請按下方『確認送出』
-          </h2>
-          <br />
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              console.log('open')
-              setOpened(true)
-            }}
-          >
-            確認送出
-          </button>
-        </div>
+        <MatchForm />
       )}
     </div>
   )
