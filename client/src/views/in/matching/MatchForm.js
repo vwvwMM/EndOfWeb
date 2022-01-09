@@ -98,7 +98,7 @@ const MatchForm = ({ identity, setOpened }) => {
       ad = ad.map((a) => (a = a.trim()))
       console.log('now we have admissions:', ad)
       setDataForm((f) => {
-        return { ...f, ['admission']: ad, ['school']: mjr }
+        return { ...f, ['admission']: ad, ['major']: mjr }
       })
     } else {
       let sch1 = []
@@ -132,7 +132,7 @@ const MatchForm = ({ identity, setOpened }) => {
       console.log('now we have school3s:', sch3)
 
       setDataForm((f) => {
-        return { ...f, ['school1']: sch1, ['school2']: sch2, ['school3']: sch3, ['school']: mjr }
+        return { ...f, ['school1']: sch1, ['school2']: sch2, ['school3']: sch3, ['major']: mjr }
       })
     }
     axios.post('/api/')
