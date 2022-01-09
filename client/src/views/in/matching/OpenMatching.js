@@ -37,12 +37,12 @@ const OpenMatching = ({ setOpened }) => {
               />
               想申請出國希望能多得到學長姊的經驗，未來出國後將再把經驗流傳給下一屆！
             </div>
+            <br />
+            <CButton onClick={() => setIdentity(tempIdentity)}>下一步</CButton>
           </div>
-          <br />
-          <CButton onClick={() => setIdentity(tempIdentity)}>下一步</CButton>
         </div>
       ) : (
-        <MatchForm />
+        <MatchForm identity={identity} setOpened={setOpened} />
       )}
     </div>
   )
