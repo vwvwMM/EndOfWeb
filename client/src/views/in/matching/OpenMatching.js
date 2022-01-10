@@ -8,12 +8,17 @@ const OpenMatching = ({ setOpened }) => {
   const [identity, setIdentity] = useState('')
   let tempIdentity = ''
   return (
-    <div className="OpenMatching" style={{ color: 'white' }}>
+    <div>
       {identity === '' ? (
-        <div>
-          <h2>歡迎使用留學交流（原EE Chain）功能！ 您是第一次開通，所以請選擇您的身份</h2>
+        <div className="matching p-5 rounded bg-white text-black mt-5">
+          <h2>
+            歡迎使用留學交流（原EE Chain）功能！
+            <br />
+            您是第一次開通，所以請選擇您的身份
+          </h2>
+          <br />
           <div className="d-flex">
-            <div className="col-5">
+            <div className="col-6 h4 px-3">
               <CFormCheck
                 type="radio"
                 name="identity"
@@ -37,12 +42,12 @@ const OpenMatching = ({ setOpened }) => {
               />
               想申請出國希望能多得到學長姊的經驗，未來出國後將再把經驗流傳給下一屆！
             </div>
-            <br />
-            <CButton onClick={() => setIdentity(tempIdentity)}>下一步</CButton>
           </div>
+          <br />
+          <CButton onClick={() => setIdentity(tempIdentity)}>下一步</CButton>
         </div>
       ) : (
-        <MatchForm identity={identity} setOpened={setOpened} />
+        <MatchForm identity={identity} setIdentity={setIdentity} setOpened={setOpened} />
       )}
     </div>
   )

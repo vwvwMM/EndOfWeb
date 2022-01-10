@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectLogin } from '../../../slices/loginSlice'
-import { useHistory } from 'react-router'
 import axios from 'axios'
 import {
   CRow,
@@ -20,27 +19,31 @@ import CIcon from '@coreui/icons-react'
 import ReactTooltip from 'react-tooltip'
 import PropTypes from 'prop-types'
 
-const MatchForm = ({ identity, setOpened }) => {
-  const history = useHistory()
+const MatchForm = ({ identity, setIdentity, setOpened }) => {
   const senior = identity === 'senior' ? true : false
-  const { email: userEmail, name: userName } = useSelector(selectLogin)
+  const { email: userEmail, name: userName, studentID: account } = useSelector(selectLogin)
 
   const formTemplate = senior
     ? {
+        identity: 'senior',
         name: userName,
         email: userEmail,
         major: '',
+        degree: 0,
         school: '',
+        gpa: 0,
         number: 0,
         admission: '',
       }
     : {
+        identity: 'junior',
         name: userName,
         email: userEmail,
+        account: account,
         major: '',
-        degree: '',
+        degree: 0,
+        gpa: 0,
         hasPaper: 0,
-        account: '',
         school1: '',
         school2: '',
         school3: '',
@@ -58,8 +61,6 @@ const MatchForm = ({ identity, setOpened }) => {
           name: '',
           email: '',
           major: '',
-          degree: '',
-          hasPaper: '',
           account: '',
           school1: '',
           school2: '',
@@ -89,6 +90,7 @@ const MatchForm = ({ identity, setOpened }) => {
     console.log('now we have majors:', mjr)
     if (senior) {
       let ad = []
+      let deg = dataForm.degree
       if (dataForm.admission.includes(',')) {
         ad = dataForm.admission.split(',')
       }
@@ -96,10 +98,13 @@ const MatchForm = ({ identity, setOpened }) => {
         ad = dataForm.admission.split('，')
       }
       ad = ad.map((a) => (a = a.trim()))
+      if (dataForm.degree === 2) {
+        deg = [0, 1]
+      } else deg = [deg]
       console.log('now we have admissions:', ad)
-      setDataForm((f) => {
-        return { ...f, ['admission']: ad, ['major']: mjr }
-      })
+      const newDataForm = { ...dataForm, ['admission']: ad, ['major']: mjr, ['degree']: deg }
+      setDataForm({ ...newDataForm })
+      console.log('sending data:', newDataForm)
     } else {
       let sch1 = []
       let sch2 = []
@@ -130,22 +135,27 @@ const MatchForm = ({ identity, setOpened }) => {
       }
       sch3 = sch3.map((a) => (a = a.trim()))
       console.log('now we have school3s:', sch3)
-
-      setDataForm((f) => {
-        return { ...f, ['school1']: sch1, ['school2']: sch2, ['school3']: sch3, ['major']: mjr }
+      const newDataForm = {
+        ...dataForm,
+        ['school1']: sch1,
+        ['school2']: sch2,
+        ['school3']: sch3,
+        ['major']: mjr,
+      }
+      setDataForm({
+        ...newDataForm,
       })
+      console.log('sending data:', newDataForm)
     }
-    axios.post('/api/')
-    // axios
-    //   .post('/api/', dataForm)
-    //   .then(() => {
-    //     alert('已新增')
-    //     history.push('/mathcing')
-    //   })
-    //   .catch((err) => {
-    //     err.response.data.description && alert('錯誤\n' + err.response.data.description)
-    //   })
-    setOpened(true)
+    axios
+      .post('/api/study/fillForm', dataForm)
+      .then(() => {
+        alert('已送出')
+        setOpened(true)
+      })
+      .catch((err) => {
+        err.response.data.description && alert('錯誤\n' + err.response.data.description)
+      })
   }
   return (
     <div className="matching-form">
@@ -153,7 +163,13 @@ const MatchForm = ({ identity, setOpened }) => {
         <CRow className="justify-content-center">
           <CCol md="11" lg="10" xl="9">
             <CCard className="mx-2">
-              <CCardBody className="p-5">
+              <CCardBody className="px-5">
+                <button
+                  className="align-self-baseline btn btn-ghost-info my-3"
+                  onClick={() => setIdentity('')}
+                >
+                  <CIcon name="cil-arrow-left" size="lg" />
+                </button>
                 <CForm>
                   <h2>
                     {senior ? '學長姐' : '學弟妹'}您好，請於2/1前填妥以下表單，我們才會幫您配對
@@ -176,6 +192,22 @@ const MatchForm = ({ identity, setOpened }) => {
                     />
                     <ReactTooltip id="name" place="top" type="dark" effect="solid" />
                   </CInputGroup>
+                  {!senior && (
+                    <CInputGroup className="mb-4">
+                      <CInputGroupText>
+                        <CIcon icon="cil-dollar" />
+                      </CInputGroupText>
+                      <CFormControl
+                        data-for="account"
+                        data-tip="Please fill in your student number"
+                        placeholder="Student number"
+                        name="account"
+                        value={dataForm.account}
+                        onChange={handleInputChange}
+                      />
+                      <ReactTooltip id="account" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                  )}
                   <CInputGroup className="mb-4">
                     <CInputGroupText>
                       <CIcon icon="cil-building" />
@@ -190,8 +222,81 @@ const MatchForm = ({ identity, setOpened }) => {
                     />
                     <ReactTooltip id="email" place="top" type="dark" effect="solid" />
                   </CInputGroup>
+                  <h5 className="text-medium-emphasis">
+                    填入您{senior ? '現在研究的領域' : '想申請的領域(若有多個請用 ，/ , 分開)'}
+                  </h5>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon="cil-braille" />
+                    </CInputGroupText>
+                    <CFormControl
+                      data-for="major"
+                      data-tip="What subjects or fields are you majar?"
+                      placeholder="Major"
+                      value={dataForm.major}
+                      name="major"
+                      onChange={handleInputChange}
+                    />
+                  </CInputGroup>
+                  <h5 className="text-medium-emphasis">
+                    {senior ? '入學時持有的最高學位' : '想申請的學位'}
+                  </h5>
+                  <CInputGroup className="mb-4">
+                    <div className="d-flex justify-content-around">
+                      <div style={{ 'margin-right': '1.2rem' }}>
+                        <CFormCheck
+                          type={senior ? 'radio' : 'checkbox'}
+                          name="degree"
+                          id="gridRadios1"
+                          value={0}
+                          label="MS"
+                          onChange={handleInputChange}
+                          defaultChecked
+                        />
+                      </div>
+                      <div className="mr-4">
+                        <CFormCheck
+                          type={senior ? 'radio' : 'checkbox'}
+                          name="degree"
+                          id="gridRadios2"
+                          value={1}
+                          label="PhD"
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                      {senior ? null : (
+                        <div className="mr-4">
+                          <CFormCheck
+                            type="checkbox"
+                            name="degree"
+                            id="gridRadios2"
+                            value={2}
+                            label="Both"
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </CInputGroup>
+                  <h5 className="text-medium-emphasis">請填入之前的在校GPA</h5>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupText>
+                      <CIcon icon="cil-education" />
+                    </CInputGroupText>
+                    <CFormControl
+                      type="number"
+                      data-for="gpa"
+                      data-tip="GPA when in college(in 4.3 scale)"
+                      placeholder="gpa"
+                      value={dataForm.gpa}
+                      name="gpa"
+                      onChange={handleInputChange}
+                    />
+                    <ReactTooltip id="gpa" place="top" type="dark" effect="solid" />
+                  </CInputGroup>
                   {senior ? (
                     <>
+                      <h5 className="text-medium-emphasis">請填入您現在就讀的學校</h5>
                       <CInputGroup className="mb-4">
                         <CInputGroupText>
                           <CIcon icon="cil-dollar" />
@@ -206,6 +311,7 @@ const MatchForm = ({ identity, setOpened }) => {
                         />
                         <ReactTooltip id="school" place="top" type="dark" effect="solid" />
                       </CInputGroup>
+                      <h5 className="text-medium-emphasis">請問您想接收幾位學弟妹呢?</h5>
                       <CInputGroup className="mb-4">
                         <CInputGroupText>
                           <CIcon icon="cil-education" />
@@ -220,23 +326,6 @@ const MatchForm = ({ identity, setOpened }) => {
                           onChange={handleInputChange}
                         />
                         <ReactTooltip id="number" place="top" type="dark" effect="solid" />
-                      </CInputGroup>
-                      <h5 className="text-medium-emphasis">
-                        填入您現在研究的領域(若有多個請用 ，/ , 分開)
-                      </h5>
-                      <CInputGroup className="mb-4">
-                        <CInputGroupText>
-                          <CIcon icon="cil-braille" />
-                        </CInputGroupText>
-                        <CFormControl
-                          data-for="major"
-                          data-tip="What subjects or fields are you majar?"
-                          placeholder="Major"
-                          value={dataForm.major}
-                          name="major"
-                          onChange={handleInputChange}
-                        />
-                        <ReactTooltip id="major" place="top" type="dark" effect="solid" />
                       </CInputGroup>
                       <h5 className="text-medium-emphasis">
                         填入您之前有錄取的學校(若有多個請用 ，/ , 分開)
@@ -255,96 +344,16 @@ const MatchForm = ({ identity, setOpened }) => {
                         />
                         <ReactTooltip id="admission" place="top" type="dark" effect="solid" />
                       </CInputGroup>
-
-                      {/* {admissions.map((req, index) => {
-                        return (
-                          <CInputGroup className="mb-4" key={index}>
-                            <CInputGroupText>
-                              <CIcon icon="cil-thumb-up" />
-                            </CInputGroupText>
-                            <CFormControl
-                              data-for="admission"
-                              data-tip="Enter one school you had got admitted"
-                              placeholder="Admission school"
-                              name="admission"
-                              value={req}
-                              onChange={(e) => handleInputArray(e, index)}
-                            />
-                            <ReactTooltip id="admission" place="top" type="dark" effect="solid" />
-                            <CButton
-                              type="button"
-                              name="admission"
-                              onClick={(e) => handleDeleteArray(e, index)}
-                            >
-                              x
-                            </CButton>
-                          </CInputGroup>
-                        )
-                      })} */}
                     </>
                   ) : (
                     <>
-                      <CInputGroup className="mb-3">
-                        <CInputGroupText>
-                          <CIcon icon="cil-braille" />
-                        </CInputGroupText>
-                        <CFormControl
-                          data-for="major"
-                          data-tip="What subjects or fields are you majar?"
-                          placeholder="Major"
-                          value={dataForm.major}
-                          name="major"
-                          onChange={handleInputChange}
-                        />
-                        <ReactTooltip id="major" place="top" type="dark" effect="solid" />
-                      </CInputGroup>
-                      <CInputGroup className="mb-4">
-                        <CInputGroupText>
-                          <CIcon icon="cil-dollar" />
-                        </CInputGroupText>
-                        <CFormControl
-                          data-for="account"
-                          data-tip="Please fill in your student number"
-                          placeholder="Student number"
-                          name="account"
-                          value={dataForm.account}
-                          onChange={handleInputChange}
-                        />
-                        <ReactTooltip id="account" place="top" type="dark" effect="solid" />
-                      </CInputGroup>
-                      <h5 className="text-medium-emphasis">想申請的學位</h5>
-                      <CInputGroup className="mb-4">
-                        <div className="d-flex justify-content-around">
-                          <div className="mr-4">
-                            <CFormCheck
-                              type="checkbox"
-                              name="degree"
-                              id="gridRadios1"
-                              value="0"
-                              label="MS"
-                              onChange={handleInputChange}
-                              defaultChecked
-                            />
-                          </div>
-                          <div className="mr-4">
-                            <CFormCheck
-                              type="checkbox"
-                              name="degree"
-                              id="gridRadios2"
-                              value="1"
-                              label="PhD"
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                        </div>
-                      </CInputGroup>
                       <h5 className="text-medium-emphasis">發論文的經驗</h5>
                       <div className="d-flex justify-content-around">
                         <CInputGroup className="mb-4">
                           <div className="col-3">
                             <CFormCheck
                               type="radio"
-                              name="degree"
+                              name="hasPaper"
                               id="gridRadios1"
                               value="0"
                               label="無論文經驗"
@@ -355,7 +364,7 @@ const MatchForm = ({ identity, setOpened }) => {
                           <div className="col-3">
                             <CFormCheck
                               type="radio"
-                              name="degree"
+                              name="hasPaper"
                               id="gridRadios2"
                               value="1"
                               label="已投稿但尚未公佈"
@@ -365,7 +374,7 @@ const MatchForm = ({ identity, setOpened }) => {
                           <div className="col-3">
                             <CFormCheck
                               type="radio"
-                              name="degree"
+                              name="hasPaper"
                               id="gridRadios3"
                               value="2"
                               label="已發表 1 篇"
@@ -375,7 +384,7 @@ const MatchForm = ({ identity, setOpened }) => {
                           <div className="col-3">
                             <CFormCheck
                               type="radio"
-                              name="degree"
+                              name="hasPaper"
                               id="gridRadios3"
                               value="2"
                               label="已發表 2 篇以上"
@@ -471,6 +480,7 @@ const MatchForm = ({ identity, setOpened }) => {
 }
 MatchForm.propTypes = {
   identity: PropTypes.string,
+  setIdentity: PropTypes.func,
   setOpened: PropTypes.func,
 }
 export default MatchForm
