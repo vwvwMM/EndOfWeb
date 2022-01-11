@@ -87,6 +87,6 @@ $ gcloud builds submit
 
    ![image](https://github.com/Claude0311/EndOfWeb/blob/NTUEEPLUS-152/screenshot/gcp-arg-step3.png)
 
-4. If want to use .env in frontend, set **pulgin** in .config.js
+4. If want to use .env in frontend, set **pulgin** in webpack.config.js
 
    ![image](https://github.com/Claude0311/EndOfWeb/blob/NTUEEPLUS-152/screenshot/gcp-arg-step4.png)
