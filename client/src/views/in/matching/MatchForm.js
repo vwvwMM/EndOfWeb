@@ -33,7 +33,7 @@ const strToArray = (str) => {
 }
 const MatchForm = ({ identity, setIdentity, setOpened }) => {
   const senior = identity === 'senior' ? true : false
-  const { email: userEmail, name: userName, studentID: account } = useSelector(selectLogin)
+  const { email: userEmail, name: userName, studentID } = useSelector(selectLogin)
 
   const formTemplate = senior
     ? {
@@ -43,18 +43,18 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
         major: '',
         degree: '0',
         school: '',
-        gpa: '0',
-        number: '0',
+        gpa: '',
+        number: '',
         admission: [],
       }
     : {
         identity: 'junior',
         name: userName,
         email: userEmail,
-        account: account,
+        studentID: studentID,
         major: [],
         degree: [],
-        gpa: '0',
+        gpa: '',
         hasPaper: '0',
         school1: [],
         school2: [],
@@ -64,6 +64,7 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
     senior
       ? {
           name: '',
+          major: '',
           email: '',
           school: '',
           number: '',
@@ -71,19 +72,13 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
       : {
           name: '',
           email: '',
-          account: '',
+          major: '',
           school1: '',
           school2: '',
           school3: '',
         },
   )
   const [dataForm, setDataForm] = useState(formTemplate)
-  const [major, setMajor] = useState('')
-  const [admission, setAdmission] = useState('')
-  const [degree, setDegree] = useState('0')
-  const [school1, setSchool1] = useState('')
-  const [school2, setSchool2] = useState('')
-  const [school3, setSchool3] = useState('')
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value })
     if (requiredStyle.hasOwnProperty(e.target.name)) {
@@ -92,38 +87,20 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
       else setRequiredStyle({ ...requiredStyle, [e.target.name]: '' })
     }
   }
+  const handleInputArray = (e) => {
+    const a = strToArray(e.target.value)
+    setDataForm({ ...dataForm, [e.target.name]: a })
+    if (requiredStyle.hasOwnProperty(e.target.name)) {
+      if (e.target.value === '')
+        setRequiredStyle({ ...requiredStyle, [e.target.name]: 'border-3 border-danger' })
+      else setRequiredStyle({ ...requiredStyle, [e.target.name]: '' })
+    }
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (dataForm.gpa > 4.3) {
-      alert('gpa should not exceed 4.3')
+    if (dataForm.gpa > 4.3 || isNaN(dataForm.gpa)) {
+      alert('please fill in correct gpa')
       return
-    }
-    if (senior) {
-      let ad = strToArray(admission)
-      const newDataForm = { ...dataForm, ['admission']: ad, ['major']: major }
-      setDataForm({ ...newDataForm })
-      console.log('sending data:', newDataForm)
-    } else {
-      let sch1 = strToArray(school1)
-      let sch2 = strToArray(school2)
-      let sch3 = strToArray(school3)
-      let deg = degree
-      let mjr = strToArray(major)
-      if (degree === '2') {
-        deg = ['0', '1']
-      } else deg = [deg]
-      const newDataForm = {
-        ...dataForm,
-        ['school1']: sch1,
-        ['school2']: sch2,
-        ['school3']: sch3,
-        ['major']: mjr,
-        ['degree']: deg,
-      }
-      setDataForm({
-        ...newDataForm,
-      })
-      console.log('sending data:', newDataForm)
     }
     axios
       .post('/api/study/fillForm', dataForm)
@@ -165,7 +142,7 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                       data-tip="Please fill in your name"
                       placeholder="Name*"
                       value={dataForm.name}
-                      name="title"
+                      name="name"
                       onChange={handleInputChange}
                     />
                     <ReactTooltip id="name" place="top" type="dark" effect="solid" />
@@ -176,14 +153,14 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                         <CIcon icon="cil-dollar" />
                       </CInputGroupText>
                       <CFormControl
-                        data-for="account"
+                        data-for="studentID"
                         data-tip="Please fill in your student number"
                         placeholder="Student number"
-                        name="account"
-                        value={dataForm.account}
+                        name="studentID"
+                        value={dataForm.studentID}
                         onChange={handleInputChange}
                       />
-                      <ReactTooltip id="account" place="top" type="dark" effect="solid" />
+                      <ReactTooltip id="studentID" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                   )}
                   <CInputGroup className="mb-4">
@@ -211,9 +188,9 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                       data-for="major"
                       data-tip="What subjects or fields are you majar?"
                       placeholder="Major"
-                      value={major}
+                      value={senior ? dataForm.major : dataForm.major.concat(',')}
                       name="major"
-                      onChange={(e) => setMajor(e.target.value)}
+                      onChange={senior ? handleInputChange : handleInputArray}
                     />
                   </CInputGroup>
                   <h5 className="text-medium-emphasis">
@@ -227,7 +204,7 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                           name="degree"
                           value="0"
                           label="MS"
-                          onChange={(e) => setDegree(e.target.value)}
+                          onChange={handleInputChange}
                           defaultChecked
                         />
                       </div>
@@ -237,7 +214,7 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                           name="degree"
                           value="1"
                           label="PhD"
-                          onChange={(e) => setDegree(e.target.value)}
+                          onChange={handleInputChange}
                         />
                       </div>
                       {senior ? null : (
@@ -247,7 +224,7 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                             name="degree"
                             value="2"
                             label="Both"
-                            onChange={(e) => setDegree(e.target.value)}
+                            onChange={handleInputChange}
                           />
                         </div>
                       )}
@@ -259,7 +236,6 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                       <CIcon icon="cil-education" />
                     </CInputGroupText>
                     <CFormControl
-                      type="number"
                       data-for="gpa"
                       data-tip="GPA(in 4.3 scale)"
                       placeholder="gpa"
@@ -292,7 +268,6 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                           <CIcon icon="cil-education" />
                         </CInputGroupText>
                         <CFormControl
-                          type="number"
                           data-for="number"
                           data-tip="Number of juniors you'd like to receive"
                           placeholder="number"
@@ -313,9 +288,9 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                           data-for="admission"
                           data-tip="What schools do you get admitted?"
                           placeholder="Admissions"
-                          value={admission}
+                          value={dataForm.admission}
                           name="admission"
-                          onChange={(e) => setAdmission(e.target.value)}
+                          onChange={handleInputArray}
                         />
                         <ReactTooltip id="admission" place="top" type="dark" effect="solid" />
                       </CInputGroup>
@@ -378,8 +353,8 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                           data-tip="Please fill in your dream schools"
                           placeholder="Dream college"
                           name="school1"
-                          value={school1}
-                          onChange={(e) => setSchool1(e.target.value)}
+                          value={dataForm.school1}
+                          onChange={handleInputArray}
                         />
                         <ReactTooltip id="school1" place="top" type="dark" effect="solid" />
                       </CInputGroup>
@@ -395,8 +370,8 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                           data-tip="Please fill in your confident colleges"
                           placeholder="Confident colleges"
                           name="school2"
-                          value={school2}
-                          onChange={(e) => setSchool2(e.target.value)}
+                          value={dataForm.school2}
+                          onChange={handleInputArray}
                         />
                         <ReactTooltip id="school2" place="top" type="dark" effect="solid" />
                       </CInputGroup>
@@ -410,8 +385,8 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                           data-tip="Please fill your guaranteed colleges"
                           placeholder="Guaranteed colleges"
                           name="school3"
-                          value={school3}
-                          onChange={(e) => setSchool3(e.target.value)}
+                          value={dataForm.school3}
+                          onChange={handleInputArray}
                         />
                         <ReactTooltip id="school3" place="top" type="dark" effect="solid" />
                       </CInputGroup>

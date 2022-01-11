@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler')
 
 const fillForm = async (req, res) => {
   const { identity } = req.body
+  console.log('req.body', req.body)
   try {
     if (identity === 'senior') {
       const account = req.session.loginAccount
