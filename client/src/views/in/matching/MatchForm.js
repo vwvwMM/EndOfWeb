@@ -40,7 +40,7 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
         identity: 'senior',
         name: userName,
         email: userEmail,
-        major: '',
+        major: [],
         degree: '0',
         school: '',
         gpa: '',
@@ -75,7 +75,6 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
           major: '',
           school1: '',
           school2: '',
-          school3: '',
         },
   )
   const [dataForm, setDataForm] = useState(formTemplate)
@@ -188,7 +187,7 @@ const MatchForm = ({ identity, setIdentity, setOpened }) => {
                       data-for="major"
                       data-tip="What subjects or fields are you majar?"
                       placeholder="Major"
-                      value={senior ? dataForm.major : dataForm.major.concat(',')}
+                      value={dataForm.major}
                       name="major"
                       onChange={senior ? handleInputChange : handleInputArray}
                     />
