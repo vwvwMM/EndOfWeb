@@ -1,7 +1,8 @@
 const Time = require('../../../Schemas/time')
 const asyncHandler = require('express-async-handler')
 
-const getTime = async (target) => {
+const getTime = async (req, res) => {
+  const { target } = req.body
   try {
     const date = await Time.find({ target })
     if (date) res.status(200).send(date)

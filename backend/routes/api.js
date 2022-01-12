@@ -35,6 +35,8 @@ router.use(require('./srcs/in/recommendation/main'))
 router.use('/study', require('./srcs/in/study/main').router)
 //abroadInfo
 router.use(require('./srcs/in/abroadInfo/main').router)
+//time
+router.use('/time', require('./srcs/in/time/main').router)
 
 //check is auth
 router.use(require('./srcs/in/auth/isAuth'))
@@ -46,8 +48,6 @@ router.use('/column', require('./srcs/in/column/main').router_auth)
 router.use(require('./srcs/in/account/main').router_auth)
 //study auth
 router.use('/study', require('./srcs/in/study/main').router_auth)
-//time
-router.use('/time', require('./srcs/in/time/main').router)
 //abroadInfo
 router.use(require('./srcs/in/abroadInfo/main').router_auth)
 
