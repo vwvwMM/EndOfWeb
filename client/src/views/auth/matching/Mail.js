@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import CIcon from '@coreui/icons-react'
 import { success_icon, mail_sent } from './index'
-const Mail = ({ setHasMatched }) => {
-  const [hasSent, setHasSent] = useState(false)
+const Mail = ({ hasSent, setHasSent, setHasMatched }) => {
   const sendMail = () => {
     setHasSent(true)
   }
@@ -34,6 +33,8 @@ const Mail = ({ setHasMatched }) => {
   )
 }
 Mail.propTypes = {
+  hasSent: PropTypes.bool,
+  setHasSent: PropTypes.func,
   setHasMatched: PropTypes.func,
 }
 export default Mail

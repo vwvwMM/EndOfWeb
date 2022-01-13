@@ -13,17 +13,22 @@ import {
   CFormControl,
 } from '@coreui/react'
 import axios from 'axios'
-const RunMatch = ({ sdata, jdata, result, setHasMatched }) => {
+import Spinner from '../../components/Spinner'
+const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
   const [isModal, setIsModal] = useState(false)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [snumber, setSnumber] = useState(0)
   const [jnumber, setJnumber] = useState(0)
+  const [loading, setLoading] = useState(true)
   const match = () => {
-    if (sdata && jdata) {
-      console.log('start matching')
-      setHasMatched(true)
-    }
+    axios
+      .get('/api/study/matching')
+      .then(() => {
+        console.log('finish match!')
+        setHasMatched(true)
+      })
+      .catch((err) => console.log(err))
   }
   const getMatchInfo = () => {
     axios
@@ -36,7 +41,14 @@ const RunMatch = ({ sdata, jdata, result, setHasMatched }) => {
       .get('/api/time/getTime', { params: { target: 'matching_end' } })
       .then((res) => setEndTime(res.data))
       .catch((err) => console.log(err))
-    // axios.get('/api/')
+    axios
+      .get('/api/study/allForms')
+      .then((res) => {
+        setSnumber(res.data.seniorCount)
+        setJnumber(res.data.juniorCount)
+      })
+      .then(() => setLoading(false))
+      .catch((err) => console.log(err))
   }
   const setMatchTime = () => {
     axios
@@ -45,19 +57,30 @@ const RunMatch = ({ sdata, jdata, result, setHasMatched }) => {
       .catch((err) => console.log(err))
     axios
       .post('/api/time/setTime', { target: 'matching_end', time: endTime })
-      .then(() => console.log('set end time'))
+      .then(() => {
+        console.log('set end time')
+        setHasSent(false)
+        setLoading(true)
+      })
       .catch((err) => console.log(err))
   }
-  const clearDB = () => {}
+  const clearDB = () => {
+    axios
+      .delete('/api/study/form')
+      .then(() => console.log('clear all form!'))
+      .catch((e) => console.log(e))
+  }
   useEffect(() => {
     getMatchInfo()
-  }, [])
+  }, [hasSent])
   const startNewMatch = () => {
     setMatchTime()
     clearDB()
     setIsModal(false)
   }
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <>
       <CModal size="lg" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setIsModal(false)}>
@@ -84,22 +107,36 @@ const RunMatch = ({ sdata, jdata, result, setHasMatched }) => {
         </CModalFooter>
       </CModal>
       <div className="run-match">
-        <h2>
-          本期的配對日期為
-          <span className="text-danger">
-            {startTime.toString()}~{endTime.toString()}
-          </span>
-          ，請在期限內配對學長姐與學弟妹
+        <h2 style={{ lineHeight: '2.5rem' }}>
+          本期的配對時間為
           <br />
-          目前共有{12}名學弟妹以及{10}名學長姐在等待您的配對結果
+          <span className="text-danger">
+            {startTime.toString()} ~ {endTime.toString()}
+          </span>
+          <br />
+          請在截止日後配對學長姐與學弟妹
+          <br />
+          目前共有{jnumber}名學弟妹以及{snumber}名學長姐在等待您的配對結果
         </h2>
-        <button className="btn btn-primary mt-3" onClick={() => match()}>
-          <h5 className="m-0">點我開始配對</h5>
+        <button
+          className="btn btn-primary"
+          disabled={jnumber === 0 || snumber === 0}
+          onClick={() => match()}
+        >
+          <h5 className="m-0">點我{hasSent ? '重新' : '開始'}配對</h5>
         </button>
         <br />
         <br />
-        <h2>若要開啟一期新配對，請點下方按鈕</h2>
-        <button className="btn btn-danger mt-3" onClick={() => setIsModal(true)}>
+        <h2>
+          {hasSent
+            ? '若要開啟一期新配對，請點下方按鈕'
+            : '要先將本期的配對結果寄給大家後才能再開一期喔~'}
+        </h2>
+        <button
+          className="btn btn-danger mt-3"
+          disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
+          onClick={() => setIsModal(true)}
+        >
           <h5 className="m-0">我要開新的一期</h5>
         </button>
       </div>
@@ -107,9 +144,8 @@ const RunMatch = ({ sdata, jdata, result, setHasMatched }) => {
   )
 }
 RunMatch.propTypes = {
-  sdata: PropTypes.object,
-  jdata: PropTypes.object,
-  result: PropTypes.object,
+  hasSent: PropTypes.bool,
+  setHasSent: PropTypes.func,
   setHasMatched: PropTypes.func,
 }
 export default RunMatch
