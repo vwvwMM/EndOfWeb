@@ -54,7 +54,9 @@ EE+ api 文件
   - [配對](#配對)
   - [寄配對通知](#寄配對通知)
   - [新增本年表單連結](#新增本年表單連結)
-- [In/time](#intime) -[拿取活動時間](#拿取活動時間) -[設定活動時間](#設定活動時間)
+- [In/time](#intime)
+  - [拿取活動時間](#拿取活動時間)
+  - [設定活動時間](#設定活動時間)
 - [Out/account](#outaccount)
   - [accountActivate](#accountactivate)
   - [isLogin](#islogin)
@@ -2135,9 +2137,9 @@ POST /time/setTime
 
 #### Success response - `200`
 
-| Name | Type     | Description                           |
-| ---- | -------- | ------------------------------------- |
-| -    | `String` | successfully set ${target} at ${time} |
+| Name | Type     | Description                         |
+| ---- | -------- | ----------------------------------- |
+| -    | `String` | successfully set {target} at {time} |
 
 ### Error response
 
