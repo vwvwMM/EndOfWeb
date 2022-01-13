@@ -18,15 +18,20 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
   const [isModal, setIsModal] = useState(false)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
+  const [newStartTime, setNewStartTime] = useState('')
+  const [newEndTime, setNewEndTime] = useState('')
   const [snumber, setSnumber] = useState(0)
   const [jnumber, setJnumber] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [pass, setPass] = useState(false)
+  const nowDate = new Date()
   const match = () => {
     axios
       .get('/api/study/matching')
       .then(() => {
         console.log('finish match!')
         setHasMatched(true)
+        setHasSent(false)
       })
       .catch((err) => console.log(err))
   }
@@ -39,7 +44,11 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
       .catch((err) => console.log(err))
     axios
       .get('/api/time/getTime', { params: { target: 'matching_end' } })
-      .then((res) => setEndTime(res.data))
+      .then((res) => {
+        setEndTime(res.data)
+        const realDate = res.data.substring(0, 10) + 'T' + res.data.substring(11, 16)
+        if (new Date(realDate).getTime() < nowDate) setPass(true)
+      })
       .catch((err) => console.log(err))
     axios
       .get('/api/study/allForms')
@@ -59,8 +68,7 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
       .post('/api/time/setTime', { target: 'matching_end', time: endTime })
       .then(() => {
         console.log('set end time')
-        setHasSent(false)
-        setLoading(true)
+        hasSent ? setHasSent(false) : getMatchInfo()
       })
       .catch((err) => console.log(err))
   }
@@ -74,6 +82,8 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
     getMatchInfo()
   }, [hasSent])
   const startNewMatch = () => {
+    if (newStartTime === '') alert('請輸入起始日期')
+    if (newEndTime === '') alert('請輸入截止日期')
     setMatchTime()
     clearDB()
     setIsModal(false)
@@ -90,11 +100,39 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
           <h3 className="mb-2">請選擇新一期的起始與結束時間：</h3>
           <CInputGroup className="mb-4">
             <CInputGroupText>起始日期</CInputGroupText>
-            <CFormControl type="date" onChange={(e) => setStartTime(e.target.value)} />
+            <CFormControl
+              type="date"
+              onChange={(e) => {
+                if (
+                  new Date(e.target.value) < nowDate ||
+                  new Date(e.target.value) > new Date(newEndTime)
+                ) {
+                  e.target.value = ''
+                  setNewStartTime('')
+                  alert('無效的起始日期')
+                  return
+                }
+                setNewStartTime(e.target.value)
+              }}
+            />
           </CInputGroup>
           <CInputGroup className="mb-4">
             <CInputGroupText>截止日期</CInputGroupText>
-            <CFormControl type="date" onChange={(e) => setEndTime(e.target.value)} />
+            <CFormControl
+              type="date"
+              onChange={(e) => {
+                if (
+                  new Date(e.target.value) < new Date(newStartTime) ||
+                  new Date(e.target.value) < nowDate
+                ) {
+                  e.target.value = ''
+                  setNewEndTime('')
+                  alert('無效的截止日期')
+                  return
+                }
+                setNewEndTime(e.target.value)
+              }}
+            />
           </CInputGroup>
         </CModalBody>
         <CModalFooter>
@@ -111,18 +149,14 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
           本期的配對時間為
           <br />
           <span className="text-danger">
-            {startTime.toString()} ~ {endTime.toString()}
+            {startTime} ~ {endTime}
           </span>
           <br />
           請在截止日後配對學長姐與學弟妹
           <br />
-          目前共有{jnumber}名學弟妹以及{snumber}名學長姐在等待您的配對結果
+          {pass ? `目前共有${jnumber}名學弟妹以及${snumber}名學長姐在等待您的配對結果` : ''}
         </h2>
-        <button
-          className="btn btn-primary"
-          disabled={jnumber === 0 || snumber === 0}
-          onClick={() => match()}
-        >
+        <button className="btn btn-primary" disabled={!pass} onClick={() => match()}>
           <h5 className="m-0">點我{hasSent ? '重新' : '開始'}配對</h5>
         </button>
         <br />

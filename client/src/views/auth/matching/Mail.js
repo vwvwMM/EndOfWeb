@@ -17,12 +17,12 @@ const Mail = ({ hasSent, setHasSent, setHasMatched }) => {
           >
             <CIcon name="cil-home" size="lg" />
           </button>
-          <img src={mail_sent} alt="success" className="img-fluid w-50" />
+          <img src={mail_sent} alt="success" className="img-fluid w-25" />
           <h2 className="my-4">信件已全數寄出，謝謝您的幫忙！</h2>
         </>
       ) : (
         <>
-          <img src={success_icon} alt="success" className="img-fluid w-50" />
+          <img src={success_icon} alt="success" className="img-fluid w-25" />
           <h2 className="my-4">配對已完成！趕快發信告訴大家吧！</h2>
           <button className="btn btn-primary" onClick={sendMail}>
             <h5 className="m-0">點我發信</h5>
