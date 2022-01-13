@@ -156,8 +156,12 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
           <br />
           {pass ? `目前共有${jnumber}名學弟妹以及${snumber}名學長姐在等待您的配對結果` : ''}
         </h2>
-        <button className="btn btn-primary" disabled={!pass} onClick={() => match()}>
-          <h5 className="m-0">點我{hasSent ? '重新' : '開始'}配對</h5>
+        <button
+          className="btn btn-primary"
+          // disabled={!pass}
+          onClick={() => match()}
+        >
+          <h5 className="m-0">點我{hasSent ? '重新' : '開始'}配對並下載結果</h5>
         </button>
         <br />
         <br />
@@ -168,7 +172,7 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
         </h2>
         <button
           className="btn btn-danger mt-3"
-          disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
+          // disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
           onClick={() => setIsModal(true)}
         >
           <h5 className="m-0">我要開新的一期</h5>
