@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import RunMatch from './RunMatch'
 import Mail from './Mail'
 const Matching = () => {
-  const [sdata, setSdata] = useState([1])
-  const [jdata, setJdata] = useState([1])
+  const [sdata, setSdata] = useState({})
+  const [jdata, setJdata] = useState({})
   const [result, setResult] = useState(null)
   const [hasMatched, setHasMatched] = useState(false)
   return (
