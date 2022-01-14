@@ -16,7 +16,11 @@ const Mail = ({ hasSent, setHasSent, setHasMatched }) => {
     console.log(inputRef.current.files[0])
   }
   const sendMail = () => {
-    setHasSent(true)
+    const config = { 'content-type': 'multipart/form-data' }
+    axios.post('/api/study/sendMail', uploadedFile, config).then(() => {
+      console.log('mails sent!!')
+      setHasSent(true)
+    })
   }
   return (
     <div className="d-flex flex-column align-items-center">

@@ -27,7 +27,17 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
   const nowDate = new Date()
   const match = () => {
     axios
-      .get('/api/study/matching')
+      .get('/api/study/matching', { responseType: 'blob' })
+      .then((res) => {
+        console.log('res', res)
+        const url = window.URL.createObjectURL(new Blob([res.data]))
+        console.log('url', url)
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'result.xlsx')
+        document.body.appendChild(link)
+        link.click()
+      })
       .then(() => {
         console.log('finish match!')
         setHasMatched(true)
@@ -156,12 +166,8 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
           <br />
           {pass ? `目前共有${jnumber}名學弟妹以及${snumber}名學長姐在等待您的配對結果` : ''}
         </h2>
-        <button
-          className="btn btn-primary"
-          // disabled={!pass}
-          onClick={() => match()}
-        >
-          <h5 className="m-0">點我{hasSent ? '重新' : '開始'}配對並下載結果</h5>
+        <button className="btn btn-primary" disabled={!pass} onClick={() => match()}>
+          <h5 className="m-0">點我{setHasMatched ? '重新' : '開始'}配對並下載結果</h5>
         </button>
         <br />
         <br />
@@ -172,7 +178,7 @@ const RunMatch = ({ hasSent, setHasSent, setHasMatched }) => {
         </h2>
         <button
           className="btn btn-danger mt-3"
-          // disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
+          disabled={!hasSent && (snumber !== 0 || jnumber !== 0)}
           onClick={() => setIsModal(true)}
         >
           <h5 className="m-0">我要開新的一期</h5>
