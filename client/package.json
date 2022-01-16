@@ -66,10 +66,7 @@
     "simplebar-react": "^2.3.4",
     "stream-browserify": "^3.0.0",
     "style-loader": "^3.2.1",
-<<<<<<< HEAD
     "tsparticles": "^1.39.0",
-=======
->>>>>>> d367ccf (rebase)
     "webpack": "^5.47.1",
     "webpack-cli": "^4.8.0"
   },
