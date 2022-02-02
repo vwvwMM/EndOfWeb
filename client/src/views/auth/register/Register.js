@@ -37,9 +37,8 @@ const Register = () => {
     axios
       .post('/api/handlePending', { account: modalPerson.account, acceptUser: false })
       .then((res) => {
-        alert('已發送驗證信至對方信箱！')
-        setIsModal(false)
         // alert('已發送拒絕申請信至對方信箱！')
+        setIsModal(false)
       }).catch(err=>console.log(err))
   }
   useEffect(() => {
