@@ -20,7 +20,7 @@ const Applicant = ({ person,setIsModal,setModalPerson }) => {
         <nobr>信箱：{person.email}</nobr>
       </div>
       <div className="col-1">
-        <CButton color="primary" onClick={show} >
+        <CButton color="primary" onClick={()=>show()} >
           <CIcon icon="cil-search" name="cil-search" />
         </CButton>
       </div>

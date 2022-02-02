@@ -5,14 +5,14 @@ import axios from 'axios'
 import { CModal, CModalBody, CModalHeader, CModalFooter, CModalTitle, CButton } from '@coreui/react'
 import { Spinner } from './index'
 const Register = () => {
-  const [isModal, setIsModal] = useState(true)
+  const [isModal, setIsModal] = useState(false)
   const [modalPerson, setModalPerson] = useState({
     username: '',
     account: '',
     email: '',
     imgSrc: '',
   })
-  const [isPending, setIsPending] = useState(false)
+  const [isPending, setIsPending] = useState(true)
   const [applicants, setApplicants] = useState([])
   const getPendings = () => {
     setIsPending(true)
@@ -64,10 +64,10 @@ const Register = () => {
           <img src={modalPerson.imgSrc} alt="" style={{ width: '48rem', margin: '1rem' }} />
         </CModalBody>
         <CModalFooter>
-          <CButton color="warning" onClick={reject}>
+          <CButton color="warning" onClick={()=>reject()}>
             拒絕申請
           </CButton>
-          <CButton color="dark" onClick={verify}>
+          <CButton color="dark" onClick={()=>verify()}>
             同意申請
           </CButton>
         </CModalFooter>
