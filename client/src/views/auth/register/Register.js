@@ -31,6 +31,7 @@ const Register = () => {
       .then((res) => {
         alert('已發送驗證信至對方信箱！')
         setIsModal(false)
+        getPendings()
       }).catch(err=>console.log(err))
     }
     const reject = () => {
@@ -38,6 +39,7 @@ const Register = () => {
       .post('/api/handlePending', { account: modalPerson.account, acceptUser: false })
       .then((res) => {
         // alert('已發送拒絕申請信至對方信箱！')
+        getPendings()
         setIsModal(false)
       }).catch(err=>console.log(err))
   }
