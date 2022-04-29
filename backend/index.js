@@ -22,7 +22,7 @@ mongoose.connection.on('open', () => {
   // });
   app.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:1993',
       methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD', 'PATCH', 'DELETE'],
       credentials: true,
     }),

@@ -41,7 +41,7 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 ```bash
 $ docker-compose up --build -d (噴error時取消-d可以看到完整錯誤訊息)
 $ docker-compose exec web npm run reset-db
-open http://localhost:3000
+open http://localhost:1993
 ```
 
 - if docker no working well, try this in powershell
