@@ -96,17 +96,21 @@ const ColumnSummary = () => {
     if (e) {
       e.preventDefault()
     }
-    dispatch(setIsSearch(true))
-    setIsPending(true)
-    axios
-      .get('/api/column/search', { params: { keyword: keywords, page: page } })
-      .then((res) => {
-        setData(res.data)
-        setIsPending(false)
-      })
-      .catch((err) => {
-        err.response.data.description && alert('錯誤\n' + err.response.data.description)
-      })
+    if (keywords) {
+      dispatch(setIsSearch(true))
+      setIsPending(true)
+      axios
+        .get('/api/column/search', { params: { keyword: keywords, page: page } })
+        .then((res) => {
+          setData(res.data)
+          setIsPending(false)
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    } else {
+      getData()
+    }
   }
   useEffect(() => {
     if (!isSearch) {
@@ -203,7 +207,9 @@ const ColumnSummary = () => {
         </form>
       </Box>
       {data.maxPage === 0 && !isPending ? (
-        <div className="display-2 d-flex justify-content-center mt-3">No corresponding columns</div>
+        <div className="display-2 d-flex justify-content-center mt-3 text-white">
+          No corresponding columns
+        </div>
       ) : data.maxPage ? (
         <Box my={4} className={classes.paginationContainer}>
           <Pagination

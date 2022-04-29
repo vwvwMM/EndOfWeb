@@ -23,17 +23,21 @@ const Recruitment = () => {
   }
   const searchData = (e) => {
     e.preventDefault()
-    setIsPending(true)
-    setIsSearch(true)
-    axios
-      .post('/api/smartsearchRecruitment', { keyword: keywords, perpage: 99 })
-      .then((res) => {
-        setData(res.data)
-        setIsPending(false)
-      })
-      .catch((err) => {
-        err.response.data.description && alert('錯誤\n' + err.response.data.description)
-      })
+    if (keywords) {
+      setIsPending(true)
+      setIsSearch(true)
+      axios
+        .post('/api/smartsearchRecruitment', { keyword: keywords, perpage: 99 })
+        .then((res) => {
+          setData(res.data)
+          setIsPending(false)
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    } else {
+      getData()
+    }
   }
   const getData = () => {
     setIsPending(true)
@@ -108,7 +112,9 @@ const Recruitment = () => {
       {isPending ? (
         <Spinner />
       ) : isSearch && data.data.length === 0 ? (
-        <div className="display-2 d-flex justify-content-center mt-3">Result not found</div>
+        <div className="display-2 d-flex justify-content-center mt-3 text-white">
+          Result not found
+        </div>
       ) : (
         <Masonry
           breakpointCols={breakpointColumnsObj}
