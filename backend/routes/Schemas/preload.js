@@ -7,7 +7,8 @@ const models = [
   require('./column_detail'),
   require('./column_outline'),
   require('./time'),
-  require('./matching_form'),
+  require('./matching_form').seniorForm,
+  require('./matching_form').juniorForm,
   require('./activation')
 ]
 const env = require('dotenv')
