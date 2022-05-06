@@ -6,6 +6,9 @@ const models = [
   require('./recommendation'),
   require('./column_detail'),
   require('./column_outline'),
+  require('./time'),
+  require('./matching_form'),
+  require('./activation')
 ]
 const env = require('dotenv')
 env.config()
