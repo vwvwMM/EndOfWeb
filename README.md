@@ -39,7 +39,7 @@ please read [How to Contribute](https://github.com/NTUEE-PLUS/EndOfWeb/blob/main
 - 執行
 
 ```bash
-$ docker-compose up --build -d (噴error時取消-d可以看到完整錯誤訊息)
+$ docker-compose up -d (噴error時取消-d可以看到完整錯誤訊息)
 $ docker-compose exec web npm run reset-db
 open http://localhost:1993
 ```
