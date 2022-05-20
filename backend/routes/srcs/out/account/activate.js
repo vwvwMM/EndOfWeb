@@ -50,9 +50,10 @@ const main = async (req, res) => {
     if (!account || !active) throw new ErrorHandler(400, 'some params missing')
     //check user validation
     const doc = await Pending.findOneAndDelete({ account, active }).catch(dbCatch)
-    if (!doc) return res.send(template('activation code expire', '/#/register_entry'))
+    if (!doc) return res.send(template('activation code expired', `/register_entry`))
+    console.log(process.env.WEB_DOMAIN)
     const userexist = await Login.exists({ account }).catch(dbCatch)
-    if (userexist) return res.send(template('already registered', '/#/login'))
+    if (userexist) return res.send(template('already registered', `/login`))
     //register
     const { username, userpsw, facebookID, email } = doc
     const { _id: visual } = await new Visual({
@@ -67,9 +68,9 @@ const main = async (req, res) => {
       console.log(e)
       throw new ErrorHandler(500, '資料庫錯誤')
     })
-    res.send(template('account activate success', '/#/login'))
+    res.send(template('account activate success', `${process.env.WEB_DOMAIN}/login`))
   } catch (e) {
-    res.send(template(`error: ${e.message || e.description}`, '/#/login'))
+    res.send(template(`error: ${e.message || e.description}`, `${process.env.WEB_DOMAIN}/login`))
   }
 }
 

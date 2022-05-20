@@ -58,10 +58,12 @@ const forget = async (req, res, next) => {
   await insertActive(account, randomNum).catch(dbCatch)
 
   //寄信
-  const hylink = `${req.protocol}://${req.get('host')}/#/reset_password/${account}/${randomNum}`
-  const hy_br = `${req.protocol}://${req.get(
-    'host',
-  )}/#/<wbr>reset_password/<wbr>${account}/<wbr>${randomNum}`
+  const hylink = `${req.protocol}://${
+    process.env.WEB_DOMAIN
+  }/reset_password/${account}/${randomNum}`
+  const hy_br = `${req.protocol}://${
+    process.env.WEB_DOMAIN
+  }/<wbr>reset_password/<wbr>${account}/<wbr>${randomNum}`
   const htmlText = await template(hylink, hylink) //hy_br
   await sendmail(email, '重設密碼(一小時後到期)', htmlText)
   //   if (obj.publicEmail.show)

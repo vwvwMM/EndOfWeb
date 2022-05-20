@@ -45,7 +45,7 @@ const manage = async (req, res, next) => {
   await Pending.deleteMany({ account }).catch(dbCatch)
 
   const template = require('../mailTemplate/template_generator')
-  const link = `${req.protocol}://${req.get('host')}/home`
+  const link = `${req.protocol}://${process.env.WEB_DOMAIN}/home`
   const htmlText = await template(link)
   await sendmail(email, 'eeplus website account activaiton', htmlText).catch((e) => {
     console.log(e)
