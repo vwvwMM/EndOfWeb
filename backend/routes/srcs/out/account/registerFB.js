@@ -133,7 +133,7 @@ const regFB_v3 = async (req, res) => {
     res.send({ isGraduated })
   } else {
     const email = `${account}@ntu.edu.tw`
-    const link = `${req.protocol}://${req.get('host')}/api/regact/${account}/${active}`
+    const link = `${req.protocol}://${process.env.WEB_DOMAIN}/api/regact/${account}/${active}`
     const htmlText = await template(link, link)
     await sendmail(email, 'eeplus website account activation', htmlText).catch((e) => {
       console.log(e)
