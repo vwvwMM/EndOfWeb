@@ -21,14 +21,11 @@ const sendmail = require('../../../../middleware/mail')
  */
 const manage = async (req, res, next) => {
   const { account, acceptUser } = req.body
-  const pending = await Pending.findOne({ account }).catch(dbCatch)
-  if (!pending) throw new ErrorHandler(404, 'user not found')
+  const { username, userpsw, facebookID, email } = await Pending.findOne({ account }).catch(dbCatch)
+  if (!username) throw new ErrorHandler(404, 'user not found')
   if (!acceptUser) {
     await Pending.deleteMany({ account }).catch(dbCatch)
-    return res.end()
-  }
-  const { username, userpsw, facebookID, email } = pending
-
+  }else{
   const { _id: visualID } = await Visual({
     username,
     account,
@@ -36,17 +33,18 @@ const manage = async (req, res, next) => {
   })
     .save()
     .catch(dbCatch)
-  await Login({ username, account, facebookID, userpsw, visual: visualID })
+    await Login({ username, account, facebookID, userpsw, visual: visualID })
     .save()
     .catch(async (e) => {
       await Visual.deleteOne({ _id: visualID }).catch(dbCatch)
       throw new ErrorHandler(500, '資料庫錯誤')
     })
-  await Pending.deleteMany({ account }).catch(dbCatch)
+    await Pending.deleteMany({ account }).catch(dbCatch)
+  }
 
   const template = require('../mailTemplate/template_generator')
   const link = `${req.protocol}://${process.env.WEB_DOMAIN}/home`
-  const htmlText = await template(link)
+  const htmlText = await template(link,acceptUser)
   await sendmail(email, 'eeplus website account activaiton', htmlText).catch((e) => {
     console.log(e)
     throw new ErrorHandler(400, 'sendemail fail')
