@@ -23,3 +23,10 @@
   display: table;
   margin: 0 auto;
 }
+
+.announce:hover {
+  transform: scale(1.05);
+}
+.announce {
+  border-left: 0.7rem solid #f70e15f2;
+}
