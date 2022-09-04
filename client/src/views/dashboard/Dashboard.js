@@ -1,5 +1,6 @@
 import React, { lazy, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { selectLogin } from '../../slices/loginSlice'
 import { Link, Redirect } from 'react-router-dom'
 import {
   CButton,
@@ -21,31 +22,34 @@ import {
   CModalTitle,
   CModalFooter,
 } from '@coreui/react'
-import logo from '../../assets/images/logo_row.png'
+import CIcon from '@coreui/icons-react'
+import { logo } from './index'
 import axios from 'axios'
+import parser from 'html-react-parser'
 
 const perRecruitment = 4
 const perRecommendation = 4
 
 const Dashboard = () => {
-  const [isModal, setIsModal] = useState(false)
+  const { isAuth } = useSelector(selectLogin)
+  const [isAnnModal, setIsAnnModal] = useState(false)
   const [recentColumns, setRecentColumns] = useState([])
   const [recentRecruitments, setRecentRecruitments] = useState([])
   const [recentRecommendations, setRecentRecommendations] = useState([])
   const [announces, setAnnounces] = useState([
-    { title: 'ann1', body: 'this is first announcement', time: '2022/9/2' },
-    { title: 'ann2', body: 'this is second announcement', time: '2022/9/3' },
+    { title: 'ann1', body: 'this is first announcement', date: '2022/9/2' },
+    { title: 'ann2', body: 'this is second announcement', date: '2022/9/3' },
   ])
   const [announce, setAnnounce] = useState({})
 
-  const openModal = (e, index) => {
+  const openAnnModal = (e, index) => {
     setAnnounce(announces[index])
-    setIsModal(true)
+    setIsAnnModal(true)
   }
 
-  const closeModal = (e) => {
+  const closeAnnModal = (e) => {
     setAnnounce({})
-    setIsModal(false)
+    setIsAnnModal(false)
   }
 
   const getRecentColumns = () => {
@@ -83,15 +87,16 @@ const Dashboard = () => {
 
   return (
     <>
-      <CModal visible={isModal} onDismiss={closeModal} alignment="center">
-        <CModalHeader onDismiss={closeModal}>
+      <CModal visible={isAnnModal} onDismiss={closeAnnModal} alignment="center">
+        <CModalHeader onDismiss={closeAnnModal}>
           <CModalTitle>{announce.title}</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <p>{announce.body}</p>
+          {/* <p>{parser(announce.body)}</p> */}
         </CModalBody>
         <CModalFooter>
-          <CButton color="dark" onClick={closeModal}>
+          <CButton color="dark" onClick={closeAnnModal}>
             OK
           </CButton>
         </CModalFooter>
@@ -100,7 +105,14 @@ const Dashboard = () => {
         <CRow className="justify-content-center my-4">
           <CCard className="bg-transparent border-0">
             <CCardHeader className="section-title mb-1 border-0 text-center bg-transparent">
-              <h1>Recent Announcements</h1>
+              <h1>
+                Recent Announcements
+                {isAuth && (
+                  <Link to="/auth/announce/add">
+                    <button className="btn btn-warning mx-4">+</button>
+                  </Link>
+                )}
+              </h1>
             </CCardHeader>
             <CCardBody>
               {announces.map((ann, index) => {
@@ -108,15 +120,26 @@ const Dashboard = () => {
                   <CCardHeader
                     className="mb-1 text-center d-flex justify-content-between align-items-center p-2 rounded-3 announce"
                     key={index}
-                    onClick={(e) => {
-                      openModal(e, index)
-                    }}
                     type="button"
                   >
-                    <h2>
+                    <h2
+                      onClick={(e) => {
+                        openAnnModal(e, index)
+                      }}
+                    >
                       <b>{ann.title}</b>
                     </h2>
-                    <span>{ann.time}</span>
+                    <span>
+                      {ann.date}
+                      {isAuth && (
+                        <>
+                          <Link to={`/auth/announce/${index}`}>
+                            <CIcon icon="cil-pencil" name="cil-pencil" className="mx-3" />
+                          </Link>
+                          <CIcon icon="cil-trash" name="cil-trash" className="mr-3" />
+                        </>
+                      )}
+                    </span>
                   </CCardHeader>
                 )
               })}

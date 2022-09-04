@@ -216,7 +216,7 @@ const CareerForm = ({ data }) => {
           </CButton>
         </CModalFooter>
       </CModal>
-      <div className="d-flex flex-row align-items-center text-color-black">
+      <div className="d-flex flex-row align-items-center text-color-black career-form">
         <CContainer>
           <CRow className="justify-content-center">
             <CCol md="11" lg="9" xl="8">
