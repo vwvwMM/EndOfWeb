@@ -36,10 +36,7 @@ const Dashboard = () => {
   const [recentColumns, setRecentColumns] = useState([])
   const [recentRecruitments, setRecentRecruitments] = useState([])
   const [recentRecommendations, setRecentRecommendations] = useState([])
-  const [announces, setAnnounces] = useState([
-    { title: 'ann1', body: 'this is first announcement', date: '2022/9/2' },
-    { title: 'ann2', body: 'this is second announcement', date: '2022/9/3' },
-  ])
+  const [announces, setAnnounces] = useState([])
   const [announce, setAnnounce] = useState({})
 
   const openAnnModal = (e, index) => {
@@ -50,6 +47,15 @@ const Dashboard = () => {
   const closeAnnModal = (e) => {
     setAnnounce({})
     setIsAnnModal(false)
+  }
+
+  const getAnnouncements = () => {
+    axios
+      .get('api/getAnnouncement')
+      .then((res) => {
+        setAnnounces(res.data)
+      })
+      .catch((err) => console.log(err))
   }
 
   const getRecentColumns = () => {

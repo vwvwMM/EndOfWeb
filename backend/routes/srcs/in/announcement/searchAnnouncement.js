@@ -1,41 +1,29 @@
-const Recruitment = require('../../../Schemas/recruitment')
+const Announcement = require('../../../Schemas/recruitment')
 const { searchQuery, findWithLimit } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
-const searchRecruitment = async function (req, res, next) {
+const searchAnnouncement = async function (req, res, next) {
   const {
     _id,
-    account,
     title,
-    company_name,
-    work_type,
-    salary,
-    experience,
-    diploma,
-    requirement,
-    description,
+    body,
+    date,
   } = req.body
   const keys = {
     _id,
-    account,
-    'title.title': title,
-    'title.company_name': company_name,
-    'title.work_type': work_type,
-    'info.salary': salary,
-    'info.experience': experience,
-    'info.diploma': diploma,
-    'spec.requirement': requirement,
-    'spec.description': description,
+    title,
+    body,
+    date,
   }
   const query = searchQuery(keys)
   const { page, perpage } = req.body
-  const [recrus, maxPage] = await findWithLimit(Recruitment, query, page, perpage || 20)
-  return res.status(201).send(recrus.map((recru) => recru.getPublic()).reverse())
+  const [anns, maxPage] = await findWithLimit(Announcement, query, page, perpage || 20)
+  return res.status(201).send(anns.map((an) => an.getPublic()).reverse())
 }
 
 /**
- * @api {post} /searchRecruitment search recruitment by field
- * @apiName SearchRecruitment
+ * @api {post} /searchAnnouncement search recruitment by field
+ * @apiName SearchAnnouncement
  * @apiGroup In/career
  * @apiDescription 指定欄位搜尋職缺
  * 
@@ -81,17 +69,11 @@ const rules = [
     filename: 'optional',
     field: [
       '_id',
-      'account',
       'title',
-      'company_name',
-      'work_type',
-      'salary',
-      'experience',
-      'diploma',
-      'requirement',
-      'description',
+      'body',
+      'date',
     ],
     type: 'string',
   },
 ]
-module.exports = [valid(rules), asyncHandler(searchRecruitment)]
+module.exports = [valid(rules), asyncHandler(searchAnnouncement)]
