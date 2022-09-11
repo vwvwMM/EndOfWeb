@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useRef, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router'
 import axios from 'axios'
 import {
   CButton,
@@ -22,6 +23,7 @@ import CIcon from '@coreui/icons-react'
 import JoditEditor from 'jodit-react'
 import parser from 'html-react-parser'
 const Announce = () => {
+  const history = useHistory()
   const editor = useRef(null)
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
@@ -32,9 +34,8 @@ const Announce = () => {
   const getAnnounce = () => {
     if (add !== 'add') {
       axios
-        .get('/api/getAnnouncement', { params: { title: add } })
+        .get('/api/getAnnouncement', { params: { _id: add } })
         .then((res) => {
-          console.log(res.data)
           setAnn(res.data)
         })
         .catch((err) => {
@@ -42,7 +43,29 @@ const Announce = () => {
         })
     }
   }
-  const handleSubmit = (e) => {}
+  const handleSubmit = (e) => {
+    if (add === 'add') {
+      axios
+        .post('api/addAnnouncement', { ...ann, date: (new Date()).toISOString().substring(0,10) })
+        .then((res) => {
+          console.log('add ann!')
+          history.go(-1)
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    } else {
+      axios
+        .patch('/api/editAnnouncement', { ...ann, _id: add })
+        .then((res) => {
+          console.log('edit ann!')
+          history.go(-1)
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    }
+  }
   useEffect(() => {
     getAnnounce()
   }, [])
@@ -52,9 +75,7 @@ const Announce = () => {
         <CModalHeader onDismiss={() => setBlockModal(false)}>
           <CModalTitle>{ann.title}</CModalTitle>
         </CModalHeader>
-        <CModalBody>
-          <p>{parser(ann.body)}</p>
-        </CModalBody>
+        <CModalBody>{parser(ann.body)}</CModalBody>
         <CModalFooter>
           <CButton color="warning" onClick={() => setBlockModal(false)}>
             Back
@@ -69,13 +90,12 @@ const Announce = () => {
           <CCard className="mx-4">
             <CCardBody className="p-4">
               <CForm>
-                <h1>{add ? 'Ready to post' : 'Want to edit'} an announcement?</h1>
+                <h1>{add === 'add' ? 'Ready to post' : 'Want to edit'} an announcement?</h1>
                 <CInputGroup className="mb-3">
                   <CInputGroupText>
                     <CIcon icon="cil-layers" name="cil-layers" />
                   </CInputGroupText>
                   <CFormControl
-                    className={ann.title}
                     placeholder="Title*"
                     value={ann.title}
                     name="title"

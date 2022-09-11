@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const router_auth = express.Router()
 
-router.post('/getAnnouncement', require('./getAnnouncement'))
+router.get('/getAnnouncement', require('./getAnnouncement'))
 router.post('/searchAnnouncement', require('./searchAnnouncement'))
 router.post('/smartsearchAnnouncement', require('./smartSearch'))
 

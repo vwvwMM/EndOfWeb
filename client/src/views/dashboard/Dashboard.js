@@ -38,7 +38,7 @@ const Dashboard = () => {
   const [recentRecruitments, setRecentRecruitments] = useState([])
   const [recentRecommendations, setRecentRecommendations] = useState([])
   const [announces, setAnnounces] = useState([])
-  const [announce, setAnnounce] = useState({ title: '', body: '', date: '' })
+  const [announce, setAnnounce] = useState({ title: '', body: '', date: '', _id: '' })
 
   const openAnnModal = (e, index) => {
     setAnnounce(announces[index])
@@ -46,13 +46,13 @@ const Dashboard = () => {
   }
 
   const closeAnnModal = (e) => {
-    setAnnounce({})
+    setAnnounce({ title: '', body: '', date: '', _id: '' })
     setIsAnnModal(false)
   }
 
   const getAnnouncements = () => {
     axios
-      .get('/api/announcement/recent', { params: { number: perAnnouncement } })
+      .get('/api/announcement/recent')
       .then((res) => {
         setAnnounces(res.data.data)
       })
@@ -86,6 +86,16 @@ const Dashboard = () => {
       .catch((err) => console.log(err))
   }
 
+  const delAnnouncement = (id) => {
+    axios
+      .delete('api/deleteAnnouncement', { data: { _id: id } })
+      .then((res) => {
+        console.log('deleted')
+      })
+      .catch((err) => console.log(err))
+    getAnnouncements()
+  }
+
   useEffect(() => {
     getAnnouncements()
     getRecentColumns()
@@ -99,10 +109,7 @@ const Dashboard = () => {
         <CModalHeader onDismiss={closeAnnModal}>
           <CModalTitle>{announce.title}</CModalTitle>
         </CModalHeader>
-        <CModalBody>
-          {/* <p>{announce.body}</p> */}
-          <p>{parser(announce.body)}</p>
-        </CModalBody>
+        <CModalBody>{parser(announce.body)}</CModalBody>
         <CModalFooter>
           <CButton color="dark" onClick={closeAnnModal}>
             OK
@@ -134,6 +141,7 @@ const Dashboard = () => {
                       onClick={(e) => {
                         openAnnModal(e, index)
                       }}
+                      className="m-0"
                     >
                       <b>{ann.title}</b>
                     </h2>
@@ -141,10 +149,15 @@ const Dashboard = () => {
                       {ann.date}
                       {isAuth && (
                         <>
-                          <Link to={`/auth/announce/${ann.title}`}>
+                          <Link to={`/auth/announce/${ann._id}`}>
                             <CIcon icon="cil-pencil" name="cil-pencil" className="mx-3" />
                           </Link>
-                          <CIcon icon="cil-trash" name="cil-trash" className="mr-3" />
+                          <CIcon
+                            onClick={(e) => delAnnouncement(ann._id)}
+                            icon="cil-trash"
+                            name="cil-trash"
+                            className="mr-3"
+                          />
                         </>
                       )}
                     </span>
