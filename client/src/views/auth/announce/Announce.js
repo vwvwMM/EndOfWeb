@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
 import {
   CButton,
   CCard,
@@ -25,14 +26,26 @@ const Announce = () => {
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
   }
-  const add = useParams().id === 'add'
+  const add = useParams().id
   const [blockModal, setBlockModal] = useState(false)
-  const [ann, setAnn] = useState(
-    add
-      ? { title: '', body: '', date: '' }
-      : { title: 'ann1', body: 'this is first announcement', date: '2022/9/2' },
-  )
+  const [ann, setAnn] = useState({ title: '', body: '', date: '' })
+  const getAnnounce = () => {
+    if (add !== 'add') {
+      axios
+        .get('/api/getAnnouncement', { params: { title: add } })
+        .then((res) => {
+          console.log(res.data)
+          setAnn(res.data)
+        })
+        .catch((err) => {
+          err.response.data.description && alert('錯誤\n' + err.response.data.description)
+        })
+    }
+  }
   const handleSubmit = (e) => {}
+  useEffect(() => {
+    getAnnounce()
+  }, [])
   return (
     <>
       <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">

@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const { dbCatch } = require('../../../error')
-const Column_Outline = require('../../../Schemas/column_outline')
+const Announcement = require('../../../Schemas/announcement')
 
 /**
  * @api {get} /column/recent get recent column
@@ -32,12 +32,12 @@ const Column_Outline = require('../../../Schemas/column_outline')
 module.exports = asyncHandler(async (req, res, next) => {
   const { number } = req.query
   const limit = number ? parseInt(number) : 5
-  const totalNumber = parseInt(await Column_Outline.count().catch(dbCatch))
-  const columnOulines =
+  const totalNumber = parseInt(await Announcement.count().catch(dbCatch))
+  const announcements =
     totalNumber > limit
-      ? await Column_Oulines.find()
+      ? await Announcement.find()
           .skip(totalNumber - limit)
           .catch(dbCatch)
-      : await Column_Oulines.find().catch(dbCatch)
-  return res.status(201).send({ data: columnOulines.reverse().map((col) => col.getPublic()) })
+      : await Announcement.find().catch(dbCatch)
+  return res.status(201).send({ data: announcements.reverse().map((ann) => ann.getPublic()) })
 })

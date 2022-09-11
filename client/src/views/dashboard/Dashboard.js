@@ -29,6 +29,7 @@ import parser from 'html-react-parser'
 
 const perRecruitment = 4
 const perRecommendation = 4
+const perAnnouncement = 4
 
 const Dashboard = () => {
   const { isAuth } = useSelector(selectLogin)
@@ -37,7 +38,7 @@ const Dashboard = () => {
   const [recentRecruitments, setRecentRecruitments] = useState([])
   const [recentRecommendations, setRecentRecommendations] = useState([])
   const [announces, setAnnounces] = useState([])
-  const [announce, setAnnounce] = useState({})
+  const [announce, setAnnounce] = useState({ title: '', body: '', date: '' })
 
   const openAnnModal = (e, index) => {
     setAnnounce(announces[index])
@@ -51,9 +52,9 @@ const Dashboard = () => {
 
   const getAnnouncements = () => {
     axios
-      .get('api/getAnnouncement')
+      .get('/api/announcement/recent', { params: { number: perAnnouncement } })
       .then((res) => {
-        setAnnounces(res.data)
+        setAnnounces(res.data.data)
       })
       .catch((err) => console.log(err))
   }
@@ -85,11 +86,12 @@ const Dashboard = () => {
       .catch((err) => console.log(err))
   }
 
-  // useEffect(() => {
-  //   getRecentColumns()
-  //   getRecentRecruitments()
-  //   getRecentRecommendations()
-  // }, [])
+  useEffect(() => {
+    getAnnouncements()
+    getRecentColumns()
+    getRecentRecruitments()
+    getRecentRecommendations()
+  }, [])
 
   return (
     <>
@@ -98,8 +100,8 @@ const Dashboard = () => {
           <CModalTitle>{announce.title}</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <p>{announce.body}</p>
-          {/* <p>{parser(announce.body)}</p> */}
+          {/* <p>{announce.body}</p> */}
+          <p>{parser(announce.body)}</p>
         </CModalBody>
         <CModalFooter>
           <CButton color="dark" onClick={closeAnnModal}>
@@ -139,7 +141,7 @@ const Dashboard = () => {
                       {ann.date}
                       {isAuth && (
                         <>
-                          <Link to={`/auth/announce/${index}`}>
+                          <Link to={`/auth/announce/${ann.title}`}>
                             <CIcon icon="cil-pencil" name="cil-pencil" className="mx-3" />
                           </Link>
                           <CIcon icon="cil-trash" name="cil-trash" className="mr-3" />
