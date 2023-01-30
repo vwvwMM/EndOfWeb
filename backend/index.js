@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const cors = require('cors')
-const mongoose = require('./routes/Schemas/db')
 
 mongoose.connection.on('open', () => {
   console.log('DB on')

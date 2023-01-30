@@ -42,7 +42,7 @@ const Profile = () => {
 
   useEffect(() => {
     getProfile()
-  }, [])
+  }, [id])
 
   return data ? (
     <CContainer>
