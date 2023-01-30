@@ -2,7 +2,7 @@ const Recruitment = require('../../../Schemas/recruitment')
 const { searchQuery, findWithLimit } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
-const searchRecuitment = async function (req, res, next) {
+const searchRecruitment = async function (req, res, next) {
   const {
     _id,
     account,
@@ -94,4 +94,4 @@ const rules = [
     type: 'string',
   },
 ]
-module.exports = [valid(rules), asyncHandler(searchRecuitment)]
+module.exports = [valid(rules), asyncHandler(searchRecruitment)]

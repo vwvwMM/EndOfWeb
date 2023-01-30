@@ -32,9 +32,11 @@ module.exports = asyncHandler(async (req, res, next) => {
   const { number } = req.query
   const limit = number ? parseInt(number) : 5
   const totalNumber = parseInt(await Recommendation.count().catch(dbCatch))
-  console.log(totalNumber)
-  const recs = await Recommendation.find()
-    .skip(totalNumber - limit)
-    .catch(dbCatch)
+  const recs =
+    totalNumber > limit
+      ? await Recommendation.find()
+          .skip(totalNumber - limit)
+          .catch(dbCatch)
+      : await Recommendation.find().catch(dbCatch)
   return res.status(201).send({ data: recs.reverse().map((rec) => rec.getPublic()) })
 })

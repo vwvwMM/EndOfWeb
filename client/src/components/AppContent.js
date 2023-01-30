@@ -77,7 +77,7 @@ const AppContent = () => {
               )
             )
           })}
-          {!isLogin ? <Redirect to="/home" /> : null}
+          {/* {!isLogin ? <Redirect to="/home" /> : null} */}
           {isLogin
             ? routes_in.map((route, idx) => {
                 return (
@@ -116,11 +116,11 @@ const AppContent = () => {
                 )
               })
             : null}
-          {isAuth ? (
+          {/* {isAuth ? (
             <Redirect exact from="/" to="/auth/matching" />
           ) : (
             <Redirect exact from="/" to="/home" />
-          )}
+          )} */}
         </Switch>
       </Suspense>
     </div>

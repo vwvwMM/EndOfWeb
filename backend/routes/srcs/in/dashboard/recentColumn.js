@@ -33,8 +33,11 @@ module.exports = asyncHandler(async (req, res, next) => {
   const { number } = req.query
   const limit = number ? parseInt(number) : 5
   const totalNumber = parseInt(await Column_Outline.count().catch(dbCatch))
-  const columnOulines = await Column_Outline.find()
-    .skip(totalNumber - limit)
-    .catch(dbCatch)
+  const columnOulines =
+    totalNumber > limit
+      ? await Column_Oulines.find()
+          .skip(totalNumber - limit)
+          .catch(dbCatch)
+      : await Column_Oulines.find().catch(dbCatch)
   return res.status(201).send({ data: columnOulines.reverse().map((col) => col.getPublic()) })
 })
