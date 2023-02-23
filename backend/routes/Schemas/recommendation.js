@@ -22,7 +22,7 @@ const Recommendation_Schema = new Schema({
     data: { type: Buffer },
     contentType: { type: String },
   },
-  //image:eesa_icon,
+  resume: String,
 })
 
 const { buf2url } = require('./query')
@@ -36,6 +36,7 @@ Recommendation_Schema.methods.getPublic = function () {
     info: this.info,
     spec: this.spec,
     image: this.imgSrc,
+    resume: this.resume,
   }
 }
 
@@ -54,6 +55,7 @@ Recommendation_Schema.statics.smartQuery = function (keywords) {
       { 'info.diploma': reg },
       { 'spec.experience': reg },
       { 'spec.speciality': reg },
+      { resume: reg },
     ],
   }
   return query

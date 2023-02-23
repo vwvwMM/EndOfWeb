@@ -51,6 +51,7 @@ const showRec = async (req, res, next) => {
     diploma,
     experience,
     speciality,
+    resume,
   } = req.query
   const query = {
     _id,
@@ -63,6 +64,7 @@ const showRec = async (req, res, next) => {
     'info.diploma': diploma,
     'spec.experience': experience,
     'spec.speciality': speciality,
+    resume,
   }
   const sq = searchQuery(query)
   const { page, perpage } = req.query
@@ -85,6 +87,7 @@ const rules = [
       'diploma',
       'experience',
       'speciality',
+      'resume',
     ],
     method: 'get',
     type: 'string',

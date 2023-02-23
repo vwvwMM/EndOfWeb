@@ -31,8 +31,18 @@ const asyncHandler = require('express-async-handler')
 const updateRec = async (req, res) => {
   const account = req.session.loginAccount
 
-  const { _id, title, name, desire_work_type, contact, email, diploma, experience, speciality } =
-    req.body
+  const {
+    _id,
+    title,
+    name,
+    desire_work_type,
+    contact,
+    email,
+    diploma,
+    experience,
+    speciality,
+    resume,
+  } = req.body
 
   const data = await Recommendation.findById(_id, 'account').catch(dbCatch)
   if (!data || data.account !== account)
@@ -48,6 +58,7 @@ const updateRec = async (req, res) => {
     'spec.experience': experience,
     'spec.speciality': speciality,
     img: parseImg(req.file),
+    resume,
   }
   const toSet = updateQuery(keys)
   await Recommendation.findByIdAndUpdate(_id, toSet).catch((e) => {
@@ -61,7 +72,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma'],
+    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma', 'resume'],
     type: 'string',
   },
   {

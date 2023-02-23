@@ -30,7 +30,7 @@ const asyncHandler = require('express-async-handler')
 const addRec = async (req, res) => {
   const account = req.session.loginAccount
 
-  const { title, name, desire_work_type, contact, email, diploma, experience, speciality } =
+  const { title, name, desire_work_type, contact, email, diploma, experience, speciality, resume } =
     req.body
 
   const img = parseImg(req.file)
@@ -40,6 +40,7 @@ const addRec = async (req, res) => {
     info: { contact, email, diploma },
     spec: { experience, speciality },
     img,
+    resume,
   })
     .save()
     .catch(dbCatch)
@@ -51,7 +52,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma'],
+    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma', 'resume'],
     type: 'string',
   },
   {
