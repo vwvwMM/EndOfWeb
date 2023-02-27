@@ -3,12 +3,10 @@ const { History } = require('../../../Schemas/history')
 const asyncHandler = require('express-async-handler')
 
 /**
- * @api {get} /history 獲取部長歷史清單
+ * @api {get} /history get list of heads
  * @apiName GetHistory
- * @apiGroup In/auth
+ * @apiGroup Out/publicData
  * @apiDescription 獲取部長歷史清單
- *
- * @apiparam {} - -
  *
  * @apiSuccess (200) {Object[]} - 歷史資料們
  * @apiSuccess (200) {String} -._id mongodb _id(for update, delete)
