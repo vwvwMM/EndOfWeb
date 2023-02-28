@@ -19,7 +19,6 @@ const EditRecommendation = () => {
   useEffect(() => {
     getData()
   }, [])
-  // return <>{data._id && <EditBlock data={data} />}</>
   return <>{data._id && <RecommendationForm data={data} />}</>
 }
 

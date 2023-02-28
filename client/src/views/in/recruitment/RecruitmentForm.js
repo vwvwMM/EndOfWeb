@@ -15,6 +15,7 @@ import {
   CContainer,
   CForm,
   CFormControl,
+  CFormSelect,
   CInputGroup,
   CInputGroupText,
   CRow,
@@ -32,6 +33,7 @@ const CareerForm = ({ data }) => {
   const formTemplate = add
     ? {
         title: '',
+        type: 'intern',
         companyName: '',
         workType: '',
         salary: '',
@@ -41,6 +43,7 @@ const CareerForm = ({ data }) => {
       }
     : {
         title: data.title.title,
+        type: data.title.type,
         companyName: data.title.company_name,
         workType: data.title.work_type,
         salary: data.info.salary,
@@ -245,6 +248,7 @@ const CareerForm = ({ data }) => {
                         data-tip="Put your company's brand!"
                         id="formFile"
                         type="file"
+                        accept="image/*"
                         onChange={handleChangeImage}
                         onClick={(e) => (e.target.value = null)}
                       ></CFormControl>
@@ -264,6 +268,25 @@ const CareerForm = ({ data }) => {
                         onChange={handleInputChange}
                       />
                       <ReactTooltip id="title" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-user" name="cil-user" />
+                      </CInputGroupText>
+                      <CFormSelect
+                        className={requiredStyle.type}
+                        data-for="type"
+                        data-tip="Want to recruit an intern or a full-time?"
+                        placeholder="Type*"
+                        value={dataForm.type}
+                        name="type"
+                        onChange={handleInputChange}
+                      >
+                        <option value="intern">Intern</option>
+                        <option value="full-time">Full-time</option>
+                        <option value="both">Both</option>
+                      </CFormSelect>
+                      <ReactTooltip id="type" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>

@@ -55,13 +55,24 @@ const CareerBlock = ({ post, setData, index }) => {
   return recru ? (
     <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
+        <div className="d-flex p-3">
+          <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid" />
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <h5 className="d-flex flex-column align-items-center justify-content-center">
+              {post.title.type === 'both' ? 'intern+full-time' : post.title.type}
+            </h5>
+            <h2 className="d-flex flex-column align-items-center justify-content-center">
+              {post.title.company_name} 徵 ${post.title.work_type}
+            </h2>
+          </div>
+        </div>
+        {/* <CWidgetBrand
+          className="pt-4 widgetbrand d-flex flex-row"
           headerChildren={
             <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
           }
-          values={[[`${post.title.company_name} 徵 ${post.title.work_type}`]]}
-        />
+          values={[[`${post.title.type==='both'?'intern+full-time':post.title.type}`,`${post.title.company_name} 徵 ${post.title.work_type}`]]}
+        /> */}
       </Link>
       <hr></hr>
       <div className="careercontent">
@@ -70,7 +81,11 @@ const CareerBlock = ({ post, setData, index }) => {
           {own ? (
             <>
               <Link to={`/edit_recruitment/${post._id}`}>
-                <CIcon icon="cil-pencil" name="cil-pencil"></CIcon>
+                <CIcon
+                  icon="cil-pencil"
+                  name="cil-pencil"
+                  style={{ scale: '1.7', marginLeft: '1rem' }}
+                ></CIcon>
               </Link>
               <CAvatar className="hover-pointer">
                 <CIcon
@@ -104,27 +119,43 @@ const CareerBlock = ({ post, setData, index }) => {
   ) : (
     <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
+        <div className="d-flex p-3">
+          <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid col-4" />
+          <div className="col-7 d-flex flex-column justify-content-center align-items-center">
+            <h5 className="col-7 d-flex justify-content-center align-items-center">
+              <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+            </h5>
+            <h3 className="col-7 d-flex justify-content-center align-items-center">
+              {post.title.title}
+            </h3>
+          </div>
+        </div>
+        {/* <CWidgetBrand
+          className="pt-4 widgetbrand d-flex flex-row"
           headerChildren={
             <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
           }
-          values={[[post.title.title]]}
-        />
+          values={[[`${post.title.type==='both'?'intern+full-time':post.title.type}`,post.title.title]]}
+        /> */}
       </Link>
       <hr></hr>
       <div className="careercontent">
         <h3>
-          {post.title.name} asking for <nobr>{post.title.desire_work_type}</nobr>
+          {post.title.name} 求內推 <nobr>{post.title.desire_work_type}</nobr>
           {own ? (
             <>
               <Link to={`/edit_recommendation/${post._id}`}>
-                <CIcon icon="cil-pencil" name="cil-pencil"></CIcon>
+                <CIcon
+                  icon="cil-pencil"
+                  name="cil-pencil"
+                  style={{ scale: '1.7', marginLeft: '1rem' }}
+                ></CIcon>
               </Link>
               <CAvatar className="hover-pointer">
                 <CIcon
                   icon="cil-trash"
                   name="cil-trash"
+                  style={{ scale: '1.7', marginLeft: '1rem' }}
                   onClick={() => deleteCareer(post._id)}
                 ></CIcon>
               </CAvatar>
@@ -144,6 +175,11 @@ const CareerBlock = ({ post, setData, index }) => {
             <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
             <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
             <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
+            <h3 style={{ margin: '1rem 0 0.1rem' }}>
+              <a href={post.resume} target="_blank">
+                resume
+              </a>
+            </h3>
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}

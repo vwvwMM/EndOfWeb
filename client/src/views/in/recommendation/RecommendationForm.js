@@ -15,6 +15,7 @@ import {
   CContainer,
   CForm,
   CFormControl,
+  CFormSelect,
   CInputGroup,
   CInputGroupText,
   CRow,
@@ -32,6 +33,7 @@ const RecommendationForm = ({ data }) => {
   const { cellphone: userPhone, email: userEmail, name: userName } = useSelector(selectLogin)
   const formTemplate = add
     ? {
+        type: 'intern',
         title: '',
         name: userName,
         desireWorkType: '',
@@ -39,8 +41,10 @@ const RecommendationForm = ({ data }) => {
         email: userEmail,
         diploma: '',
         file: '',
+        resume: '',
       }
     : {
+        type: data.title.type,
         title: data.title.title,
         name: data.title.name,
         desireWorkType: data.title.desire_work_type,
@@ -48,6 +52,7 @@ const RecommendationForm = ({ data }) => {
         email: data.info.email,
         diploma: data.info.diploma,
         file: data.image,
+        resume: data.resume,
         _id: data._id,
       }
   const dispatch = useDispatch()
@@ -55,10 +60,9 @@ const RecommendationForm = ({ data }) => {
   const { croppedFile } = useSelector(selectCareer)
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
-  const [originalImage, setOriginalImage] = useState(null)
+  const [imageButton, setImageButton] = useState(null)
   const [experience, setExperience] = useState(add ? [''] : data.spec.experience)
   const [speciality, setSpeciality] = useState(add ? [''] : data.spec.speciality)
-  const [fileButton, setFileButton] = useState(null)
   const [dataForm, setDataForm] = useState(formTemplate)
   const [requiredStyle, setRequiredStyle] = useState({
     title: '',
@@ -109,12 +113,11 @@ const RecommendationForm = ({ data }) => {
   const handleChangeImage = (e) => {
     let reader = new FileReader()
     let file = e.target.files[0]
-    setFileButton(e.target)
     // clear old edit image
     dispatch(clearCroppedDataUrl())
     dispatch(clearCroppedFile())
     reader.onloadend = () => {
-      setOriginalImage(reader.result)
+      setImageButton(reader.result)
     }
     reader.readAsDataURL(file)
     // call the modal
@@ -125,11 +128,10 @@ const RecommendationForm = ({ data }) => {
     // close modal
     setIsModal(false)
     // clear all the image
-    setOriginalImage(null)
+    setImageButton(null)
     dispatch(clearCroppedDataUrl())
     dispatch(clearCroppedFile())
     setDataForm({ ...dataForm, file: null })
-    fileButton.value = ''
   }
 
   const saveEditImage = (e) => {
@@ -138,15 +140,16 @@ const RecommendationForm = ({ data }) => {
     // fill the form
     setDataForm({ ...dataForm, file: croppedFile })
   }
-
   const handleSubmit = () => {
     const data = new FormData()
     data.append('title', dataForm.title)
     data.append('name', dataForm.name)
+    data.append('type', dataForm.type)
     data.append('desire_work_type', dataForm.desireWorkType)
     data.append('contact', dataForm.contact)
     data.append('email', dataForm.email)
     data.append('diploma', dataForm.diploma)
+    data.append('resume', dataForm.resume)
     for (let exp of experience) {
       data.append('experience[]', exp)
     }
@@ -182,12 +185,12 @@ const RecommendationForm = ({ data }) => {
   }
   return (
     <>
-      <CModal size="xl" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
+      <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setIsModal(false)}>
           <CModalTitle>Edit Your Photo</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <CareerImageEditor imgSrc={originalImage} />
+          <CareerImageEditor imgSrc={imageButton} />
         </CModalBody>
         <CModalFooter>
           <CButton
@@ -207,7 +210,12 @@ const RecommendationForm = ({ data }) => {
           </CButton>
         </CModalFooter>
       </CModal>
-      <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">
+      <CModal
+        size="l"
+        visible={blockModal}
+        onDismiss={() => setBlockModal(false)}
+        alignment="center"
+      >
         <CModalHeader onDismiss={() => setBlockModal(false)}>
           <CModalTitle>Preview New Post</CModalTitle>
         </CModalHeader>
@@ -246,10 +254,10 @@ const RecommendationForm = ({ data }) => {
                       <CFormControl
                         data-for="image"
                         data-tip="Put a picture that can represent you!"
-                        id="formFile"
                         type="file"
                         onChange={handleChangeImage}
                         onClick={(e) => (e.target.value = null)}
+                        accept="image/*"
                       ></CFormControl>
                       <ReactTooltip id="image" place="top" type="dark" effect="solid" />
                     </CInputGroup>
@@ -267,6 +275,25 @@ const RecommendationForm = ({ data }) => {
                         onChange={handleInputChange}
                       />
                       <ReactTooltip id="title" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-user" name="cil-user" />
+                      </CInputGroupText>
+                      <CFormSelect
+                        className={requiredStyle.type}
+                        data-for="type"
+                        data-tip="Want to apply for intern or full-time?"
+                        placeholder="Type*"
+                        value={dataForm.type}
+                        name="type"
+                        onChange={handleInputChange}
+                      >
+                        <option value="intern">Intern</option>
+                        <option value="fulltime">Full-time</option>
+                        <option value="both">Both</option>
+                      </CFormSelect>
+                      <ReactTooltip id="type" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
@@ -413,6 +440,20 @@ const RecommendationForm = ({ data }) => {
                       >
                         +
                       </CButton>
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText>
+                        <CIcon icon="cil-address-book" name="cil-address-book" />
+                      </CInputGroupText>
+                      <CFormControl
+                        data-for="resume-link"
+                        data-tip="Please upload your resume to Google drive, set the accessibility, and paste the link here to let everyone see your resume."
+                        placeholder="Resume Google Drive Link"
+                        onChange={handleInputChange}
+                        value={dataForm.resume}
+                        name="resume"
+                      />
+                      <ReactTooltip id="resume-link" place="top" type="dark" effect="solid" />
                     </CInputGroup>
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">

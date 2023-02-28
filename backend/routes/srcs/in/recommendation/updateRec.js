@@ -34,6 +34,7 @@ const updateRec = async (req, res) => {
   const {
     _id,
     title,
+    type,
     name,
     desire_work_type,
     contact,
@@ -50,6 +51,7 @@ const updateRec = async (req, res) => {
 
   const keys = {
     'title.title': title,
+    'title.type': type,
     'title.name': name,
     'title.desire_work_type': desire_work_type,
     'info.contact': contact,
@@ -72,7 +74,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'name', 'desire_work_type', 'contact', 'diploma', 'resume'],
+    field: ['title', 'type', 'name', 'desire_work_type', 'contact', 'diploma'],
     type: 'string',
   },
   {

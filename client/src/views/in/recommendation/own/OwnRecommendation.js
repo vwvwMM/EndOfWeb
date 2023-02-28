@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import Masonry from 'react-masonry-css'
 import axios from 'axios'
 import { Spinner } from './index'
+import { CFormSelect } from '@coreui/react'
+let datas = []
 const OwnRecommendation = () => {
   const [isPending, setIsPending] = useState(true)
   const [data, setData] = useState([])
   const breakpointColumnsObj = {
-    default: 3,
+    default: 2,
     1100: 2,
     500: 1,
   }
@@ -16,6 +18,7 @@ const OwnRecommendation = () => {
     axios
       .get('/api/recommendation/mine')
       .then((res) => {
+        datas = res.data
         setData(res.data)
         setIsPending(false)
       })
@@ -23,6 +26,14 @@ const OwnRecommendation = () => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
       })
   }
+  const switchType = (e) => {
+    if (e.target.value === 'both') {
+      setData(datas)
+    } else {
+      setData(datas.filter((data) => data.title.type === e.target.value))
+    }
+  }
+
   useEffect(() => {
     getData()
   }, [])
@@ -36,21 +47,28 @@ const OwnRecommendation = () => {
       {isPending ? (
         <Spinner />
       ) : (
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-          columnAttrs={{
-            className: 'should be overridden',
-            'data-test': '',
-            style: { '--test': 'test' },
-          }}
-          style={{ display: 'flex' }}
-        >
-          {data.map((post, i) => (
-            <CareerBlock post={post} setData={setData} index={i} key={i} />
-          ))}
-        </Masonry>
+        <>
+          <CFormSelect className="mx-auto my-3 w-50" onChange={switchType}>
+            <option value="both">Both</option>
+            <option value="intern">Intern</option>
+            <option value="fulltime">Fulltime</option>
+          </CFormSelect>
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+            columnAttrs={{
+              className: 'should be overridden',
+              'data-test': '',
+              style: { '--test': 'test' },
+            }}
+            style={{ display: 'flex' }}
+          >
+            {data.map((post, i) => (
+              <CareerBlock post={post} setData={setData} index={i} key={i} />
+            ))}
+          </Masonry>
+        </>
       )}
     </div>
   )

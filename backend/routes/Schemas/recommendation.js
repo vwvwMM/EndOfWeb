@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
 const Recommendation_Schema = new Schema({
   account: { type: String, required: true },
   title: {
+    type: { type: String, enum: ['intern', 'fulltime', 'both'], required: true },
     title: String,
     name: String,
     desire_work_type: String,
@@ -55,7 +56,6 @@ Recommendation_Schema.statics.smartQuery = function (keywords) {
       { 'info.diploma': reg },
       { 'spec.experience': reg },
       { 'spec.speciality': reg },
-      { resume: reg },
     ],
   }
   return query

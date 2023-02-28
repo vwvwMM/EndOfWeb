@@ -10,7 +10,7 @@ const upload = multer({
     fileSize: 100000000,
   },
   fileFilter: function (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|JPG|PNG|JPEG)$/)) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|JPG|PNG|JPEG|pdf|PDF)$/)) {
       req.fileValidationError = '檔案格式錯誤'
       return cb(new Error('檔案格式錯誤'), false)
     }

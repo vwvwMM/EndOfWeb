@@ -5,11 +5,12 @@ import { selectCareer, setKeywords, clearKeywords } from '../career/index'
 import CareerBlock from '../career/CareerBlock'
 import Masonry from 'react-masonry-css'
 import { Spinner } from './index'
-import { CButton, CFormControl, CInputGroup } from '@coreui/react'
+import { CButton, CFormControl, CInputGroup, CFormSelect } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import Pagination from '@material-ui/lab/Pagination'
+let datas = []
 const Recruitment = () => {
-  const [data, setData] = useState({ data: [], maxPage: 0 })
+  const [showData, setShowData] = useState({ data: [], maxPage: 0 })
   const dispatch = useDispatch()
   const { keywords } = useSelector(selectCareer)
   const [isPending, setIsPending] = useState()
@@ -17,7 +18,7 @@ const Recruitment = () => {
   const [page, setPage] = useState(1)
   const postsPerPage = 9
   const breakpointColumnsObj = {
-    default: 3,
+    default: 2,
     1100: 2,
     500: 1,
   }
@@ -29,7 +30,8 @@ const Recruitment = () => {
       axios
         .post('/api/smartsearchRecruitment', { keyword: keywords, perpage: 99 })
         .then((res) => {
-          setData(res.data)
+          setShowData(res.data)
+          datas = res.data.data
           setIsPending(false)
         })
         .catch((err) => {
@@ -47,7 +49,8 @@ const Recruitment = () => {
       .post('/api/showRecruitment', { page, perpage: postsPerPage })
       .then((res) => {
         if (res.data.length !== 0) {
-          setData(res.data)
+          setShowData(res.data)
+          datas = res.data.data
           setIsPending(false)
         }
       })
@@ -96,11 +99,25 @@ const Recruitment = () => {
               <CIcon name="cil-search" />
             </CButton>
           </CInputGroup>
+          <CInputGroup>
+            <CFormSelect
+              onChange={(e) => {
+                setShowData({
+                  ...showData,
+                  data: datas.filter((data) => data.title.type === e.target.value),
+                })
+              }}
+            >
+              <option value="both">Both</option>
+              <option value="intern">Intern</option>
+              <option value="fulltime">Fulltime</option>
+            </CFormSelect>
+          </CInputGroup>
         </form>
       </div>
       <Pagination
         className="my-4 d-flex justify-content-center"
-        count={data.maxPage}
+        count={showData.maxPage}
         defaultPage={page}
         page={page}
         color="secondary"
@@ -111,7 +128,7 @@ const Recruitment = () => {
       />
       {isPending ? (
         <Spinner />
-      ) : isSearch && data.data.length === 0 ? (
+      ) : isSearch && showData.data.length === 0 ? (
         <div className="display-2 d-flex justify-content-center mt-3 text-white">
           Result not found
         </div>
@@ -127,7 +144,7 @@ const Recruitment = () => {
           }}
           style={{ display: 'flex' }}
         >
-          {data.data.map((post) => (
+          {showData.data.map((post) => (
             <CareerBlock post={post} key={post._id} />
           ))}
         </Masonry>

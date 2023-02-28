@@ -6,6 +6,7 @@ import { eesa } from './index'
 import parser from 'html-react-parser'
 
 const CareerPreview = ({ post, experience, requirement }) => {
+  console.log('post:', post)
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
   if (post.file && typeof post.file === 'object') {
@@ -25,13 +26,24 @@ const CareerPreview = ({ post, experience, requirement }) => {
   if (typeof post.description === 'string') {
     return (
       <div className="CareerBlock" key={post.id}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
+        <div className="d-flex p-3">
+          <img src={previewURL ? previewURL : eesa} alt="eesa" className="eesa img-fluid col-4" />
+          <div className="col-7 d-flex flex-column justify-content-center align-items-center">
+            <h5 className="d-flex justify-content-center align-items-center">
+              {post.type === 'both' ? 'intern+full-time' : post.type}
+            </h5>
+            <h3 className="d-flex justify-content-center align-items-center">
+              {post.companyName} 徵 {post.workType}
+            </h3>
+          </div>
+        </div>
+        {/* <CWidgetBrand
+          className="pt-4 widgetbrand d-flex flex-row"
           headerChildren={
             <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
           }
-          values={[[`${post.companyName} 徵 ${post.workType}`]]}
-        />
+          values={[[`${post.type==='both'?'intern+full-time':post.type}`,`${post.companyName} 徵 ${post.workType}`]]}
+        /> */}
         <hr></hr>
         <div className="careercontent">
           <h3 style={{ fontWeight: '600' }}>{post.title}</h3>
@@ -56,19 +68,28 @@ const CareerPreview = ({ post, experience, requirement }) => {
   } else {
     return (
       <div className="CareerBlock" key={post.id}>
-        <CWidgetBrand
-          className="pt-4 widgetbrand"
+        <div className="d-flex p-3">
+          <img src={previewURL ? previewURL : eesa} alt="eesa" className="eesa img-fluid col-4" />
+          <div className="col-7 d-flex flex-column justify-content-center align-items-center">
+            <h5 className="d-flex justify-content-center align-items-center">
+              {post.type === 'both' ? 'intern+full-time' : post.type}
+            </h5>
+            <h3 className="d-flex justify-content-center align-items-center">{post.title}</h3>
+          </div>
+        </div>
+        {/* <CWidgetBrand
+          className="pt-4 widgetbrand d-flex flex-row"
           headerChildren={
             <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
           }
-          values={[[post.title]]}
-        />
+          values={[[`${post.type==='both'?'intern+full-time':post.type}`,post.title]]}
+        /> */}
         <hr></hr>
         <div className="careercontent">
           <h3>
             {post.name} asking for <nobr>{post.desireWorkType}</nobr>
           </h3>
-          <div style={{ 'fontSize': '1.39rem' }}>
+          <div style={{ fontSize: '1.39rem' }}>
             <span style={{ color: 'red', fontWeight: '500' }}>{post.diploma}</span> |{' '}
             <nobr>{post.contact}</nobr> | <nobr>{post.email}</nobr>
           </div>
@@ -79,6 +100,13 @@ const CareerPreview = ({ post, experience, requirement }) => {
               <h4>{experience.map((exp) => spec(exp))}</h4>
               <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
               <h4>{requirement.map((speci) => spec(speci))}</h4>
+              {post.resume && (
+                <h3 style={{ margin: '1rem 0 0.1rem' }}>
+                  <a href={post.resume} target="_blank">
+                    resume
+                  </a>
+                </h3>
+              )}
               <button onClick={() => setIsExpand(false)}>Show less...</button>
             </>
           )}
