@@ -150,6 +150,7 @@ const CareerForm = ({ data }) => {
     data.append('salary', dataForm.salary)
     data.append('diploma', dataForm.diploma)
     data.append('description', dataForm.description)
+    data.append('type', dataForm.type)
     for (let exp of experience) {
       data.append('experience[]', exp)
     }
@@ -187,7 +188,7 @@ const CareerForm = ({ data }) => {
   }
   return (
     <>
-      <CModal size="xl" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
+      <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setIsModal(false)}>
           <CModalTitle>Edit Your Photo</CModalTitle>
         </CModalHeader>
@@ -212,7 +213,12 @@ const CareerForm = ({ data }) => {
           </CButton>
         </CModalFooter>
       </CModal>
-      <CModal visible={blockModal} onDismiss={() => setBlockModal(false)} alignment="center">
+      <CModal
+        size="xl"
+        visible={blockModal}
+        onDismiss={() => setBlockModal(false)}
+        alignment="center"
+      >
         <CModalHeader onDismiss={() => setBlockModal(false)}>
           <CModalTitle>Preview New Post</CModalTitle>
         </CModalHeader>
@@ -420,7 +426,26 @@ const CareerForm = ({ data }) => {
                         +
                       </CButton>
                     </CInputGroup>
-                    <div
+                    <CInputGroup
+                      className="mb-3 mw-100"
+                      data-for="description"
+                      data-tip="Some description for this job"
+                    >
+                      <CInputGroupText>
+                        <CIcon icon="cil-description" name="cil-description" />
+                      </CInputGroupText>
+                      <textarea
+                        data-for="description"
+                        data-tip="Some description for this job"
+                        rows={50}
+                        placeholder="Description of this job"
+                        name="description"
+                        value={dataForm.description}
+                        onChange={handleInputChange}
+                      />
+                      <ReactTooltip id="description" place="top" type="dark" effect="solid" />
+                    </CInputGroup>
+                    {/* <div
                       className="mb-3 mw-100"
                       data-for="description"
                       data-tip="Some description for this job"
@@ -436,7 +461,7 @@ const CareerForm = ({ data }) => {
                         } // preferred to use only this option to update the content for performance reasons
                       />
                       <ReactTooltip id="description" place="top" type="dark" effect="solid" />
-                    </div>
+                    </div> */}
                     <CRow className="justify-content-center mt-3">
                       <div className="d-flex d-flex justify-content-center">
                         <CButton
