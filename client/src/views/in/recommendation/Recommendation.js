@@ -17,6 +17,7 @@ const Recommendation = () => {
   const [isPending, setIsPending] = useState()
   const [isSearch, setIsSearch] = useState(false)
   const [page, setPage] = useState(1)
+  const [targetType, setTargetType] = useState('both')
   const postsPerPage = 8
   const breakpointColumnsObj = {
     default: 2,
@@ -32,7 +33,7 @@ const Recommendation = () => {
         .post('/api/smartsearchrecommendation', { keyword: keywords, perpage: 99 })
         .then((res) => {
           datas = res.data.data
-          setShowData(res.data)
+          switchType(targetType)
           setIsPending(false)
         })
         .catch((err) => {
@@ -58,11 +59,12 @@ const Recommendation = () => {
       })
   }
 
-  const switchType = (e) => {
-    if (e.target.value === 'both') {
+  const switchType = (tt) => {
+    setTargetType(tt)
+    if (tt === 'both') {
       setShowData({ ...showData, data: datas })
     } else {
-      setShowData({ ...showData, data: datas.filter((data) => data.title.type === e.target.value) })
+      setShowData({ ...showData, data: datas.filter((data) => data.title.type === tt) })
     }
   }
 
@@ -85,8 +87,8 @@ const Recommendation = () => {
       >
         <div className="display-1">Recommendations</div>
 
-        <div className="d-flex">
-          <form className="text-light py-2 my-2 w-75 col-9" onSubmit={(e) => searchData(e)}>
+        <div className="d-flex justify-content-center">
+          <form className="text-light py-2 my-2 col-9" onSubmit={(e) => searchData(e)}>
             <CInputGroup>
               <CButton
                 onClick={() => {
@@ -110,7 +112,7 @@ const Recommendation = () => {
               </CButton>
             </CInputGroup>
           </form>
-          <CInputGroup className="col-2">
+          <CInputGroup className="col-2 my-auto">
             <CFormSelect onChange={switchType}>
               <option value="both">Both</option>
               <option value="intern">Intern</option>

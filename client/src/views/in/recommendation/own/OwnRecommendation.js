@@ -46,7 +46,7 @@ const OwnRecommendation = () => {
       </Link>
       {isPending ? (
         <Spinner />
-      ) : (
+      ) : data.length !== 0 ? (
         <>
           <CFormSelect className="mx-auto my-3 w-50" onChange={switchType}>
             <option value="both">Both</option>
@@ -69,6 +69,10 @@ const OwnRecommendation = () => {
             ))}
           </Masonry>
         </>
+      ) : (
+        <div className="display-4 d-flex justify-content-center mt-3 text-white">
+          You have not post your recommendation yet
+        </div>
       )}
     </div>
   )

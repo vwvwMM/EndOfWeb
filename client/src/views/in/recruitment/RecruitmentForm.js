@@ -427,19 +427,21 @@ const CareerForm = ({ data }) => {
                       </CButton>
                     </CInputGroup>
                     <CInputGroup
-                      className="mb-3 mw-100"
+                      className="mb-3 mw-100 d-flex"
                       data-for="description"
                       data-tip="Some description for this job"
                     >
                       <CInputGroupText>
-                        <CIcon icon="cil-description" name="cil-description" />
+                        <CIcon icon="cil-building" name="cil-building" />
                       </CInputGroupText>
                       <textarea
                         data-for="description"
                         data-tip="Some description for this job"
-                        rows={50}
+                        rows={5}
                         placeholder="Description of this job"
                         name="description"
+                        className="form-control"
+                        // style={{ width: 'inherit' }}
                         value={dataForm.description}
                         onChange={handleInputChange}
                       />

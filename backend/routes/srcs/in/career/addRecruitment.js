@@ -29,14 +29,24 @@ const asyncHandler = require('express-async-handler')
  */
 const addRecru = async (req, res) => {
   const account = req.session.loginAccount
-  const { title, company_name, work_type, salary, experience, diploma, requirement, description } =
-    req.body
+  const {
+    title,
+    type,
+    company_name,
+    work_type,
+    salary,
+    experience,
+    diploma,
+    requirement,
+    description,
+  } = req.body
   const img = parseImg(req.file)
 
   const { _id } = await new Recruitment({
     account,
     title: {
       title,
+      type,
       company_name,
       work_type,
     },
@@ -61,7 +71,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'company_name', 'work_type', 'salary', 'diploma', 'description'],
+    field: ['title', 'type', 'company_name', 'work_type', 'salary', 'diploma', 'description'],
     type: 'string',
   },
   { filename: 'optional', field: ['experience', 'requirement'], type: 'array' },

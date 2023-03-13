@@ -56,28 +56,21 @@ const CareerBlock = ({ post, setData, index }) => {
     <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
         <div className="d-flex p-3">
-          <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid" />
-          <div className="d-flex flex-column align-items-center justify-content-center">
-            <h5 className="d-flex flex-column align-items-center justify-content-center">
-              {post.title.type === 'both' ? 'intern+full-time' : post.title.type}
+          <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid col-4" />
+          <div className="col-7 d-flex flex-column justify-content-center align-items-center">
+            <h5 className="col-7 d-flex justify-content-center align-items-center">
+              <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
             </h5>
-            <h2 className="d-flex flex-column align-items-center justify-content-center">
-              {post.title.company_name} 徵 ${post.title.work_type}
+            <h2 className="col-7 d-flex justify-content-center align-items-center">
+              {post.title.title} <br />
             </h2>
           </div>
         </div>
-        {/* <CWidgetBrand
-          className="pt-4 widgetbrand d-flex flex-row"
-          headerChildren={
-            <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
-          }
-          values={[[`${post.title.type==='both'?'intern+full-time':post.title.type}`,`${post.title.company_name} 徵 ${post.title.work_type}`]]}
-        /> */}
       </Link>
       <hr></hr>
       <div className="careercontent">
         <h3 style={{ fontWeight: '600' }}>
-          {post.title.title}
+          <nobr>{post.title.company_name}</nobr> 徵 <nobr>{post.title.work_type}</nobr>
           {own ? (
             <>
               <Link to={`/edit_recruitment/${post._id}`}>
@@ -91,6 +84,7 @@ const CareerBlock = ({ post, setData, index }) => {
                 <CIcon
                   icon="cil-trash"
                   name="cil-trash"
+                  style={{ scale: '1.7' }}
                   onClick={() => deleteCareer(post._id)}
                 ></CIcon>
               </CAvatar>
@@ -130,13 +124,6 @@ const CareerBlock = ({ post, setData, index }) => {
             </h3>
           </div>
         </div>
-        {/* <CWidgetBrand
-          className="pt-4 widgetbrand d-flex flex-row"
-          headerChildren={
-            <img className="eesa img-fluid" src={post.image ? post.image : eesa} alt="eesa" />
-          }
-          values={[[`${post.title.type==='both'?'intern+full-time':post.title.type}`,post.title.title]]}
-        /> */}
       </Link>
       <hr></hr>
       <div className="careercontent">

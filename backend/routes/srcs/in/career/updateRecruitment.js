@@ -9,10 +9,20 @@ const updateRecruitment = async (req, res, next) => {
   if (!req.session.loginAccount || req.session.loginAccount !== toUpdate.account)
     throw new ErrorHandler(403, 'unauthorized')
 
-  const { title, company_name, work_type, salary, experience, diploma, requirement, description } =
-    req.body
+  const {
+    title,
+    type,
+    company_name,
+    work_type,
+    salary,
+    experience,
+    diploma,
+    requirement,
+    description,
+  } = req.body
   const keys = {
     'title.title': title,
+    'title.ype': type,
     'title.company_name': company_name,
     'title.work_type': work_type,
     'info.salary': salary,
@@ -59,7 +69,7 @@ const valid = require('../../../middleware/validation')
 const rules = [
   {
     filename: 'optional',
-    field: ['title', 'company_name', 'work_type', 'salary', 'diploma', 'description'],
+    field: ['title', 'type', 'company_name', 'work_type', 'salary', 'diploma', 'description'],
     type: 'string',
   },
   { filename: 'optional', field: ['experience', 'requirement'], type: 'array' },
