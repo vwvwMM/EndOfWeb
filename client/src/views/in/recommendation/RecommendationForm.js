@@ -41,7 +41,6 @@ const RecommendationForm = ({ data }) => {
         email: userEmail,
         diploma: '',
         file: '',
-        resume: '',
       }
     : {
         type: data.title.type,
@@ -61,6 +60,8 @@ const RecommendationForm = ({ data }) => {
   const [isModal, setIsModal] = useState(false)
   const [blockModal, setBlockModal] = useState(false)
   const [imageButton, setImageButton] = useState(null)
+  const [resumeBtn, setResumeBtn] = useState(null)
+  const [resumeURL, setResumeURL] = useState('')
   const [experience, setExperience] = useState(add ? [''] : data.spec.experience)
   const [speciality, setSpeciality] = useState(add ? [''] : data.spec.speciality)
   const [dataForm, setDataForm] = useState(formTemplate)
@@ -133,12 +134,17 @@ const RecommendationForm = ({ data }) => {
     dispatch(clearCroppedFile())
     setDataForm({ ...dataForm, file: null })
   }
-
   const saveEditImage = (e) => {
     // close the modal
     setIsModal(false)
     // fill the form
     setDataForm({ ...dataForm, file: croppedFile })
+  }
+  const handleResumeChange = (e) => {
+    const uploadedFile = e.target.files[0]
+    setResumeBtn(uploadedFile)
+    console.log('uploadedFile=', uploadedFile)
+    setResumeURL(URL.createObjectURL(uploadedFile))
   }
   const handleSubmit = () => {
     const data = new FormData()
@@ -149,7 +155,7 @@ const RecommendationForm = ({ data }) => {
     data.append('contact', dataForm.contact)
     data.append('email', dataForm.email)
     data.append('diploma', dataForm.diploma)
-    data.append('resume', dataForm.resume)
+    data.append('files[]', resumeBtn, '.pdf')
     for (let exp of experience) {
       data.append('experience[]', exp)
     }
@@ -157,7 +163,8 @@ const RecommendationForm = ({ data }) => {
       data.append('speciality[]', spec)
     }
     if (croppedFile) {
-      data.append('file', dataForm.file, '.png')
+      data.append('files[]', dataForm.file, '.png')
+      console.log('after append image')
     }
     const config = { 'content-type': 'multipart/form-data' }
     if (add) {
@@ -225,6 +232,7 @@ const RecommendationForm = ({ data }) => {
             experience={experience}
             requirement={speciality}
             description={[]}
+            resumeURL={resumeURL}
           />
         </CModalBody>
         <CModalFooter>
@@ -449,9 +457,10 @@ const RecommendationForm = ({ data }) => {
                         data-for="resume-link"
                         data-tip="Please upload your resume to Google drive, set the accessibility, and paste the link here to let everyone see your resume."
                         placeholder="Resume Google Drive Link"
-                        onChange={handleInputChange}
-                        value={dataForm.resume}
+                        onChange={handleResumeChange}
                         name="resume"
+                        type="file"
+                        accept=".pdf"
                       />
                       <ReactTooltip id="resume-link" place="top" type="dark" effect="solid" />
                     </CInputGroup>

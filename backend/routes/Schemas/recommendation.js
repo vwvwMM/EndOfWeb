@@ -23,7 +23,10 @@ const Recommendation_Schema = new Schema({
     data: { type: Buffer },
     contentType: { type: String },
   },
-  resume: String,
+  resume: {
+    data: { type: Buffer },
+    contentType: { type: String },
+  },
 })
 
 const { buf2url } = require('./query')
@@ -37,7 +40,7 @@ Recommendation_Schema.methods.getPublic = function () {
     info: this.info,
     spec: this.spec,
     image: this.imgSrc,
-    resume: this.resume,
+    // resume: this.resume,
   }
 }
 

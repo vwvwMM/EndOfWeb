@@ -1,6 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Recruitment = require('../../../Schemas/recruitment')
-const { updateQuery, parseImg } = require('../../../Schemas/query')
+const { updateQuery, parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 const updateRecruitment = async (req, res, next) => {
@@ -30,7 +30,7 @@ const updateRecruitment = async (req, res, next) => {
     'info.diploma': diploma,
     'spec.requirement': requirement,
     'spec.description': description,
-    img: parseImg(req.file),
+    img: parseFile(req.file),
   }
   const toSet = updateQuery(keys)
 

@@ -1,14 +1,35 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { CWidgetBrand } from '@coreui/react'
+import { CButton } from '@coreui/react'
 import { eesa } from './index'
 import parser from 'html-react-parser'
 
-const CareerPreview = ({ post, experience, requirement }) => {
+const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
   console.log('post:', post)
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
+
+  const handleDownload = () => {
+    fetch(resumeURL)
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create a new URL object
+        const url = window.URL.createObjectURL(new Blob([blob]))
+
+        // Create a new anchor element to download the file
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', `resume.pdf`)
+
+        // Trigger a click on the anchor element to initiate download
+        link.click()
+
+        // Clean up the URL object after the download is finished
+        window.URL.revokeObjectURL(url)
+      })
+  }
+
   if (post.file && typeof post.file === 'object') {
     let reader = new FileReader()
     reader.onloadend = () => {
@@ -77,13 +98,6 @@ const CareerPreview = ({ post, experience, requirement }) => {
             <h3 className="d-flex justify-content-center align-items-center">{post.title}</h3>
           </div>
         </div>
-        {/* <CWidgetBrand
-          className="pt-4 widgetbrand d-flex flex-row"
-          headerChildren={
-            <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
-          }
-          values={[[`${post.type==='both'?'intern+full-time':post.type}`,post.title]]}
-        /> */}
         <hr></hr>
         <div className="careercontent">
           <h3>
@@ -100,11 +114,11 @@ const CareerPreview = ({ post, experience, requirement }) => {
               <h4>{experience.map((exp) => spec(exp))}</h4>
               <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
               <h4>{requirement.map((speci) => spec(speci))}</h4>
-              {post.resume && (
-                <h3 style={{ margin: '1rem 0 0.1rem' }}>
-                  <a href={post.resume} target="_blank">
-                    resume
-                  </a>
+              {resumeURL && (
+                <h3>
+                  <CButton color="success" className="text-white" onClick={handleDownload}>
+                    Download Resume
+                  </CButton>
                 </h3>
               )}
               <button onClick={() => setIsExpand(false)}>Show less...</button>

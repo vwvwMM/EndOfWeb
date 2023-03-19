@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { CWidgetBrand, CAvatar } from '@coreui/react'
+import { CButton, CAvatar } from '@coreui/react'
 import { eesa } from './index'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
@@ -162,11 +162,13 @@ const CareerBlock = ({ post, setData, index }) => {
             <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
             <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
             <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
-            <h3 style={{ margin: '1rem 0 0.1rem' }}>
-              <a href={post.resume} target="_blank">
-                resume
-              </a>
-            </h3>
+            {post.resume && (
+              <h3>
+                <CButton color="success" className="text-white" onClick={handleDownload}>
+                  Download Resume
+                </CButton>
+              </h3>
+            )}
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}

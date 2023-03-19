@@ -1,6 +1,6 @@
 const { dbCatch, ErrorHandler } = require('../../../error')
 const Recommendation = require('../../../Schemas/recommendation')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /** 
@@ -43,7 +43,7 @@ const addRec = async (req, res) => {
     resume,
   } = req.body
 
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
   const recomd = await new Recommendation({
     account,
     title: { title, type, name, desire_work_type },

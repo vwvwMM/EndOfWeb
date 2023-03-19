@@ -28,14 +28,19 @@ module.exports = (filename) => {
   if (typeof filename === 'string') {
     doUpload = upload.single(filename)
   } else {
-    doUpload = upload.fields(filename)
+    doUpload = upload.array(filename)
   }
   return (req, res, next) => {
     doUpload(req, res, (err) => {
-      if (req.fileValidationError) return res.status(400).send(req.fileValidationError)
+      if (req.fileValidationError) {
+        console.log('fileValidationError', req.fileValidationError)
+        return res.status(400).send(req.fileValidationError)
+      }
       //throw new ErrorHandler(400,req.fileValidationError)
-      else if (err instanceof multer.MulterError) return res.status(400).send(err.message)
-      else if (err) return res.status(400).send('檔案讀取發生錯誤')
+      else if (err instanceof multer.MulterError) {
+        console.log('multer error', err)
+        return res.status(400).send(err.message)
+      } else if (err) return res.status(400).send('檔案讀取發生錯誤')
       next()
     })
   }

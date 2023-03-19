@@ -1,6 +1,6 @@
 const { dbCatch } = require('../../../error')
 const Recruitment = require('../../../Schemas/recruitment')
-const { parseImg } = require('../../../Schemas/query')
+const { parseFile } = require('../../../Schemas/query')
 const asyncHandler = require('express-async-handler')
 
 /**
@@ -40,7 +40,7 @@ const addRecru = async (req, res) => {
     requirement,
     description,
   } = req.body
-  const img = parseImg(req.file)
+  const img = parseFile(req.file)
 
   const { _id } = await new Recruitment({
     account,
