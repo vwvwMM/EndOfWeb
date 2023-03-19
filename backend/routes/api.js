@@ -33,7 +33,7 @@ router.use(require('./srcs/in/account').router)
 //column
 router.use('/column', require('./srcs/in/column').router)
 //searchJob, addJob, addRecruitment
-router.use(require('./srcs/in/career'))
+router.use(require('./srcs/in/recruitment'))
 router.use(require('./srcs/in/recommendation'))
 //study
 router.use('/study', require('./srcs/in/study').router)
