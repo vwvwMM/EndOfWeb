@@ -136,7 +136,7 @@ const Login = () => {
                           <CIcon icon="cil-lock-locked" name="cil-lock-locked" />
                         </CInputGroupText>
                         <CFormControl
-                          type="password"
+                          type={passwordType}
                           placeholder="Password"
                           name="password"
                           onChange={handleInputChange}

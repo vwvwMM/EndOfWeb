@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { CButton } from '@coreui/react'
 import { eesa } from './index'
 import parser from 'html-react-parser'
+import { urlsToLinks } from './index'
 
 const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
   console.log('post:', post)
@@ -58,13 +59,6 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
             </h3>
           </div>
         </div>
-        {/* <CWidgetBrand
-          className="pt-4 widgetbrand d-flex flex-row"
-          headerChildren={
-            <img className="eesa img-fluid" src={previewURL ? previewURL : eesa} alt="eesa" />
-          }
-          values={[[`${post.type==='both'?'intern+full-time':post.type}`,`${post.companyName} 徵 ${post.workType}`]]}
-        /> */}
         <hr></hr>
         <div className="careercontent">
           <h3 style={{ fontWeight: '600' }}>{post.title}</h3>
@@ -79,7 +73,7 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
               <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
               <h4>{requirement.map((req) => spec(req))}</h4>
               <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>說明：</h3>
-              <h4>{parser(post.description)}</h4>
+              <h4>{parser(urlsToLinks(post.description))}</h4>
               <button onClick={() => setIsExpand(false)}>Show less...</button>
             </>
           )}
@@ -91,7 +85,7 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
       <div className="CareerBlock" key={post.id}>
         <div className="d-flex p-3">
           <img src={previewURL ? previewURL : eesa} alt="eesa" className="eesa img-fluid col-4" />
-          <div className="col-7 d-flex flex-column justify-content-center align-items-center">
+          <div className="col-7 d-flex flex-column justify-content-center align-items-center text-primary">
             <h5 className="d-flex justify-content-center align-items-center">
               {post.type === 'both' ? 'intern+full-time' : post.type}
             </h5>
@@ -133,6 +127,7 @@ CareerPreview.propTypes = {
   post: PropTypes.object,
   experience: PropTypes.array,
   requirement: PropTypes.array,
+  resumeURL: PropTypes.string,
 }
 
 export default CareerPreview

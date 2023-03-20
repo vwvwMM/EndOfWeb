@@ -31,6 +31,7 @@ const Recommendation_Schema = new Schema({
 
 const { buf2url } = require('./query')
 Recommendation_Schema.virtual('imgSrc').get(buf2url())
+Recommendation_Schema.virtual('resumeSrc').get(buf2url('resume'))
 
 Recommendation_Schema.methods.getPublic = function () {
   return {
@@ -40,7 +41,7 @@ Recommendation_Schema.methods.getPublic = function () {
     info: this.info,
     spec: this.spec,
     image: this.imgSrc,
-    // resume: this.resume,
+    resume: this.resumeSrc,
   }
 }
 

@@ -7,6 +7,7 @@ import { eesa } from './index'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
 import parser from 'html-react-parser'
+import { urlsToLinks } from './index'
 
 const CareerBlock = ({ post, setData, index }) => {
   const location = useLocation()
@@ -44,6 +45,25 @@ const CareerBlock = ({ post, setData, index }) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
         })
     }
+  }
+  const handleDownload = (fileURL) => {
+    fetch(fileURL)
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create a new URL object
+        const url = window.URL.createObjectURL(new Blob([blob]))
+
+        // Create a new anchor element to download the file
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', `resume.pdf`)
+
+        // Trigger a click on the anchor element to initiate download
+        link.click()
+
+        // Clean up the URL object after the download is finished
+        window.URL.revokeObjectURL(url)
+      })
   }
   const spec = (li) => {
     return (
@@ -104,7 +124,7 @@ const CareerBlock = ({ post, setData, index }) => {
             <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
             <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
             <h3 style={{ fontWeight: '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
-            <h4>{parser(post.spec.description)}</h4>
+            <h4>{parser(urlsToLinks(post.spec.description))}</h4>
             <button onClick={() => setIsExpand(false)}>Show less...</button>
           </>
         )}
@@ -164,7 +184,11 @@ const CareerBlock = ({ post, setData, index }) => {
             <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
             {post.resume && (
               <h3>
-                <CButton color="success" className="text-white" onClick={handleDownload}>
+                <CButton
+                  color="success"
+                  className="text-white"
+                  onClick={() => handleDownload(post.resume)}
+                >
                   Download Resume
                 </CButton>
               </h3>

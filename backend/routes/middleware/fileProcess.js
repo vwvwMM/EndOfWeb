@@ -26,9 +26,10 @@ const upload = multer({
 module.exports = (filename) => {
   let doUpload
   if (typeof filename === 'string') {
-    doUpload = upload.single(filename)
+    if (filename.slice(-2) === '[]') doUpload = upload.array(filename)
+    else doUpload = upload.single(filename)
   } else {
-    doUpload = upload.array(filename)
+    doUpload = upload.fields(filename)
   }
   return (req, res, next) => {
     doUpload(req, res, (err) => {

@@ -29,6 +29,7 @@ import axios from 'axios'
 import CIcon from '@coreui/icons-react'
 import CareerPreview from '../career/CareerPreview'
 const RecommendationForm = ({ data }) => {
+  console.log('data in rec form: ', data)
   const add = data ? false : true
   const { cellphone: userPhone, email: userEmail, name: userName } = useSelector(selectLogin)
   const formTemplate = add
@@ -61,7 +62,7 @@ const RecommendationForm = ({ data }) => {
   const [blockModal, setBlockModal] = useState(false)
   const [imageButton, setImageButton] = useState(null)
   const [resumeBtn, setResumeBtn] = useState(null)
-  const [resumeURL, setResumeURL] = useState('')
+  const [resumeURL, setResumeURL] = useState(add ? null : data.resume)
   const [experience, setExperience] = useState(add ? [''] : data.spec.experience)
   const [speciality, setSpeciality] = useState(add ? [''] : data.spec.speciality)
   const [dataForm, setDataForm] = useState(formTemplate)
@@ -143,7 +144,6 @@ const RecommendationForm = ({ data }) => {
   const handleResumeChange = (e) => {
     const uploadedFile = e.target.files[0]
     setResumeBtn(uploadedFile)
-    console.log('uploadedFile=', uploadedFile)
     setResumeURL(URL.createObjectURL(uploadedFile))
   }
   const handleSubmit = () => {
@@ -155,17 +155,16 @@ const RecommendationForm = ({ data }) => {
     data.append('contact', dataForm.contact)
     data.append('email', dataForm.email)
     data.append('diploma', dataForm.diploma)
-    data.append('files[]', resumeBtn, '.pdf')
+    if (resumeBtn) {
+      data.append('files[]', resumeBtn, '.pdf')
+    }
     for (let exp of experience) {
       data.append('experience[]', exp)
     }
     for (let spec of speciality) {
       data.append('speciality[]', spec)
     }
-    if (croppedFile) {
-      data.append('files[]', dataForm.file, '.png')
-      console.log('after append image')
-    }
+    if (croppedFile) data.append('files[]', dataForm.file, '.png')
     const config = { 'content-type': 'multipart/form-data' }
     if (add) {
       axios
@@ -455,8 +454,8 @@ const RecommendationForm = ({ data }) => {
                       </CInputGroupText>
                       <CFormControl
                         data-for="resume-link"
-                        data-tip="Please upload your resume to Google drive, set the accessibility, and paste the link here to let everyone see your resume."
-                        placeholder="Resume Google Drive Link"
+                        data-tip="Please upload your resume in pdf format"
+                        placeholder="Your Resume"
                         onChange={handleResumeChange}
                         name="resume"
                         type="file"

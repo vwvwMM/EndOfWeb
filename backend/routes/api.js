@@ -15,7 +15,7 @@ router.use(require('./srcs/out/account'))
 //forget, activation
 router.use(require('./srcs/out/forget'))
 //history, teamData
-router.use(require('./srcs/out/publicData'))
+router.use(require('./srcs/out/publicData').router)
 
 //in
 //check is user
@@ -50,6 +50,8 @@ router.use(require('./srcs/in/auth/isAuth'))
 router.use('/column', require('./srcs/in/column').router_auth)
 //auth
 // router.use(require('./srcs/in/auth'))
+//publicData
+router.use(require('./srcs/out/publicData').router_auth)
 //account
 router.use(require('./srcs/in/account').router_auth)
 //study auth
