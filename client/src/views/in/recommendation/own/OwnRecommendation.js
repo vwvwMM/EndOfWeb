@@ -9,16 +9,11 @@ let datas = []
 const OwnRecommendation = () => {
   const [isPending, setIsPending] = useState(true)
   const [data, setData] = useState([])
-  const breakpointColumnsObj = {
-    default: 2,
-    1100: 2,
-    500: 1,
-  }
   const getData = () => {
     axios
       .get('/api/recommendation/mine')
       .then((res) => {
-        datas = res.data
+        console.log('data=', res.data)
         setData(res.data)
         setIsPending(false)
       })
@@ -39,39 +34,21 @@ const OwnRecommendation = () => {
   }, [])
   return (
     <div className="text-color-black">
-      <Link to="/add_recommendation">
-        <div className="d-flex justify-content-center add" width="100%">
-          +
-        </div>
-      </Link>
       {isPending ? (
         <Spinner />
-      ) : data.length !== 0 ? (
-        <>
-          <CFormSelect className="mx-auto my-3 w-50" onChange={switchType}>
-            <option value="both">Both</option>
-            <option value="intern">Intern</option>
-            <option value="fulltime">Fulltime</option>
-          </CFormSelect>
-          <Masonry
-            breakpointCols={breakpointColumnsObj}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-            columnAttrs={{
-              className: 'should be overridden',
-              'data-test': '',
-              style: { '--test': 'test' },
-            }}
-            style={{ display: 'flex' }}
-          >
-            {data.map((post, i) => (
-              <CareerBlock post={post} setData={setData} index={i} key={i} />
-            ))}
-          </Masonry>
-        </>
+      ) : data ? (
+        <CareerBlock post={data} setData={setData} />
       ) : (
         <div className="display-4 d-flex justify-content-center mt-3 text-white">
-          You have not post your recommendation yet
+          <Link to="/add_recommendation">
+            <div className="d-flex justify-content-center add" width="100%">
+              +
+            </div>
+          </Link>
+          You have not post your recommendation yet, please click the &apos;+&apos; button to post
+          your recommendation.
+          <br />
+          One person can only has one recommendation
         </div>
       )}
     </div>

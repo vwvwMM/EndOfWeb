@@ -23,7 +23,8 @@ const Recruitment = () => {
     1100: 2,
     500: 1,
   }
-  const switchType = (tt) => {
+  const switchType = (e) => {
+    let tt = e.target.value
     setTargetType(tt)
     if (tt === 'both') {
       setShowData({ ...showData, data: datas })
@@ -111,10 +112,16 @@ const Recruitment = () => {
             </CInputGroup>
           </form>
           <CInputGroup className="col-2 my-auto">
-            <CFormSelect onChange={switchType}>
-              <option value="both">Both</option>
-              <option value="intern">Intern</option>
-              <option value="fulltime">Fulltime</option>
+            <CFormSelect>
+              <option value="both" onClick={switchType}>
+                Both
+              </option>
+              <option value="intern" onClick={switchType}>
+                Intern
+              </option>
+              <option value="fulltime" onClick={switchType}>
+                Fulltime
+              </option>
             </CFormSelect>
           </CInputGroup>
         </div>

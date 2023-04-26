@@ -2,7 +2,7 @@ const mongoose = require('mongoose'),
   Schema = mongoose.Schema
 
 const Recommendation_Schema = new Schema({
-  account: { type: String, required: true },
+  account: { type: String, required: true, unique: true },
   title: {
     type: { type: String, enum: ['intern', 'fulltime', 'both'], required: true },
     title: String,

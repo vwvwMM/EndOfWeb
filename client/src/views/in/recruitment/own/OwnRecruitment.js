@@ -44,15 +44,15 @@ const OwnRecruitment = () => {
           +
         </div>
       </Link>
+      <CFormSelect className="mx-auto my-3 w-50" onChange={switchType}>
+        <option value="both">Both</option>
+        <option value="intern">Intern</option>
+        <option value="fulltime">Fulltime</option>
+      </CFormSelect>
       {isPending ? (
         <Spinner />
       ) : data.length !== 0 ? (
         <>
-          <CFormSelect className="mx-auto my-3 w-50" onChange={switchType}>
-            <option value="both">Both</option>
-            <option value="intern">Intern</option>
-            <option value="fulltime">Fulltime</option>
-          </CFormSelect>
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="my-masonry-grid"

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -75,15 +74,23 @@ const CareerBlock = ({ post, setData, index }) => {
   return recru ? (
     <div className="CareerBlock" key={post._id}>
       <Link to={`/profile/${post.account}`}>
-        <div className="d-flex p-3">
+        <div className="d-flex p-3 shadow">
           <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid col-4" />
           <div className="col-7 d-flex flex-column justify-content-center align-items-center">
-            <h5 className="col-7 d-flex justify-content-center align-items-center">
-              <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
-            </h5>
-            <h2 className="col-7 d-flex justify-content-center align-items-center">
-              {post.title.title} <br />
-            </h2>
+            {post.title.title ? (
+              <>
+                <h5 className="col-7 d-flex justify-content-center align-items-center">
+                  <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                </h5>
+                <h2 className="d-flex justify-content-center align-items-center px-3">
+                  {post.title.title} <br />
+                </h2>
+              </>
+            ) : (
+              <h2 className="col-7 d-flex justify-content-center align-items-center">
+                <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+              </h2>
+            )}
           </div>
         </div>
       </Link>
@@ -136,12 +143,20 @@ const CareerBlock = ({ post, setData, index }) => {
         <div className="d-flex p-3">
           <img src={post.image ? post.image : eesa} alt="eesa" className="eesa img-fluid col-4" />
           <div className="col-7 d-flex flex-column justify-content-center align-items-center">
-            <h5 className="col-7 d-flex justify-content-center align-items-center">
-              <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
-            </h5>
-            <h3 className="col-7 d-flex justify-content-center align-items-center">
-              {post.title.title}
-            </h3>
+            {post.title.title ? (
+              <>
+                <h5 className="col-7 d-flex justify-content-center align-items-center">
+                  <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                </h5>
+                <h3 className="col-7 d-flex justify-content-center align-items-center">
+                  {post.title.title}
+                </h3>
+              </>
+            ) : (
+              <h2 className="col-7 d-flex justify-content-center align-items-center">
+                <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+              </h2>
+            )}
           </div>
         </div>
       </Link>
