@@ -36,7 +36,7 @@ const Career = () => {
             <h3 className="text-light text-center mt-4">電機系人才都在這！</h3>
             <h3 className="text-light text-center mt-4">
               或
-              <Link to="/add_recommendation" className="text-warning">
+              <Link to="/own_recommendation" className="text-warning">
                 <u>上傳自己的簡歷</u>
               </Link>
               ！

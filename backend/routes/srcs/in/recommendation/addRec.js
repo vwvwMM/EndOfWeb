@@ -29,7 +29,8 @@ const asyncHandler = require('express-async-handler')
  */
 const addRec = async (req, res) => {
   const account = req.session.loginAccount
-
+  const check = await Recommendation.findOne({ account })
+  if (check) res.status(403).send({ description: 'already have recommendation' })
   const {
     title,
     type,

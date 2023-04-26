@@ -13,7 +13,6 @@ const OwnRecommendation = () => {
     axios
       .get('/api/recommendation/mine')
       .then((res) => {
-        console.log('data=', res.data)
         setData(res.data)
         setIsPending(false)
       })
