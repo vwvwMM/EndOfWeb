@@ -51,10 +51,10 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
         <div className="d-flex p-3">
           <img src={previewURL ? previewURL : eesa} alt="eesa" className="eesa img-fluid col-4" />
           <div className="col-7 d-flex flex-column justify-content-center align-items-center">
-            <h5 className="d-flex justify-content-center align-items-center">
-              {post.type === 'both' ? 'intern+full-time' : post.type}
+            <h5 className="d-flex justify-content-center align-items-center text-primary">
+              {post.type === 'both' ? 'intern+fulltime' : post.type}
             </h5>
-            <h3 className="d-flex justify-content-center align-items-center">
+            <h3 className="d-flex justify-content-center align-items-center text-primary">
               {post.companyName} 徵 {post.workType}
             </h3>
           </div>
@@ -87,7 +87,7 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
           <img src={previewURL ? previewURL : eesa} alt="eesa" className="eesa img-fluid col-4" />
           <div className="col-7 d-flex flex-column justify-content-center align-items-center text-primary">
             <h5 className="d-flex justify-content-center align-items-center">
-              {post.type === 'both' ? 'intern+full-time' : post.type}
+              {post.type === 'both' ? 'intern+fulltime' : post.type}
             </h5>
             <h3 className="d-flex justify-content-center align-items-center">{post.title}</h3>
           </div>

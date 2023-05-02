@@ -283,7 +283,7 @@ const RecommendationForm = ({ data }) => {
                         onChange={handleInputChange}
                       >
                         <option value="intern">Intern</option>
-                        <option value="fulltime">Full-time</option>
+                        <option value="fulltime">Fulltime</option>
                         <option value="both">Both</option>
                       </CFormSelect>
                       <ReactTooltip id="type" place="top" type="dark" effect="solid" />

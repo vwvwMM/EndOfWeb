@@ -66,8 +66,8 @@ const CareerBlock = ({ post, setData, index }) => {
   }
   const spec = (li) => {
     return (
-      <div key={li} style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
-        {li}
+      <div key={li} className="my-2" style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
+        {'\u2022 ' + li}
       </div>
     )
   }
@@ -80,7 +80,7 @@ const CareerBlock = ({ post, setData, index }) => {
             {post.title.title ? (
               <>
                 <h5 className="col-7 d-flex justify-content-center align-items-center">
-                  <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                  <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
                 </h5>
                 <h2 className="d-flex justify-content-center align-items-center px-3">
                   {post.title.title} <br />
@@ -88,7 +88,7 @@ const CareerBlock = ({ post, setData, index }) => {
               </>
             ) : (
               <h2 className="col-7 d-flex justify-content-center align-items-center">
-                <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
               </h2>
             )}
           </div>
@@ -120,7 +120,9 @@ const CareerBlock = ({ post, setData, index }) => {
             <></>
           )}
         </h3>
-        <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.info.salary}</h2>
+        <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>
+          $ {post.info.salary}
+        </h2>
         <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
         <div style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.info.diploma}</div>
         {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
@@ -146,7 +148,7 @@ const CareerBlock = ({ post, setData, index }) => {
             {post.title.title ? (
               <>
                 <h5 className="col-7 d-flex justify-content-center align-items-center">
-                  <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                  <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
                 </h5>
                 <h3 className="col-7 d-flex justify-content-center align-items-center">
                   {post.title.title}
@@ -154,7 +156,7 @@ const CareerBlock = ({ post, setData, index }) => {
               </>
             ) : (
               <h2 className="col-7 d-flex justify-content-center align-items-center">
-                <nobr>{post.title.type === 'both' ? 'intern+full-time' : post.title.type}</nobr>
+                <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
               </h2>
             )}
           </div>
@@ -193,12 +195,12 @@ const CareerBlock = ({ post, setData, index }) => {
         {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
         {isExpand && (
           <>
-            <h3 style={{ margin: '1.3rem 0 0.1rem' }}>個人簡歷：</h3>
+            <h3 className="mt-4 mb-2">個人簡歷：</h3>
             <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
-            <h3 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h3>
+            <h3 className="mt-4 mb-2">專業技能：</h3>
             <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
             {post.resume && (
-              <h3>
+              <h3 className="mt-3">
                 <CButton
                   color="success"
                   className="text-white"
