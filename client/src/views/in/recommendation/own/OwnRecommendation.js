@@ -3,7 +3,10 @@ import CareerBlock from '../../career/CareerBlock'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Spinner } from './index'
+<<<<<<< HEAD
 let datas = []
+=======
+>>>>>>> career
 const OwnRecommendation = () => {
   const [isPending, setIsPending] = useState(true)
   const [data, setData] = useState(null)
@@ -11,6 +14,7 @@ const OwnRecommendation = () => {
     axios
       .get('/api/recommendation/mine')
       .then((res) => {
+        console.log('res.data=', res.data)
         setData(res.data)
         setIsPending(false)
       })
@@ -33,7 +37,7 @@ const OwnRecommendation = () => {
       {isPending ? (
         <Spinner />
       ) : data ? (
-        <CareerBlock post={data} setData={setData} />
+        <CareerBlock post={data} setData={setData} isPending={isPending} />
       ) : (
         <div className="display-4 d-flex text-center mt-3 text-white">
           You have not post your recommendation yet

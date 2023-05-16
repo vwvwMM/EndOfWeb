@@ -41,7 +41,7 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
   const spec = (li) => {
     return (
       <div key={li} style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
-        {li}
+        {'\u2022 ' + li}
       </div>
     )
   }
