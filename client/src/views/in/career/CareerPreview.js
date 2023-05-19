@@ -15,18 +15,11 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
     fetch(resumeURL)
       .then((response) => response.blob())
       .then((blob) => {
-        // Create a new URL object
         const url = window.URL.createObjectURL(new Blob([blob]))
-
-        // Create a new anchor element to download the file
         const link = document.createElement('a')
         link.href = url
         link.setAttribute('download', `resume.pdf`)
-
-        // Trigger a click on the anchor element to initiate download
         link.click()
-
-        // Clean up the URL object after the download is finished
         window.URL.revokeObjectURL(url)
       })
   }

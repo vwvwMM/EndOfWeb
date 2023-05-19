@@ -8,14 +8,15 @@ import { Spinner } from './index'
 import { CButton, CFormControl, CInputGroup, CFormSelect } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import Pagination from '@material-ui/lab/Pagination'
+import { selectLogin } from '../../../slices/loginSlice'
 let datas = []
 const Recruitment = () => {
-  const [showData, setShowData] = useState({ data: [], maxPage: 0 })
   const dispatch = useDispatch()
+  const { isAuth } = useSelector(selectLogin)
+  const [showData, setShowData] = useState({ data: [], maxPage: 0 })
   const { keywords } = useSelector(selectCareer)
   const [isPending, setIsPending] = useState(true)
   const [page, setPage] = useState(1)
-  const [targetType, setTargetType] = useState('both')
   const postsPerPage = 9
   const breakpointColumnsObj = {
     default: 2,
@@ -24,17 +25,13 @@ const Recruitment = () => {
   }
   const switchType = (e) => {
     let tt = e.target.value
-    console.log('tt=', tt)
-    setTargetType(tt)
     if (tt === 'both') {
       setShowData({ maxPage: showData.maxPage, data: datas })
-      console.log('datas=', datas)
     } else {
       setShowData({
         maxPage: showData.maxPage,
         data: datas.filter((data) => data.title.type === tt),
       })
-      console.log('datas=', datas)
     }
   }
   const searchData = (e) => {
@@ -153,7 +150,7 @@ const Recruitment = () => {
           style={{ display: 'flex' }}
         >
           {showData.data.map((post) => (
-            <CareerBlock post={post} key={post._id} />
+            <CareerBlock post={post} key={post._id} isAuth={isAuth} />
           ))}
         </Masonry>
       )}

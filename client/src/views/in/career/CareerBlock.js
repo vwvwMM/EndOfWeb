@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { CButton, CAvatar } from '@coreui/react'
 import { eesa } from './index'
@@ -8,8 +8,9 @@ import axios from 'axios'
 import parser from 'html-react-parser'
 import { urlsToLinks } from './index'
 
-const CareerBlock = ({ post, setData, index, setIsPending }) => {
+const CareerBlock = ({ post, isAuth }) => {
   const location = useLocation()
+  const history = useHistory()
   const recru = location.pathname.search('cruitment') > 0 ? true : false
   const recom = location.pathname.search('commendation') > 0 ? true : false
   const own = location.pathname.search('own') > 0 ? true : false
@@ -19,12 +20,8 @@ const CareerBlock = ({ post, setData, index, setIsPending }) => {
       axios
         .delete('/api/deleteRecruitment', { data: { _id: id } })
         .then((res) => {
-          setData((data) => {
-            let newData = [...data]
-            newData.splice(index, 1)
-            return newData
-          })
           alert('delete ' + res.data.data)
+          history.go(0)
         })
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -33,8 +30,8 @@ const CareerBlock = ({ post, setData, index, setIsPending }) => {
       axios
         .delete('/api/recommendation', { data: { _id: id } })
         .then((res) => {
-          setData(null)
           alert('delete ' + res.data.title)
+          history.go(0)
         })
         .catch((err) => {
           err.response.data.description && alert('錯誤\n' + err.response.data.description)
@@ -45,18 +42,11 @@ const CareerBlock = ({ post, setData, index, setIsPending }) => {
     fetch(fileURL)
       .then((response) => response.blob())
       .then((blob) => {
-        // Create a new URL object
         const url = window.URL.createObjectURL(new Blob([blob]))
-
-        // Create a new anchor element to download the file
         const link = document.createElement('a')
         link.href = url
         link.setAttribute('download', `resume.pdf`)
-
-        // Trigger a click on the anchor element to initiate download
         link.click()
-
-        // Clean up the URL object after the download is finished
         window.URL.revokeObjectURL(url)
       })
   }
@@ -101,7 +91,7 @@ const CareerBlock = ({ post, setData, index, setIsPending }) => {
           <div className="careercontent">
             <h3 style={{ fontWeight: '600' }}>
               <nobr>{post.title.company_name}</nobr> 徵 <nobr>{post.title.work_type}</nobr>
-              {own ? (
+              {own || isAuth ? (
                 <>
                   <Link to={`/edit_recruitment/${post._id}`}>
                     <CIcon
@@ -176,7 +166,7 @@ const CareerBlock = ({ post, setData, index, setIsPending }) => {
           <div className="careercontent">
             <h3>
               {post.title.name} 求內推 <nobr>{post.title.desire_work_type}</nobr>
-              {own ? (
+              {own || isAuth ? (
                 <>
                   <Link to={`/edit_recommendation/${post._id}`}>
                     <CIcon
@@ -229,7 +219,6 @@ const CareerBlock = ({ post, setData, index, setIsPending }) => {
 }
 CareerBlock.propTypes = {
   post: PropTypes.object,
-  setData: PropTypes.func,
-  index: PropTypes.number,
+  isAuth: PropTypes.bool,
 }
 export default CareerBlock

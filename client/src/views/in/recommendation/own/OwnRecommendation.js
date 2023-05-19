@@ -37,7 +37,7 @@ const OwnRecommendation = () => {
       {isPending ? (
         <Spinner />
       ) : data ? (
-        <CareerBlock post={data} setData={setData} isPending={isPending} />
+        <CareerBlock post={data} />
       ) : (
         <div className="display-4 d-flex text-center mt-3 text-white">
           You have not post your recommendation yet
