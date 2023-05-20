@@ -3,10 +3,6 @@ import CareerBlock from '../../career/CareerBlock'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Spinner } from './index'
-<<<<<<< HEAD
-let datas = []
-=======
->>>>>>> career
 const OwnRecommendation = () => {
   const [isPending, setIsPending] = useState(true)
   const [data, setData] = useState(null)
