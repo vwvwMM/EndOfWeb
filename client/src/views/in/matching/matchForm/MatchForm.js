@@ -123,6 +123,7 @@ const MatchForm = () => {
       alert('please fill in correct gpa')
       return
     }
+    console.log('dataForm=', dataForm)
     axios
       .post('/api/study/fillForm', dataForm)
       .then(() => {
@@ -132,10 +133,6 @@ const MatchForm = () => {
       .catch((err) => {
         err.response.data.description && alert('錯誤\n' + err.response.data.description)
       })
-  }
-  const handleBack = (e) => {
-    e.preventDefault()
-    history.push('/matching')
   }
   const getPrevForm = async () => {
     await axios
@@ -179,7 +176,7 @@ const MatchForm = () => {
               <CCardBody className="px-5">
                 <button
                   className="align-self-baseline btn btn-ghost-info my-3"
-                  onClick={handleBack}
+                  onClick={(e) => history.push('/matching')}
                 >
                   <CIcon name="cil-arrow-left" size="lg" />
                 </button>
