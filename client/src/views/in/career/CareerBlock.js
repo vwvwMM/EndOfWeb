@@ -52,7 +52,7 @@ const CareerBlock = ({ post, isAuth }) => {
   }
   const spec = (li) => {
     return (
-      <div key={li} className="my-2" style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>
+      <div key={li} className="my-2" style={{ lineHeight: '2.3rem', fontSize: '1.3rem' }}>
         {'\u2022 ' + li}
       </div>
     )
@@ -65,10 +65,10 @@ const CareerBlock = ({ post, isAuth }) => {
               <img
                 src={post.image ? post.image : eesa}
                 alt="eesa"
-                className="eesa img-fluid col-4"
+                className="eesa img-fluid col-7"
               />
-              <div className="col-7 d-flex flex-column justify-content-center align-items-center">
-                <h2 className="col-7 d-flex justify-content-center align-items-center">
+              <div className="col-5 d-flex flex-column justify-content-center align-items-center">
+                <h2 className="d-flex justify-content-center align-items-center">
                   <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
                 </h2>
               </div>
@@ -80,13 +80,15 @@ const CareerBlock = ({ post, isAuth }) => {
               <nobr>{post.title.company_name}</nobr> 徵 <nobr>{post.title.work_type}</nobr>
               {own || isAuth ? (
                 <>
-                  <Link to={`/edit_recruitment/${post._id}`}>
-                    <CIcon
-                      icon="cil-pencil"
-                      name="cil-pencil"
-                      style={{ scale: '1.7', marginLeft: '1rem' }}
-                    ></CIcon>
-                  </Link>
+                  {own && (
+                    <Link to={`/edit_recruitment/${post._id}`}>
+                      <CIcon
+                        icon="cil-pencil"
+                        name="cil-pencil"
+                        style={{ scale: '1.7', marginLeft: '1rem' }}
+                      ></CIcon>
+                    </Link>
+                  )}
                   <CAvatar className="hover-pointer">
                     <CIcon
                       icon="cil-trash"
@@ -105,8 +107,8 @@ const CareerBlock = ({ post, isAuth }) => {
             </h2>
             {post.info.diploma && (
               <>
-                <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
-                <div style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.info.diploma}</div>
+                <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h4>
+                <div style={{ lineHeight: '2.3rem', fontSize: '1.3rem' }}>{post.info.diploma}</div>
               </>
             )}
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
@@ -114,20 +116,20 @@ const CareerBlock = ({ post, isAuth }) => {
               <>
                 {post.info.experience.length !== 0 && (
                   <>
-                    <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h3>
-                    <h4>{post.info.experience.map((exp) => spec(exp))}</h4>
+                    <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h4>
+                    <h5>{post.info.experience.map((exp) => spec(exp))}</h5>
                   </>
                 )}
                 {post.spec.requirement.length !== 0 && (
                   <>
-                    <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
-                    <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
+                    <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h4>
+                    <h5>{post.spec.requirement.map((req) => spec(req))}</h5>
                   </>
                 )}
                 {post.spec.description && (
                   <>
-                    <h3 style={{ fontWeight: '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
-                    <h4>{parser(urlsToLinks(post.spec.description))}</h4>
+                    <h4 style={{ fontWeight: '600', margin: '1rem 0 0.1rem' }}>說明：</h4>
+                    <h5>{parser(urlsToLinks(post.spec.description))}</h5>
                   </>
                 )}
                 <button onClick={() => setIsExpand(false)}>Show less...</button>
@@ -143,10 +145,10 @@ const CareerBlock = ({ post, isAuth }) => {
               <img
                 src={post.image ? post.image : eesa}
                 alt="eesa"
-                className="eesa img-fluid col-4"
+                className="eesa img-fluid col-7"
               />
-              <div className="col-7 d-flex flex-column justify-content-center align-items-center">
-                <h2 className="col-7 d-flex justify-content-center align-items-center">
+              <div className="col-5 d-flex flex-column justify-content-center align-items-center">
+                <h2 className="d-flex justify-content-center align-items-center">
                   <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
                 </h2>
               </div>
@@ -154,7 +156,7 @@ const CareerBlock = ({ post, isAuth }) => {
           </Link>
           <hr></hr>
           <div className="careercontent">
-            <h3>
+            <h4>
               {post.title.name} 求內推 <nobr>{post.title.desire_work_type}</nobr>
               {own || isAuth ? (
                 <>
@@ -177,7 +179,7 @@ const CareerBlock = ({ post, isAuth }) => {
               ) : (
                 <></>
               )}
-            </h3>
+            </h4>
             <div style={{ fontSize: '1.39rem' }}>
               <span style={{ color: 'red', fontWeight: '500' }}>{post.info.diploma}</span> |{' '}
               <nobr>{post.info.contact}</nobr> | <nobr>{post.info.email}</nobr>
@@ -185,12 +187,12 @@ const CareerBlock = ({ post, isAuth }) => {
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
             {isExpand && (
               <>
-                <h3 className="mt-4 mb-2">個人簡歷：</h3>
-                <h4>{post.spec.experience.map((exp) => spec(exp))}</h4>
-                <h3 className="mt-4 mb-2">專業技能：</h3>
-                <h4>{post.spec.speciality.map((speci) => spec(speci))}</h4>
+                <h4 className="mt-4 mb-2">個人簡歷：</h4>
+                <h5>{post.spec.experience.map((exp) => spec(exp))}</h5>
+                <h4 className="mt-4 mb-2">專業技能：</h4>
+                <h5>{post.spec.speciality.map((speci) => spec(speci))}</h5>
                 {post.resume && (
-                  <h3 className="mt-3">
+                  <h4 className="mt-3">
                     <CButton
                       color="success"
                       className="text-white"
@@ -198,7 +200,7 @@ const CareerBlock = ({ post, isAuth }) => {
                     >
                       Download Resume
                     </CButton>
-                  </h3>
+                  </h4>
                 )}
                 <button onClick={() => setIsExpand(false)}>Show less...</button>
               </>

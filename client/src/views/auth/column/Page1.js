@@ -44,7 +44,7 @@ const Page1 = ({
         return (
           <CInputGroup className="mb-3" key={index}>
             <CInputGroupText>
-              <i class="bi bi-briefcase-fill"></i>
+              <i className="bi bi-briefcase-fill"></i>
             </CInputGroupText>
             <CFormControl
               data-for="title"
@@ -87,7 +87,7 @@ const Page1 = ({
       {/* 1-2  experience*/}
       <CInputGroup className="mb-3">
         <CInputGroupText>
-          <i class="bi bi-ui-radios"></i>
+          <i className="bi bi-ui-radios"></i>
         </CInputGroupText>
         <CFormControl
           data-for="experience"
@@ -104,7 +104,7 @@ const Page1 = ({
         return (
           <CInputGroup className="mb-3" key={index}>
             <CInputGroupText>
-              <i class="bi bi-briefcase-fill"></i>
+              <i className="bi bi-briefcase-fill"></i>
             </CInputGroupText>
             <CFormControl
               data-for="exp"
@@ -196,7 +196,7 @@ const Page1 = ({
         return (
           <CInputGroup className="mb-3" key={index}>
             <CInputGroupText>
-              <i class="bi bi-file-richtext"></i>
+              <i className="bi bi-file-richtext"></i>
             </CInputGroupText>
             <textarea
               data-for="intro"
@@ -204,22 +204,22 @@ const Page1 = ({
               placeholder="introduction*"
               name="intro"
               value={ii}
-              cols="85"
+              cols="75"
               rows="7"
               onChange={(e) => handleInputArray(e, index)}
             />
             <ReactTooltip id="intro" place="top" type="dark" effect="solid" />
-            {/* <CButton
-                type="button"
-                name="intro"
-                onClick={(e) => handleDeleteArray(e, index)}
-                className = "btn-delete"
-                >
-                x
-                </CButton>
-                <CButton type="button" name="intro" className = "btn-add" onClick={handleAddArray}>
-                +
-                </CButton> */}
+            <CButton
+              type="button"
+              name="intro"
+              onClick={(e) => handleDeleteArray(e, index)}
+              className="btn-delete"
+            >
+              x
+            </CButton>
+            <CButton type="button" name="intro" className="btn-add" onClick={handleAddArray}>
+              +
+            </CButton>
           </CInputGroup>
         )
       })}
