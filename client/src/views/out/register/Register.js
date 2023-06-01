@@ -88,6 +88,11 @@ const Register = () => {
           if (key === 'Email') {
             data.append(key, `${registerForm.account}@ntu.edu.tw`)
           } else {
+            if (key === 'account' && registerForm.account.substring(3, 6) !== '901') {
+              return alert(
+                '學號須為電機系學號格式，若您是雙轉輔系生，請用至系友身分註冊，並附上雙轉輔證明截圖',
+              )
+            }
             data.append(key, registerForm[key])
           }
         }
