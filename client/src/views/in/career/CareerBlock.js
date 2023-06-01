@@ -68,22 +68,9 @@ const CareerBlock = ({ post, isAuth }) => {
                 className="eesa img-fluid col-4"
               />
               <div className="col-7 d-flex flex-column justify-content-center align-items-center">
-                {post.title.title ? (
-                  <>
-                    <h5 className="col-7 d-flex justify-content-center align-items-center">
-                      <nobr>
-                        {post.title.type === 'both' ? 'intern+fulltime' : post.title.type}
-                      </nobr>
-                    </h5>
-                    <h2 className="d-flex justify-content-center align-items-center px-3">
-                      {post.title.title} <br />
-                    </h2>
-                  </>
-                ) : (
-                  <h2 className="col-7 d-flex justify-content-center align-items-center">
-                    <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
-                  </h2>
-                )}
+                <h2 className="col-7 d-flex justify-content-center align-items-center">
+                  <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
+                </h2>
               </div>
             </div>
           </Link>
@@ -116,17 +103,33 @@ const CareerBlock = ({ post, isAuth }) => {
             <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>
               $ {post.info.salary}
             </h2>
-            <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
-            <div style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.info.diploma}</div>
+            {post.info.diploma && (
+              <>
+                <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
+                <div style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.info.diploma}</div>
+              </>
+            )}
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
             {isExpand && (
               <>
-                <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h3>
-                <h4>{post.info.experience.map((exp) => spec(exp))}</h4>
-                <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
-                <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
-                <h3 style={{ fontWeight: '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
-                <h4>{parser(urlsToLinks(post.spec.description))}</h4>
+                {post.info.experience.length !== 0 && (
+                  <>
+                    <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h3>
+                    <h4>{post.info.experience.map((exp) => spec(exp))}</h4>
+                  </>
+                )}
+                {post.spec.requirement.length !== 0 && (
+                  <>
+                    <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
+                    <h4>{post.spec.requirement.map((req) => spec(req))}</h4>
+                  </>
+                )}
+                {post.spec.description && (
+                  <>
+                    <h3 style={{ fontWeight: '600', margin: '1rem 0 0.1rem' }}>說明：</h3>
+                    <h4>{parser(urlsToLinks(post.spec.description))}</h4>
+                  </>
+                )}
                 <button onClick={() => setIsExpand(false)}>Show less...</button>
               </>
             )}
@@ -143,22 +146,9 @@ const CareerBlock = ({ post, isAuth }) => {
                 className="eesa img-fluid col-4"
               />
               <div className="col-7 d-flex flex-column justify-content-center align-items-center">
-                {post.title.title ? (
-                  <>
-                    <h5 className="col-7 d-flex justify-content-center align-items-center">
-                      <nobr>
-                        {post.title.type === 'both' ? 'intern+fulltime' : post.title.type}
-                      </nobr>
-                    </h5>
-                    <h3 className="col-7 d-flex justify-content-center align-items-center">
-                      {post.title.title}
-                    </h3>
-                  </>
-                ) : (
-                  <h2 className="col-7 d-flex justify-content-center align-items-center">
-                    <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
-                  </h2>
-                )}
+                <h2 className="col-7 d-flex justify-content-center align-items-center">
+                  <nobr>{post.title.type === 'both' ? 'intern+fulltime' : post.title.type}</nobr>
+                </h2>
               </div>
             </div>
           </Link>

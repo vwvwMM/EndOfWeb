@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CButton } from '@coreui/react'
@@ -56,17 +55,33 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
         <div className="careercontent">
           <h3 style={{ fontWeight: '600' }}>{post.title}</h3>
           <h2 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.salary}</h2>
-          <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
-          <h4 style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.diploma}</h4>
+          {post.diploma && (
+            <>
+              <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h3>
+              <h4 style={{ lineHeight: '2.5rem', fontSize: '1.6rem' }}>{post.diploma}</h4>
+            </>
+          )}
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
             <>
-              <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h3>
-              <h4>{experience.map((exp) => spec(exp))}</h4>
-              <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
-              <h4>{requirement.map((req) => spec(req))}</h4>
-              <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>說明：</h3>
-              <h4>{parser(urlsToLinks(post.description))}</h4>
+              {experience.length !== 0 && (
+                <>
+                  <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h3>
+                  <h4>{experience.map((exp) => spec(exp))}</h4>
+                </>
+              )}
+              {requirement.length !== 0 && (
+                <>
+                  <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h3>
+                  <h4>{requirement.map((req) => spec(req))}</h4>
+                </>
+              )}
+              {post.description && (
+                <>
+                  <h3 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>說明：</h3>
+                  <h4>{parser(urlsToLinks(post.description))}</h4>
+                </>
+              )}
               <button onClick={() => setIsExpand(false)}>Show less...</button>
             </>
           )}
@@ -79,10 +94,9 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
         <div className="d-flex p-3">
           <img src={previewURL ? previewURL : eesa} alt="eesa" className="eesa img-fluid col-4" />
           <div className="col-7 d-flex flex-column justify-content-center align-items-center text-primary">
-            <h5 className="d-flex justify-content-center align-items-center">
+            <h5 className="d-flex justify-content-center align-items-center text-primary">
               {post.type === 'both' ? 'intern+fulltime' : post.type}
             </h5>
-            <h3 className="d-flex justify-content-center align-items-center">{post.title}</h3>
           </div>
         </div>
         <hr></hr>

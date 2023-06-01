@@ -36,7 +36,7 @@ const RecommendationForm = ({ data }) => {
   const formTemplate = add
     ? {
         type: 'intern',
-        title: '',
+        title: String(new Date()),
         name: userName,
         desireWorkType: '',
         contact: userPhone,
@@ -265,21 +265,6 @@ const RecommendationForm = ({ data }) => {
                     <p className="text-medium-emphasis">
                       {add ? 'Create' : 'Edit'} your recommendation
                     </p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon="cil-layers" name="cil-layers" />
-                      </CInputGroupText>
-                      <CFormControl
-                        className={requiredStyle.title}
-                        data-for="title"
-                        data-tip="Use impressing title to get people's attention!"
-                        placeholder="Attractive Title*"
-                        value={dataForm.title}
-                        name="title"
-                        onChange={handleInputChange}
-                      />
-                      <ReactTooltip id="title" place="top" type="dark" effect="solid" />
-                    </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon="cil-user" name="cil-user" />
