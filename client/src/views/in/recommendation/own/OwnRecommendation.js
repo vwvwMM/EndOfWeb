@@ -25,17 +25,17 @@ const OwnRecommendation = () => {
   }, [])
   return (
     <div className="text-color-black">
-      <Link to="/add_recommendation">
-        <div className="d-flex justify-content-center add" width="100%">
-          +
-        </div>
-      </Link>
       {isPending ? (
         <Spinner />
       ) : data ? (
         <CareerBlock post={data} />
       ) : (
         <div className="display-4 d-flex text-center mt-3 text-white">
+          <Link to="/add_recommendation">
+            <div className="d-flex justify-content-center add" width="100%">
+              +
+            </div>
+          </Link>
           You have not post your recommendation yet
         </div>
       )}

@@ -77,7 +77,7 @@ const CareerBlock = ({ post, isAuth }) => {
           <hr></hr>
           <div className="careercontent">
             <h3 style={{ fontWeight: '600' }}>
-              <nobr>{post.title.company_name}</nobr> 徵 <nobr>{post.title.work_type}</nobr>
+              {post.title.company_name} 徵 {post.title.work_type}
               {own || isAuth ? (
                 <>
                   {own && (
@@ -114,13 +114,13 @@ const CareerBlock = ({ post, isAuth }) => {
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
             {isExpand && (
               <>
-                {post.info.experience.length !== 0 && (
+                {post.info.experience.length !== 0 && post.info.experience[0] !== '' && (
                   <>
                     <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h4>
                     <h5>{post.info.experience.map((exp) => spec(exp))}</h5>
                   </>
                 )}
-                {post.spec.requirement.length !== 0 && (
+                {post.spec.requirement.length !== 0 && post.spec.requirement[0] !== '' && (
                   <>
                     <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h4>
                     <h5>{post.spec.requirement.map((req) => spec(req))}</h5>
@@ -187,8 +187,12 @@ const CareerBlock = ({ post, isAuth }) => {
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
             {isExpand && (
               <>
-                <h4 className="mt-4 mb-2">個人簡歷：</h4>
-                <h5>{post.spec.experience.map((exp) => spec(exp))}</h5>
+                {post.spec.experience.length !== 0 && post.spec.experience[0] !== '' && (
+                  <>
+                    <h4 className="mt-4 mb-2">個人簡歷：</h4>
+                    <h5>{post.spec.experience.map((exp) => spec(exp))}</h5>
+                  </>
+                )}
                 <h4 className="mt-4 mb-2">專業技能：</h4>
                 <h5>{post.spec.speciality.map((speci) => spec(speci))}</h5>
                 {post.resume && (

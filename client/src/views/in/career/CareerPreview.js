@@ -40,21 +40,20 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
   if (typeof post.description === 'string') {
     return (
       <div className="CareerBlock" key={post.id}>
-        <div className="d-flex p-3">
+        <div className="d-flex p-3 shadow">
           <img src={previewURL ? previewURL : eesa} alt="eesa" className="eesa img-fluid col-7" />
           <div className="col-5 d-flex flex-column justify-content-center align-items-center">
-            <h5 className="d-flex justify-content-center align-items-center text-primary">
-              {post.type === 'both' ? 'intern+fulltime' : post.type}
-            </h5>
-            <h4 className="d-flex justify-content-center align-items-center text-primary">
-              {post.companyName} 徵 {post.workType}
-            </h4>
+            <h2 className="d-flex justify-content-center align-items-center">
+              <nobr>{post.type === 'both' ? 'intern+fulltime' : post.type}</nobr>
+            </h2>
           </div>
         </div>
         <hr></hr>
         <div className="careercontent">
-          <h4 style={{ fontWeight: '600' }}>{post.title}</h4>
-          <h3 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>{post.salary}</h3>
+          <h3 style={{ fontWeight: '600' }}>
+            {post.companyName} 徵 {post.workType}
+          </h3>
+          <h3 style={{ margin: '1rem 0rem', fontWeight: '600', color: 'red' }}>$ {post.salary}</h3>
           {post.diploma && (
             <>
               <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求學歷：</h4>
@@ -64,13 +63,13 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
             <>
-              {experience.length !== 0 && (
+              {experience.length !== 0 && experience[0] !== '' && (
                 <>
                   <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>工作經驗限制：</h4>
                   <h5>{experience.map((exp) => spec(exp))}</h5>
                 </>
               )}
-              {requirement.length !== 0 && (
+              {requirement.length !== 0 && requirement[0] !== '' && (
                 <>
                   <h4 style={{ fontWeight: '600', margin: '1.3rem 0 0.1rem' }}>要求條件：</h4>
                   <h5>{requirement.map((req) => spec(req))}</h5>
@@ -111,8 +110,12 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
             <>
-              <h4 style={{ margin: '1.3rem 0 0.1rem' }}>個人簡歷：</h4>
-              <h5>{experience.map((exp) => spec(exp))}</h5>
+              {experience.length !== 0 && experience[0] !== '' && (
+                <>
+                  <h4 style={{ margin: '1.3rem 0 0.1rem' }}>個人簡歷：</h4>
+                  <h5>{experience.map((exp) => spec(exp))}</h5>
+                </>
+              )}
               <h4 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h4>
               <h5>{requirement.map((speci) => spec(speci))}</h5>
               {resumeURL && (
