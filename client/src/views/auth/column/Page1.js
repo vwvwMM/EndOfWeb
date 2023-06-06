@@ -17,12 +17,6 @@ import {
   CFormControl,
   CInputGroup,
   CInputGroupText,
-  CRow,
-  CModal,
-  CModalHeader,
-  CModalBody,
-  CModalTitle,
-  CModalFooter,
 } from '@coreui/react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
@@ -31,7 +25,6 @@ const Page1 = ({
   exp,
   edu,
   title,
-  hashtag,
   intro,
   handleInputChange,
   handleInputArray,
@@ -161,35 +154,19 @@ const Page1 = ({
         )
       })}
       {/* 1-5 */}
-      {hashtag.map((t, index) => {
-        return (
-          <CInputGroup className="mb-3" key={index}>
-            <CInputGroupText>
-              <CIcon icon="cil-lightbulb" />
-            </CInputGroupText>
-            <CFormControl
-              data-for="hashtag"
-              data-tip="文章類別，訪問者姓名、級別、工作、相關組織與企業"
-              placeholder="Hashtag*"
-              name="hashtag"
-              value={t}
-              onChange={(e) => handleInputArray(e, index)}
-            />
-            <ReactTooltip id="hashtag" place="top" type="dark" effect="solid" />
-            <CButton
-              type="button"
-              name="hashtag"
-              onClick={(e) => handleDeleteArray(e, index)}
-              className="btn-delete"
-            >
-              x
-            </CButton>
-            <CButton type="button" name="hashtag" className="btn-add" onClick={handleAddArray}>
-              +
-            </CButton>
-          </CInputGroup>
-        )
-      })}
+      <CInputGroup className="mb-3">
+        <CInputGroupText>
+          <CIcon icon="cil-lightbulb" />
+        </CInputGroupText>
+        <CFormControl
+          data-for="hashtags"
+          data-tip="文章類別，訪問者姓名、級別、工作、相關組織與企業"
+          placeholder="Hashtag*"
+          name="hashtags"
+          onChange={handleInputChange}
+        />
+        <ReactTooltip id="hashtags" place="top" type="dark" effect="solid" />
+      </CInputGroup>
 
       {/* 1-6 */}
       {intro.map((ii, index) => {
