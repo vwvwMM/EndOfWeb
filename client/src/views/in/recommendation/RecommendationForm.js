@@ -45,13 +45,14 @@ const RecommendationForm = ({ data }) => {
         file: '',
       }
     : {
-        type: data.title.type,
-        title: data.title.title,
-        name: data.title.name,
-        desireWorkType: data.title.desire_work_type,
-        contact: data.info.contact,
-        email: data.info.email,
-        diploma: data.info.diploma,
+        type: data.title.type == 'undefined' ? '' : data.title.type,
+        title: data.title.title == 'undefined' ? '' : data.title.title,
+        name: data.title.name == 'undefined' ? '' : data.title.name,
+        desireWorkType:
+          data.title.desire_work_type == 'undefined' ? '' : data.title.desire_work_type,
+        contact: data.info.contact == 'undefined' ? '' : data.info.contact,
+        email: data.info.email == 'undefined' ? '' : data.info.email,
+        diploma: data.info.diploma == 'undefined' ? '' : data.info.diploma,
         file: data.image,
         resume: data.resume,
         _id: data._id,
@@ -149,7 +150,6 @@ const RecommendationForm = ({ data }) => {
   }
   const handleSubmit = () => {
     setIsPending(true)
-    console.log('dataForm=', dataForm)
     const data = new FormData()
     data.append('title', dataForm.title)
     data.append('name', dataForm.name)
@@ -159,7 +159,6 @@ const RecommendationForm = ({ data }) => {
     data.append('email', dataForm.email)
     data.append('diploma', dataForm.diploma)
     if (resumeBtn) {
-      console.log('resumeBtn=', resumeBtn)
       data.append('files[]', resumeBtn, '.pdf')
     }
     for (let exp of experience) {
@@ -169,7 +168,6 @@ const RecommendationForm = ({ data }) => {
       data.append('speciality[]', spec)
     }
     if (imageButton) {
-      console.log('croppedFile=', dataForm.file)
       data.append('files[]', dataForm.file, '.png')
     }
     const config = { 'content-type': 'multipart/form-data' }

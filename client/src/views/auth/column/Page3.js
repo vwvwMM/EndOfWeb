@@ -143,19 +143,19 @@ const Page3 = ({
         <ReactTooltip id="image" place="top" type="dark" effect="solid" />
       </CInputGroup>
 
-      {/* <CRow className="justify-content-center mt-3">
-                <div className="d-flex d-flex justify-content-center">
-                <CButton
-                    color="dark"
-                    onClick={() => {
-                    setBlockModal(true)
-                    console.log(dataForm)
-                    }}
-                >
-                    Preview
-                </CButton>
-                </div>
-            </CRow> */}
+      <CRow className="justify-content-center mt-3">
+        <div className="d-flex d-flex justify-content-center">
+          <CButton
+            color="dark"
+            onClick={() => {
+              setBlockModal(true)
+              console.log(dataForm)
+            }}
+          >
+            Preview
+          </CButton>
+        </div>
+      </CRow>
     </div>
   )
 }

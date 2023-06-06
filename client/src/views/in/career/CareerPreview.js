@@ -6,7 +6,6 @@ import parser from 'html-react-parser'
 import { urlsToLinks } from './index'
 
 const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
-  console.log('post:', post)
   const [isExpand, setIsExpand] = useState(false)
   const [previewURL, setPreviewURL] = useState(post.file)
 
@@ -104,8 +103,11 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
             {post.name} asking for <nobr>{post.desireWorkType}</nobr>
           </h4>
           <div style={{ fontSize: '1.39rem' }}>
-            <span style={{ color: 'red', fontWeight: '500' }}>{post.diploma}</span> |{' '}
-            <nobr>{post.contact}</nobr> | <nobr>{post.email}</nobr>
+            {post.diploma && post.diploma !== 'undefined' && (
+              <span style={{ color: 'red', fontWeight: '500' }}>{post.diploma} |</span>
+            )}{' '}
+            {post.contact && post.contact !== 'undefined' && <nobr>{post.contact} |</nobr>}{' '}
+            {post.email && <nobr>{post.email}</nobr>}
           </div>
           {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
           {isExpand && (
@@ -116,8 +118,12 @@ const CareerPreview = ({ post, experience, requirement, resumeURL }) => {
                   <h5>{experience.map((exp) => spec(exp))}</h5>
                 </>
               )}
-              <h4 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h4>
-              <h5>{requirement.map((speci) => spec(speci))}</h5>
+              {experience.length !== 0 && experience[0] !== '' && (
+                <>
+                  <h4 style={{ margin: '1rem 0 0.1rem' }}>專業技能：</h4>
+                  <h5>{requirement.map((speci) => spec(speci))}</h5>
+                </>
+              )}
               {resumeURL && (
                 <h3>
                   <CButton color="success" className="text-white" onClick={handleDownload}>

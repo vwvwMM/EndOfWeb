@@ -404,7 +404,6 @@ const ColumnForm = ({ data }) => {
                           color="dark"
                           onClick={() => {
                             setBlockModal(true)
-                            console.log(dataForm)
                           }}
                         >
                           Preview

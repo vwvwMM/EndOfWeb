@@ -90,7 +90,7 @@ const Dashboard = () => {
     axios
       .delete('api/deleteAnnouncement', { data: { _id: id } })
       .then((res) => {
-        console.log('deleted')
+        alert('deleted')
       })
       .catch((err) => console.log(err))
     getAnnouncements()

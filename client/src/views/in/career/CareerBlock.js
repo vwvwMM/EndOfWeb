@@ -160,13 +160,15 @@ const CareerBlock = ({ post, isAuth }) => {
               {post.title.name} 求內推 <nobr>{post.title.desire_work_type}</nobr>
               {own || isAuth ? (
                 <>
-                  <Link to={`/edit_recommendation/${post._id}`}>
-                    <CIcon
-                      icon="cil-pencil"
-                      name="cil-pencil"
-                      style={{ scale: '1.7', marginLeft: '1rem' }}
-                    ></CIcon>
-                  </Link>
+                  {own && (
+                    <Link to={`/edit_recommendation/${post._id}`}>
+                      <CIcon
+                        icon="cil-pencil"
+                        name="cil-pencil"
+                        style={{ scale: '1.7', marginLeft: '1rem' }}
+                      ></CIcon>
+                    </Link>
+                  )}
                   <CAvatar className="hover-pointer">
                     <CIcon
                       icon="cil-trash"
@@ -181,8 +183,11 @@ const CareerBlock = ({ post, isAuth }) => {
               )}
             </h4>
             <div style={{ fontSize: '1.39rem' }}>
-              <span style={{ color: 'red', fontWeight: '500' }}>{post.info.diploma}</span> |{' '}
-              <nobr>{post.info.contact}</nobr> | <nobr>{post.info.email}</nobr>
+              {post.info.diploma && post.info.diploma !== 'undefined' && (
+                <span style={{ color: 'red', fontWeight: '500' }}>{post.info.diploma} |</span>
+              )}{' '}
+              {post.info.contact && <nobr>{post.info.contact} |</nobr>}{' '}
+              {<nobr>{post.info.email}</nobr>}
             </div>
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
             {isExpand && (
@@ -193,8 +198,12 @@ const CareerBlock = ({ post, isAuth }) => {
                     <h5>{post.spec.experience.map((exp) => spec(exp))}</h5>
                   </>
                 )}
-                <h4 className="mt-4 mb-2">專業技能：</h4>
-                <h5>{post.spec.speciality.map((speci) => spec(speci))}</h5>
+                {post.spec.speciality.length !== 0 && post.spec.speciality[0] !== '' && (
+                  <>
+                    <h4 className="mt-4 mb-2">專業技能：</h4>
+                    <h5>{post.spec.speciality.map((speci) => spec(speci))}</h5>
+                  </>
+                )}
                 {post.resume && (
                   <h4 className="mt-3">
                     <CButton
