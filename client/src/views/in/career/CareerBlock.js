@@ -183,10 +183,14 @@ const CareerBlock = ({ post, isAuth }) => {
               )}
             </h4>
             <div style={{ fontSize: '1.39rem' }}>
-              {post.info.diploma && post.info.diploma !== 'undefined' && (
-                <span style={{ color: 'red', fontWeight: '500' }}>{post.info.diploma} |</span>
+              {post.info.diploma && post.info.diploma != 'undefined' && (
+                <>
+                  <span style={{ color: 'red', fontWeight: '500' }}>{post.info.diploma} </span>|
+                </>
               )}{' '}
-              {post.info.contact && <nobr>{post.info.contact} |</nobr>}{' '}
+              {post.info.contact && post.info.contact != 'undefined' && (
+                <nobr>{post.info.contact} |</nobr>
+              )}{' '}
               {<nobr>{post.info.email}</nobr>}
             </div>
             {!isExpand && <button onClick={() => setIsExpand(true)}>Show more...</button>}
