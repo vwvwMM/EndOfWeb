@@ -144,13 +144,16 @@ const RunMatch = ({ hasSent, setHasSent, hasMatched, setHasMatched }) => {
             <CFormControl
               type="date"
               onChange={(e) => {
-                if (new Date(e.target.value) < new Date(newStartTime)) {
+                const selectedEndDate = new Date(e.target.value)
+                if (selectedEndDate < new Date(newStartTime)) {
                   e.target.value = ''
                   setNewEndTime('')
                   alert('無效的截止日期')
                   return
                 }
-                setNewEndTime(e.target.value)
+                selectedEndDate.setHours(31)
+                selectedEndDate.setMinutes(59)
+                setNewEndTime(selectedEndDate)
               }}
             />
           </CInputGroup>
