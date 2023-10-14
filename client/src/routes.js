@@ -29,8 +29,12 @@ import {
   Matching,
   MatchForm,
   ChangePsw,
+<<<<<<< HEAD
   Dashboard,
   AbroadSession,
+=======
+  Material,
+>>>>>>> 6975c22 (add material route)
 } from './views/in'
 // auth pages
 import {
@@ -139,6 +143,12 @@ const routes_in = [
     exact: true,
     name: 'AbroadSession',
     component: AbroadSession,
+  },
+  {
+    path: '/material',
+    exact: true,
+    name: 'Material',
+    component: Material,
   },
 ]
 const routes_auth = [

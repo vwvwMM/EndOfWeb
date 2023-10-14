@@ -28,6 +28,7 @@ const Dashboard = React.lazy(() => import('./dashboard'))
 
 const AbroadSession = React.lazy(() => import('./abroadSession'))
 
+const Material = React.lazy(() => import('./material'))
 export {
   ColumnSummary,
   Column,
@@ -49,4 +50,5 @@ export {
   ChangePsw,
   Dashboard,
   AbroadSession,
+  Material,
 }
