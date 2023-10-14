@@ -29,12 +29,9 @@ import {
   Matching,
   MatchForm,
   ChangePsw,
-<<<<<<< HEAD
   Dashboard,
   AbroadSession,
-=======
   Material,
->>>>>>> 6975c22 (add material route)
 } from './views/in'
 // auth pages
 import {

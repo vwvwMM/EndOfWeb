@@ -15,7 +15,7 @@ const DefaultLayout = () => {
   }, [isLogin])
   return (
     <>
-      <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
+      {/* <CModal size="l" visible={isModal} onDismiss={() => setIsModal(false)} alignment="center">
         <CModalHeader onDismiss={() => setIsModal(false)}>
           <CModalTitle>注意！</CModalTitle>
         </CModalHeader>
@@ -40,7 +40,7 @@ const DefaultLayout = () => {
             我是新註冊的帳號！
           </CButton>
         </CModalFooter>
-      </CModal>
+      </CModal> */}
       <div>
         <AppSidebar />
         <div className="wrapper d-flex flex-column min-vh-100">
