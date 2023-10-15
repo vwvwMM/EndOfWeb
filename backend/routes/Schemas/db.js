@@ -9,7 +9,7 @@ if (process.env.MONGO_URI) {
 } else {
   console.log('using sample DBurl, contact project manager to get real DBurl')
   DB_URL =
-    'mongodb+srv://ntueeplus:ntueeplus2020@cluster0.fctiy.mongodb.net/heroku_kbtrwz4h?retryWrites=true&w=majority'
+    'mongodb+srv://ntueeplus:iloveeeplus@cluster0.fctiy.mongodb.net/heroku_kbtrwz4h?retryWrites=true&w=majority'
 }
 console.log('mongoose connecting to：', DB_URL)
 
