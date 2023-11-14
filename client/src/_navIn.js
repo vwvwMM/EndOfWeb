@@ -42,6 +42,13 @@ const _navIn = [
     to: '/abroad_session/search',
     icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
   },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
+    anchor: 'MATERIAL',
+    to: '/material',
+    icon: <CIcon icon="sidebar_icon" name="sidebar_icon" customClassName="nav-icon" />,
+  },
   /* {
     _component: 'CNavItem',
     as: NavLink,
