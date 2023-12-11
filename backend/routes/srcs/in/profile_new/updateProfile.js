@@ -47,6 +47,7 @@ const updateProfile = async (req, res, next) => {
   const query = ({
     username,
     nickname,
+    advisingProfessor,
     profile,
     publicEmail,
     cellphone,
@@ -62,6 +63,7 @@ const updateProfile = async (req, res, next) => {
     doctor,
     Occupation,
   } = req.body)
+  query.advisingProfessor = JSON.parse(query.advisingProfessor)
   query['userimage'] = parseFile(req.file)
   const toSet = updateQuery(query)
   console.log('toSet', toSet)
@@ -84,6 +86,7 @@ const rules = [
       'account',
       'username',
       'nickname',
+      'advisingProfessor',
       'profile',
       'publicEmail',
       'cellphone',

@@ -145,6 +145,21 @@ const Profile = () => {
                 </CCol>
               </CRow>
               <hr className="mt-1 mb-3" />
+              <CRow>
+                <CCol sm="3" className="px-4">
+                  <h6 className="mb-0 ">Advising Professor</h6>
+                </CCol>
+                <CCol sm="9" className="text-secondary">
+                  {data.advisingProfessor.map((item, index) => {
+                    return index === data.advisingProfessor.length - 1 ? (
+                      <span key={index}>{item.value}</span>
+                    ) : (
+                      <span key={index}>{item.value}，</span>
+                    )
+                  })}
+                </CCol>
+              </CRow>
+              <hr className="mt-1 mb-3" />
             </CCardBody>
           </CCard>
           <CRow>
