@@ -15,6 +15,14 @@ const Medium = () => {
             title: '2019 Fall CS M.S. 經驗分享（下篇：顛覆印象）',
             link: 'https://medium.com/@adrianhsu/2019-fall-cs-m-s-%E7%B6%93%E9%A9%97%E5%88%86%E4%BA%AB-%E4%B8%8B%E7%AF%87-aabe034053c9',
           },
+          {
+            title: '寫給學弟妹的科普：後端工程師、軟體工程師（上篇）',
+            link: 'https://medium.com/@adrianhsu/%E5%AF%AB%E7%B5%A6%E5%AD%B8%E5%BC%9F%E5%A6%B9%E7%9A%84%E7%A7%91%E6%99%AE-%E5%BE%8C%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB-00d8e8928c33',
+          },
+          {
+            title: '寫給學弟妹的科普：後端工程師、軟體工程師（下篇）',
+            link: 'https://medium.com/@adrianhsu/%E5%AF%AB%E7%B5%A6%E5%AD%B8%E5%BC%9F%E5%A6%B9%E7%9A%84%E7%A7%91%E6%99%AE-%E5%BE%8C%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB-%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B%E5%B8%AB-%E4%B8%8B%E7%AF%87-bdbb025aff72',
+          },
         ],
       },
       {
